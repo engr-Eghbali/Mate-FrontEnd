@@ -1,0 +1,78 @@
+
+body{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+}
+#map{
+    height: 100%;
+    width: 100%;
+    position: fixed !important;
+    z-index: 1;
+}
+
+#sideBar{
+    position: fixed;
+    right: 0;
+    z-index: 9;
+    width: 32%;
+    height: 100vh;
+    
+
+}
+#profileBTN{
+   
+    background-image: url("../assets/img/profile\ avatar.svg");
+    background-size: 100%;
+    margin-top: 2vh;
+
+
+}
+#upcomingBTN{
+    margin-top: 2vh;
+    background-image: url("../assets/img/upcoming.svg");
+
+}
+#friendBTN{
+    background-image: url("../assets/img/friends\ list.svg");
+}
+#pendingReqBTN{
+    background-image: url("../assets/img/pending\ requests.svg");
+}
+#setMeetingBTN{
+    background-image: url("../assets/img/add.svg");
+}
+#fullScrBTN{
+    background-image: url("../assets/img/inner-outer.svg");
+    bottom: 2vh;
+    position: fixed;
+    background-size: 60%;
+}
+
+.closedMenu{
+    right: -15em !important;
+}
+.hidden{
+    display: none;
+}
+
+.sideBTN{
+    border-radius: 100%;
+    border: none;
+    position: relative;
+    width: 6em;
+    height: 6em;;
+    padding: 0;
+    right: 0.5em;
+    margin-top: -1vh;
+    float: right;
+    background-color: transparent;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 80%;
+    transition: right 1s cubic-bezier(0.5, -0.4, 0.5, 1.5);
+    outline: none;
+    
+}
+
