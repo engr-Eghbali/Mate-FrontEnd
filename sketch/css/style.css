@@ -54,7 +54,7 @@ body{
     right: -15em !important;
 }
 .hidden{
-    display: none;
+    height: 0 !important;
 }
 
 .sideBTN{
