@@ -99,6 +99,11 @@ body{
 #uidForm{
     width: 100%;
     height: 80vh;
+    transition: left 1s cubic-bezier(0.5, -0.4, 0.5, 1.5);
+    position: fixed;
+    left: 0;
+    display: none;
+
 }
 #formLogo{
     width: 100%;
@@ -108,12 +113,19 @@ body{
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
-
+   
+    
 }
-#formPhrase{
+#formPhrase1{
+    margin-top: 5vh;
+}
+#formPhrase2{
+    margin-top: 30vh;
+}
+
+.formPhrase{
     direction: rtl;
     text-align: center;
-    margin-top: 5vh;
     color: white;
     padding-bottom: 2vh;
     border-bottom: 1px solid whitesmoke;
@@ -121,11 +133,14 @@ body{
     margin-left: 3%;
     font-family: "medium";
     font-weight: 600;
+    
 }
 
 #phoneInput{
     height: 30vh;
     padding-top: 4vh;
+    left:0vh;
+    
 }
 #phoneInput > :first-child{
     width: 14%;
@@ -162,7 +177,6 @@ body{
     width: 30%;
     height: 10vh;
     margin-top: 4vh;
-    margin-left: 14%;
     border: none;
     color: white;
     outline: none;
@@ -174,6 +188,7 @@ body{
 
 #submitPhone{
     background-image: url(../assets/img/send-fa.png);
+    margin-left: 12%;
 }
 
 #carousel{
@@ -182,6 +197,7 @@ body{
     height: 4vh;
     left: 35%;
     text-align: center;
+    bottom: 4vh;
 }
 
 #carousel i{ 
@@ -193,4 +209,49 @@ body{
 
 .blueDot{
     color: #29abe2;
+}
+
+#verifyForm{
+    left: 0vh;
+    position: fixed;
+    width: 100%;
+    transition: left 1s cubic-bezier(0.5, -0.4, 0.5, 1.5);
+}
+
+#verificationInput{
+    width: 80%;
+    background-color: rgba(41, 44, 130, .8);
+    height: 8vh;
+    border: none;
+    border-radius: 1vh;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 4vh;
+}
+
+#verificationInput input{
+    border: none;
+    width: 9ch;
+    background: 
+      repeating-linear-gradient(90deg, 
+          white 0, 
+          white 1ch, 
+          transparent 0, 
+          transparent 1.5ch) 
+        0 100%/100% 2px no-repeat;
+    color: white;
+    font: 3ch consolas, monospace;
+    letter-spacing: .5ch;
+    margin-left: 30%;
+    margin-top: 2%;
+}
+#submitVC{
+    background-image: url('../assets/img/confirm-fa.png');
+    margin-left: 35%;
+    margin-top: 8vh;
+}
+
+input:focus {
+    outline: none;
+    color: white;
 }

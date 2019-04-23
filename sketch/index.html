@@ -37,15 +37,26 @@
 
 <!--sublogin pages-->
 <div id="signInPage">
+
     <div id="uidForm">
         <div id="formLogo"></div>
-        <div id="formPhrase">شماره تلفن خود را برای دریافت کد تایید وارد کنید.</div>
+        <div class="formPhrase" id="formPhrase1">شماره تلفن خود را برای دریافت کد تایید وارد کنید.</div>
         <div id="phoneInput">
             <div>+98</div>
-            <input id="phoneNo" type="tel" attern="[9]{1}[0-9]{9}" required>
+            <input id="phoneNo" type="tel" pattern="[9]{1}[0-9]{9}" required>
             <br>
-            <button class="submitBTN" id="submitPhone" onclick=""></button>
+            <button class="submitBTN" id="submitPhone" onclick="submitPhone()"></button>
+        </div>    
+    </div>
+
+    <!---->
+
+    <div id="verifyForm">
+        <div class="formPhrase" id="formPhrase2">کد تایید را وارد کنید.</div>
+        <div id="verificationInput">
+            <input type="text"  maxlength="6" required>
         </div>
+        <button class="submitBTN" id="submitVC" onclick="submitVC()" ></button>
         
     </div>
 
