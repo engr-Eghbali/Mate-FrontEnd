@@ -120,7 +120,7 @@ body{
     margin-top: 5vh;
 }
 #formPhrase2{
-    margin-top: 30vh;
+    margin-top: 32vh;
 }
 
 .formPhrase{
@@ -254,4 +254,19 @@ body{
 input:focus {
     outline: none;
     color: white;
+}
+
+#countDown{
+    width: 20%;
+    float: left;
+    font-size: 2vh;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-left: 12%;
+    color: #ffb700;
+    font-family: bold;
+}
+
+#resendVC{
+    color:rgba(255, 183, 0, 0.5);
 }

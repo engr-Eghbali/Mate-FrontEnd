@@ -2,6 +2,7 @@
 document.onreadystatechange = () => {
 
     if (document.readyState === 'complete') {
+        countDown();
     }
 };
     
@@ -39,3 +40,22 @@ document.onreadystatechange = () => {
 
       
     }
+
+    var duration = 120000;
+    function countDown(){
+        
+        duration-=1000 ;
+        var minutes = Math.floor((duration % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((duration % (1000 * 60)) / 1000);
+        document.getElementById("countDown").innerHTML="0"+minutes+":"+seconds;
+
+        if(duration==0){
+            document.getElementById("countDown").innerHTML="00:00";
+            clearInterval(countDownID);
+            document.getElementById("resendVC").style.color="rgba(255, 183, 0, 1)";
+            return;
+        }
+
+    }
+    
+    countDownID=setInterval(countDown,1000);
