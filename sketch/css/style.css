@@ -102,7 +102,7 @@ body{
     transition: left 1s cubic-bezier(0.5, -0.4, 0.5, 1.5);
     position: fixed;
     left: 0;
-    display: none;
+    display: block;
 
 }
 #formLogo{
@@ -212,9 +212,10 @@ body{
 }
 
 #verifyForm{
-    left: 0vh;
+    left: -100vh;
     position: fixed;
     width: 100%;
+    display: none;
     transition: left 1s cubic-bezier(0.5, -0.4, 0.5, 1.5);
 }
 
@@ -269,4 +270,61 @@ input:focus {
 
 #resendVC{
     color:rgba(255, 183, 0, 0.5);
+}
+
+/****************************************/
+
+#infoFrom{
+    position: fixed;
+    width: 100%;
+    left: 0;
+    display: none;
+}
+
+#chooseAvatar{
+    width: 16em;
+    height: 16em;
+    border: none;
+    border-radius: 100%;
+    padding: 0;
+    outline: none;
+    background-color: transparent;
+    background-image: url('../assets/img/addAvatar.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+#infoFrom input{
+    width: 80%;
+    height: 7vh;
+    border: none;
+    text-align: center;
+    background-color: rgba(41, 44, 130, .8);
+    margin-left: 10%;
+    margin-top: 4vh;
+    border-radius: 10px;
+    font-family: "Bold";
+    font-size: 4vh;
+}
+
+#infoFrom input::placeholder{
+    color: white;
+    font-family: "bold";
+    font-size: 4vh;
+}
+
+#infoFrom input:focus::-webkit-input-placeholder 
+{
+    color: transparent;
+}
+
+#formPhrase3{
+    margin-top: 2vh;
+
+}
+
+#submitInfo{
+    background-image: url('../assets/img/confirm-fa.png');
+    margin-left: 35%;
 }

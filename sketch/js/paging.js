@@ -1,3 +1,51 @@
+function beginAuth(){
+
+    if(data=localStorage.getItem("MateUserInfo")) {
+        try {
+            info = JSON.parse(data);
+        } catch(e) {
+            alert(e); // error in the above string (in this case, yes)!
+             ///clear localStorage
+             localStorage.removeItem("MateUserInfo")
+             //document.getElementById("signInPage").style.display="block";
+             //show signInPage
+             return
+            }
+        }else{
+            //document.getElementById("signInPage").style.display="block";
+            //show signInpage
+            return
+        }
+
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        if(this.response=="1"){
+            document.getElementById("signInPage").remove();
+            return
+        }
+        if(this.response=="0"){
+            beginAuth();
+        }
+        if(this.response=="-1"){
+            localStorage.removeItem("MateUserInfo")
+            beginAuth()
+        }else{
+            alert("service error:7");
+            location.reload();
+        }
+    }
+    };
+    xhttp.open("POST", "https://guarded-castle-67026.herokuapp.com/HandShake", true);
+    //xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send();
+
+
+
+}
+
+
 ///document ready events
 document.onreadystatechange = () => {
 
@@ -24,14 +72,47 @@ document.onreadystatechange = () => {
     //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+///click on submit phone/mail btn
+function submitPhone(){
 
-    function submitPhone(){
+    uid=document.getElementById("phoneNo").value;
+    if(uid.length!=10){
+        alert("correct phone your number")
+        
+    }else{
 
-        document.getElementById("uidForm").style.left=-100+"vh";
-        setTimeout(function(){document.getElementById("uidForm").style.display="none"},1500);
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            if(this.response=="0"){
+                alert("service error,try again");
+                location.reload(); 
+            }
+            if(this.response=="1"){
+                document.getElementById("uidForm").style.left=-100+"vh";
+                setTimeout(function(){document.getElementById("uidForm").style.display="none"},1500);
+                setTimeout(function(){document.getElementById("verifyForm").style.display="block"},1500);
+                document.getElementById("verifyForm").style.left=0+"vh";
+            }
+               
+        }
+        };
+        xhttp.open("POST", "https://guarded-castle-67026.herokuapp.com/Auth?data="+uid, true);
+        //xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send();
+    
 
-      
+
+
     }
+      
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
 
     function submitVC(){
 
@@ -57,5 +138,15 @@ document.onreadystatechange = () => {
         }
 
     }
-    
-    countDownID=setInterval(countDown,1000);
+  //  countDownID=setInterval(countDown,1000);
+
+
+    function submitInfo(){
+
+        ////compress and upload avatar,filename:objId.jpg
+        ///check unsername uniqueness 
+        document.getElementById("signInPage").remove();
+
+    }
+
+    beginAuth();
