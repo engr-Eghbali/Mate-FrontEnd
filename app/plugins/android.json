@@ -1,0 +1,21 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-camera": {
+      "PACKAGE_NAME": "ir.eghbali.Mate"
+    },
+    "cordova-plugin-geolocation": {
+      "PACKAGE_NAME": "ir.eghbali.Mate"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "ir.eghbali.Mate"
+    }
+  },
+  "dependent_plugins": {}
+}

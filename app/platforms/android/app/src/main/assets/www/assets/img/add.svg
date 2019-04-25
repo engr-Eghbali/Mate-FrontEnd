@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 154.75 154.75">
+  <title>add</title>
+  <g id="2203de68-7ded-4e0b-a8b1-20bfbb10b1d6" data-name="Layer 2">
+    <g id="62e4ae7b-5b29-49fb-a09c-0ffe88af9d40" data-name="Layer 1">
+      <g>
+        <circle cx="77.38" cy="77.38" r="76.37" style="fill: #facd49;stroke: gray;stroke-miterlimit: 10;stroke-width: 2px"/>
+        <path d="M106.44,71.36H84.89a1.27,1.27,0,0,1-1.27-1.27V48.54a6.34,6.34,0,0,0-12.68,0V70.09a1.26,1.26,0,0,1-1.26,1.27H48.12a6.34,6.34,0,1,0,0,12.68H69.68a1.26,1.26,0,0,1,1.26,1.27v21.55a6.34,6.34,0,0,0,12.68,0V85.31A1.27,1.27,0,0,1,84.89,84h21.55a6.34,6.34,0,0,0,0-12.68Z" style="fill: #333"/>
+      </g>
+    </g>
+  </g>
+</svg>
