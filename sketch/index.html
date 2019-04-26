@@ -26,7 +26,7 @@
     <!--main page-->
 <div id="map"></div>
 <div id="sideBar">
-    <button id="profileBTN" class="sideBTN"></button>
+    <button id="profileBTN" class="sideBTN" onclick="openMenu('profileMenu')"></button>
     <button id="upcomingBTN" class="sideBTN"></button>
     <button id="friendBTN" class="sideBTN"></button>
     <button id="pendingReqBTN" class="sideBTN"></button>
@@ -97,7 +97,7 @@
     </label>
 
     <div class="saveANDdiscard">
-        <button class="YNButton" style="border-right: 1px solid #a5a3be;">انصراف</button>
+        <button class="YNButton" style="border-right: 1px solid #a5a3be;" onclick="closeMenu('profileMenu')">انصراف</button>
         <button class="YNButton" >ذخیره</button>
     </div>
 

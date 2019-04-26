@@ -364,7 +364,26 @@ function uploadAvatar(avatar){
     }
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-    //localStorage.removeItem("MateUserInfo");
+
+//// a function for clossing menu pages
+function closeMenu(elemID){
+    document.getElementById(elemID).style.right="-100vh";
+    setTimeout(function(elemID){document.getElementById(elemID).style.display="none";},1000,elemID);
+    return;
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+///////a function for openning menu pages
+function openMenu(elemID){
+
+    document.getElementById(elemID).style.display="block";
+    setTimeout(function(elemID){document.getElementById(elemID).style.right="0vh"},10,elemID);
+    return;
+}
+
+
+//localStorage.removeItem("MateUserInfo");
 
 
 
