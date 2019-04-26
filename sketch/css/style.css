@@ -374,8 +374,12 @@ input:focus {
     height: 6vh;
     text-align: center;
     margin-top: 1vh;
-    outline: none;
+    color: #666;
+    font-family: "medium";
+    font-size: 3vh;
+    font-weight: 600;
     background-color: #eeeeee;
+    outline: none;
 }
 
 #showMyGeoPhrase{

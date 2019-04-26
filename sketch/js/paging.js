@@ -94,18 +94,18 @@ function submitPhone(){
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            if(this.response=="0"){
+            if(this.response==0){
                 alert("service error,try again");
                 location.reload(); 
             }
-            if(this.response=="1"){
+            if(this.response==1){
                 document.getElementById("uidForm").style.left=-100+"vh";
                 setTimeout(function(){document.getElementById("uidForm").style.display="none"},1500);
                 document.querySelector("#carousel :nth-child(2)").classList.add('blueDot');
                 document.querySelector("#carousel :nth-child(1)").classList.remove('blueDot');
                 setTimeout(function(){document.getElementById("verifyForm").style.display="block"},1500);
                 document.getElementById("verifyForm").style.left=0+"vh";
-                var tmp=JSON.stringify({id:"",vc:"",name:"",uid:uid,avatar:""});
+                var tmp=JSON.stringify({id:"",vc:"",name:"",uid:uid,visibility:1,avatar:""});
                 localStorage.setItem("MateUserInfo",tmp);
                 countDownID=setInterval(countDown,1000);
 
@@ -140,16 +140,16 @@ function submitVC(){
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                if(this.response=="0"){
+                if(this.response==0){
                     alert("service error,try again");
                     location.reload(); 
                 }
-                if(this.response=="-1"){
+                if(this.response==-1){
                     localStorage.removeItem("MateUserInfo");
                     location.reload();
                 }else{
 
-                    var responseArray=this.response.split(",");
+                    var responseArray=this.response.split("<>");
 
                     clearInterval(countDownID);
                     if(responseArray[1]=='' || responseArray[1]==''){
@@ -372,17 +372,67 @@ function closeMenu(elemID){
     return;
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 ///////a function for openning menu pages
 function openMenu(elemID){
 
     document.getElementById(elemID).style.display="block";
     setTimeout(function(elemID){document.getElementById(elemID).style.right="0vh"},10,elemID);
-    return;
+    loadProfile();
+    
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+////////load profile info to forms
+function loadProfile(){
+
+    if(data=localStorage.getItem("MateUserInfo")) {
+        try {
+            info = JSON.parse(data); 
+        } catch(e) {
+
+            try {
+                info = JSON.parse(data); 
+            } catch (error) {
+                alert("could not load info,login again");
+                localStorage.removeItem("MateUserInfo");
+                location.reload();
+            }   
+        }
+
+    }else{    
+        //show signInpage
+        location.reload();
+    }
+
+    if(info.avatar){
+       document.getElementById("chooseAvatar").style.backgroundImage="url("+info.avatar+")";
+    }
+    if(info.name){
+        document.getElementById("profileUsername").value=info.name;
+    }else{
+        alert("pick a user name so you can connect with others!");
+        document.getElementById("profileUsername").value="نام کاربری"
+    }
+
+    if(info.uid.includes("@")){
+        document.getElementById("profileEmail").value=info.uid;
+        document.getElementById("profilePhone").value="موبایل";
+    }else{
+        document.getElementById("profilePhone").value=info.uid;
+        document.getElementById("profileEmail").value="ایمیل";
+    }
+
+    if(info.visibility==1){
+        document.getElementById("visibilityCHBX").checked=true;
+    }else{
+        document.getElementById("visibilityCHBX").checked=false;
+    }
+
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
 //localStorage.removeItem("MateUserInfo");
 
 
