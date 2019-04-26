@@ -368,7 +368,7 @@ function uploadAvatar(avatar){
 
 
 
-//beginAuth();
+beginAuth();
 
 
 ////5cc06283f318f500048e7bc5

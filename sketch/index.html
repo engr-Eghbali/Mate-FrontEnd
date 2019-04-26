@@ -79,6 +79,29 @@
     </div>
 
 </div>
+<!-- -->
+
+<div id="profileMenu" class="menu">
+    <div style="width:70%;margin-left:15%;margin-top:5vh;text-align:center;">
+        <button id="chooseAvatar" onclick="choosedAvatar()"></button>
+    </div>
+
+    <input type="text"   class="formInput" id="profileUsername">
+    <input type="text"   class="formInput" id="profileEmail">
+    <input type="number" class="formInput" id="profilePhone">
+    
+    <div id="showMyGeoPhrase">نمایش مکان من</div>
+    <label class="switch">
+        <input type="checkbox">
+        <span class="slider round"></span>
+    </label>
+
+    <div class="saveANDdiscard">
+        <button class="YNButton" style="border-right: 1px solid #a5a3be;">انصراف</button>
+        <button class="YNButton" >ذخیره</button>
+    </div>
+
+</div>
 
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-74bxG6QQ9r83svnnZumBCg4FfE78Ujc&callback=initMap">
