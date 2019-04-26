@@ -128,6 +128,18 @@ function initMap() {
         origin: new google.maps.Point(0, 0),
         anchor: new google.maps.Point(0, 48)
       };
+
+      google.maps.event.addListenerOnce(map, 'idle', function(){
+        map.panTo(currentGeo);
+        Currentmarker = new google.maps.Marker({
+            position: {lat: parseFloat(currentGeo.lat), lng: parseFloat(currentGeo.lng)},
+            map: map,
+            //draggable:true,
+            animation: google.maps.Animation.DROP,  
+            icon: CurrentPin
+        });
+        // do something only the first time the map is loaded
+    });
     
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -160,14 +172,21 @@ function onDeviceReady() {
         lat: position.coords.latitude,
         lng: position.coords.longitude
         };
-        map.panTo(currentGeo);
-        marker = new google.maps.Marker({
-            position: {lat: parseFloat(currentGeo.lat), lng: parseFloat(currentGeo.lng)},
-            map: map,
-            //draggable:true,
-            animation: google.maps.Animation.DROP,  
-            icon: CurrentPin
+
+        google.maps.event.addListenerOnce(map, 'idle', function(){
+            map.panTo(currentGeo);
+            Currentmarker = new google.maps.Marker({
+                position: {lat: parseFloat(currentGeo.lat), lng: parseFloat(currentGeo.lng)},
+                map: map,
+                //draggable:true,
+                animation: google.maps.Animation.DROP,  
+                icon: CurrentPin
+            });
+            // do something only the first time the map is loaded
         });
+    
+
+        
     }
 ///if GPS is not available
     function positionError(){

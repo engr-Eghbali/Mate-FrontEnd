@@ -101,6 +101,8 @@ function submitPhone(){
             if(this.response=="1"){
                 document.getElementById("uidForm").style.left=-100+"vh";
                 setTimeout(function(){document.getElementById("uidForm").style.display="none"},1500);
+                document.querySelector("#carousel :nth-child(2)").classList.add('blueDot');
+                document.querySelector("#carousel :nth-child(1)").classList.remove('blueDot');
                 setTimeout(function(){document.getElementById("verifyForm").style.display="block"},1500);
                 document.getElementById("verifyForm").style.left=0+"vh";
                 var tmp=JSON.stringify({id:"",vc:"",name:"",uid:uid,avatar:""});
@@ -153,6 +155,8 @@ function submitVC(){
                     if(responseArray[1]=='' || responseArray[1]==''){
                         document.getElementById("verifyForm").style.left=-100+"vh";
                         setTimeout(function(){document.getElementById("verifyForm").style.display="none"},1500);
+                        document.querySelector("#carousel :nth-child(2)").classList.remove('blueDot');
+                        document.querySelector("#carousel :nth-child(3)").classList.add('blueDot');
                         setTimeout(function(){document.getElementById("infoFrom").style.display="block"},1500);
                         document.getElementById("infoFrom").style.left=0+"vh";
                         info.vc=vc;
@@ -364,7 +368,7 @@ function uploadAvatar(avatar){
 
 
 
-beginAuth();
+//beginAuth();
 
 
 ////5cc06283f318f500048e7bc5

@@ -188,7 +188,9 @@ body{
 
 #submitPhone{
     background-image: url(../assets/img/send-fa.png);
-    margin-left: 12%;
+    left: 35%;
+    position: fixed;
+    margin-top: 12vh;
 }
 
 #carousel{
@@ -243,7 +245,7 @@ body{
     color: white;
     font: 1ch consolas, monospace;
     letter-spacing: .5ch;
-    margin-left: 30%;
+    margin-left: 25%;
     margin-top: 2%;
 }
 #submitVC{
@@ -274,7 +276,7 @@ input:focus {
 
 /****************************************/
 
-#infoFrom{
+#infoForm{
     position: fixed;
     width: 100%;
     left: 0;
@@ -295,7 +297,7 @@ input:focus {
     background-size: contain;
 }
 
-#infoFrom input{
+#infoForm input{
     width: 80%;
     height: 7vh;
     border: none;
@@ -309,13 +311,13 @@ input:focus {
     color: white;
 }
 
-#infoFrom input::placeholder{
+#infoForm input::placeholder{
     color: white;
     font-family: "bold";
     font-size: 4vh;
 }
 
-#infoFrom input:focus::-webkit-input-placeholder 
+#infoForm input:focus::-webkit-input-placeholder 
 {
     color: transparent;
 }
