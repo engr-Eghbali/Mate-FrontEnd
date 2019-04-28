@@ -26,7 +26,7 @@
     <!--main page-->
 <div id="map"></div>
 <div id="sideBar">
-    <button id="profileBTN" class="sideBTN"></button>
+    <button id="profileBTN" class="sideBTN" onclick="openMenu('profileMenu')"></button>
     <button id="upcomingBTN" class="sideBTN"></button>
     <button id="friendBTN" class="sideBTN"></button>
     <button id="pendingReqBTN" class="sideBTN"></button>
@@ -75,7 +75,30 @@
     </div>
 
     <div id="carousel">
-        <i class="fas fa-circle"></i><i class="fas fa-circle"></i><i class="fas fa-circle"></i>
+        <i class="fas fa-circle blueDot"></i><i class="fas fa-circle"></i><i class="fas fa-circle"></i>
+    </div>
+
+</div>
+<!-- -->
+
+<div id="profileMenu" class="menu">
+    <div style="width:70%;margin-left:15%;margin-top:5vh;text-align:center;">
+        <button id="chooseAvatar" onclick="choosedAvatar()"></button>
+    </div>
+
+    <input type="text"   class="formInput" id="profileUsername">
+    <input type="text"   class="formInput" id="profileEmail">
+    <input type="number" class="formInput" id="profilePhone">
+    
+    <div id="showMyGeoPhrase">نمایش مکان من</div>
+    <label class="switch">
+        <input type="checkbox" id="visibilityCHBX" onchange="visibilityToggle()">
+        <span class="slider round"></span>
+    </label>
+
+    <div class="saveANDdiscard">
+        <button class="YNButton" style="border-right: 1px solid #a5a3be;" onclick="closeMenu('profileMenu')">انصراف</button>
+        <button class="YNButton" >ذخیره</button>
     </div>
 
 </div>

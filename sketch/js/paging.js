@@ -3,27 +3,13 @@ var countDownID;
 
 function beginAuth(){
 
-    if(data=localStorage.getItem("MateUserInfo")) {
-        try {
-            info = JSON.parse(data);
-           
-            
-        } catch(e) {
-            alert(e); // error in the above string (in this case, yes)!
-             ///clear localStorage
-             localStorage.removeItem("MateUserInfo")
-             //document.getElementById("signInPage").style.display="block";
-             //show signInPage
-             return
-            }
-        }else{
-            //document.getElementById("signInPage").style.display="block";
-            //show signInpage
-            return
-        }
+    info=storageRetrieve("MateUserInfo");
+    if(!info)
+    return
 
-        if(info.id=="" || info.vc=="")
-        return
+
+    if(info.id=="" || info.vc=="")
+    return
 
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
@@ -81,6 +67,34 @@ function ToggleMenu(){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
+//// local storage data retrieve by key
+function storageRetrieve(key){
+   
+    var info=null;
+
+    if(data=localStorage.getItem(key)) {
+        try {
+            info = JSON.parse(data); 
+        } catch(e) {
+
+            try {
+                info = JSON.parse(data); 
+            } catch (error) {
+                alert("could not load data,login again");
+                localStorage.removeItem(key);
+                return null;
+            }   
+        }
+
+    }else{    
+        //show signInpage
+        return null;
+    }
+    return info;
+
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ///click on submit phone/mail btn
 function submitPhone(){
@@ -157,8 +171,8 @@ function submitVC(){
                         setTimeout(function(){document.getElementById("verifyForm").style.display="none"},1500);
                         document.querySelector("#carousel :nth-child(2)").classList.remove('blueDot');
                         document.querySelector("#carousel :nth-child(3)").classList.add('blueDot');
-                        setTimeout(function(){document.getElementById("infoFrom").style.display="block"},1500);
-                        document.getElementById("infoFrom").style.left=0+"vh";
+                        setTimeout(function(){document.getElementById("infoForm").style.display="block"},1500);
+                        document.getElementById("infoForm").style.left="0vh";
                         info.vc=vc;
                         info.id=responseArray[0];
                         localStorage.setItem("MateUserInfo",JSON.stringify(info));
@@ -375,10 +389,22 @@ function closeMenu(elemID){
 ///////a function for openning menu pages
 function openMenu(elemID){
 
+    switch(elemID){
+        case "profileMenu":
+        loadProfile();
+        break;
+
+        case "scheduleMenu":
+        console.log("load schedule");
+        break;
+        
+        default:
+        return
+    }
+
     document.getElementById(elemID).style.display="block";
     setTimeout(function(elemID){document.getElementById(elemID).style.right="0vh"},10,elemID);
-    loadProfile();
-    
+        
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -419,9 +445,13 @@ function loadProfile(){
     if(info.uid.includes("@")){
         document.getElementById("profileEmail").value=info.uid;
         document.getElementById("profilePhone").value="موبایل";
+        document.getElementById("profileEmail").readOnly=true;
+        document.getElementById("profileEmail").style.color="#999999";
     }else{
         document.getElementById("profilePhone").value=info.uid;
         document.getElementById("profileEmail").value="ایمیل";
+        document.getElementById("profilePhone").readOnly=true;
+        document.getElementById("profilePhone").style.color="#999999";
     }
 
     if(info.visibility==1){
@@ -433,11 +463,36 @@ function loadProfile(){
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////toggle user visibility
+function visibilityToggle(){
+    if(info=storageRetrieve("MateUserInfo")){
+        if (document.getElementById("visibilityCHBX").checked){
+            info.visibility=1;
+            localStorage.setItem("MateUserInfo",JSON.stringify(info));
+            return;
+        }else{
+            info.visibility=0;
+            localStorage.setItem("MateUserInfo",JSON.stringify(info));
+            return;
+        }
+
+    }else{
+        ////handle not found...
+        return
+    }
+    
+
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 //localStorage.removeItem("MateUserInfo");
 
 
 
-beginAuth();
 
+//beginAuth();
 
 ////5cc06283f318f500048e7bc5

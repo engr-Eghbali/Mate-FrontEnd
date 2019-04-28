@@ -381,6 +381,9 @@ input:focus {
     background-color: #eeeeee;
     outline: none;
 }
+.formInput:focus{
+    color: black;
+}
 
 #showMyGeoPhrase{
     height: 26px;
@@ -395,7 +398,8 @@ input:focus {
 }
 
 #profileMenu{
-    right: 0;
+    right: -100vh;
+    display: none;
     transition: right 0.5s cubic-bezier(0.5, -0.4, 0.5, 1.5);
 }
 
@@ -466,3 +470,111 @@ input:focus {
   }
 
 /*********************************************/  
+
+.cancelBTN{
+    
+    float: right;
+    margin-right: 2%;
+    margin-top: 2%;
+    width: 8%;
+    height: 20%;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    padding: 0;
+    background-image: url('../assets/img/cross.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+
+}
+
+
+.navbar{
+    width: 92%;
+    height: 9vh;
+    background-color: #29abe2;
+    margin-bottom: 2vh;
+    box-shadow: 1vh 1vh 1.5vh #757575;
+    font-family: "bold";
+    font-size: 4vh;
+    padding-left: 8%;
+    padding-top: 1vh;
+    color: #4d4d4d;
+}
+
+.navbar i{
+    font-size: 8vh;
+}
+.navbar p{
+    margin: 0;
+    width: 50%;
+    float: right;
+    margin-right: 40%;
+    padding-top: 2%;
+}
+
+.event{
+    width: 84%;
+    height: 20vh;
+    margin-left: 8%;
+    margin-right: 10%;
+    margin-top: 2vh;
+    border: 2px solid #666666;
+    border-radius: 10px;
+}
+
+
+.titleEvent{
+    width: 84%;
+    height: 40%;
+    /* padding-top: 3%; */
+    font-size: 4vh;
+    font-family: "bold";
+    direction: rtl;
+    color: #666666;
+
+}
+
+.hostEvent{
+    width: 85%;
+    height: 25%;
+    direction: rtl;
+    margin-right: 15%;
+    font-family: "medium";
+    font-size: 2.5vh;
+    color: #999999;
+    font-weight: 600;
+
+}
+
+.timeEvent{
+    width: 45%;
+    height: 25%;
+    margin-top: 4%;
+    font-family: "medium";
+    font-size: 2.5vh;
+    font-weight: 600;
+    float: left;
+    margin-left: 5%;
+    color: #999999;
+}
+
+.dateEvent{
+    width: 45%;
+    height: 25%;
+    margin-top: 4%;
+    font-family: "medium";
+    font-size: 2.5vh;
+    font-weight: 600;
+    float: right;
+    margin-right: 5%;
+    color: #999999;
+    text-align: right;
+}
+
+#scheduleMenu{
+    right: -100vh;
+    display: none;
+    transition: right 0.5s cubic-bezier(0.5, -0.4, 0.5, 1.5);
+}
