@@ -27,7 +27,7 @@
 <div id="map"></div>
 <div id="sideBar">
     <button id="profileBTN" class="sideBTN" onclick="openMenu('profileMenu')"></button>
-    <button id="upcomingBTN" class="sideBTN"></button>
+    <button id="upcomingBTN" class="sideBTN" onclick="openMenu('scheduleMenu')"></button>
     <button id="friendBTN" class="sideBTN"></button>
     <button id="pendingReqBTN" class="sideBTN"></button>
     <button id="setMeetingBTN" class="sideBTN"></button>
@@ -101,6 +101,64 @@
         <button class="YNButton" >ذخیره</button>
     </div>
 
+</div>
+
+<!---->
+
+<div id="scheduleMenu" class="menu">
+    <div class="navbar" onclick="closeMenu('scheduleMenu')"><p> لیست قرارها</p> <i class="fas fa-caret-left"></i></div>
+
+    <div id="eventContainer" style="width:100%;height:86vh;overflow-y: scroll;">
+    
+        <div class="event">
+            <button class="cancelBTN"></button>
+            <div class="titleEvent">نمونه یک قرار</div>
+            <div class="hostEvent">دعوت کننده: کاربر۱</div>
+            <div class="timeEvent">22:00</div>
+            <div class="dateEvent">23/04/98</div>
+        </div>
+
+        <div class="event">
+                <button class="cancelBTN"></button>
+                <div class="titleEvent">نمونه یک قرار</div>
+                <div class="hostEvent">دعوت کننده: کاربر۱</div>
+                <div class="timeEvent">22:00</div>
+                <div class="dateEvent">23/04/98</div>
+            </div>
+
+            <div class="event">
+                    <button class="cancelBTN"></button>
+                    <div class="titleEvent">نمونه یک قرار</div>
+                    <div class="hostEvent">دعوت کننده: کاربر۱</div>
+                    <div class="timeEvent">22:00</div>
+                    <div class="dateEvent">23/04/98</div>
+                </div>
+
+                <div class="event">
+                        <button class="cancelBTN"></button>
+                        <div class="titleEvent">نمونه یک قرار</div>
+                        <div class="hostEvent">دعوت کننده: کاربر۱</div>
+                        <div class="timeEvent">22:00</div>
+                        <div class="dateEvent">23/04/98</div>
+                    </div>
+
+                    <div class="event">
+                            <button class="cancelBTN"></button>
+                            <div class="titleEvent">نمونه یک قرار</div>
+                            <div class="hostEvent">دعوت کننده: کاربر۱</div>
+                            <div class="timeEvent">22:00</div>
+                            <div class="dateEvent">23/04/98</div>
+                        </div>
+
+                        <div class="event">
+                                <button class="cancelBTN"></button>
+                                <div class="titleEvent">نمونه یک قرار</div>
+                                <div class="hostEvent">دعوت کننده: کاربر۱</div>
+                                <div class="timeEvent">22:00</div>
+                                <div class="dateEvent">23/04/98</div>
+                            </div>
+                    
+    </div>
 </div>
 
     <script async defer

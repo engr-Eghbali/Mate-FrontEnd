@@ -119,7 +119,7 @@ function submitPhone(){
                 document.querySelector("#carousel :nth-child(1)").classList.remove('blueDot');
                 setTimeout(function(){document.getElementById("verifyForm").style.display="block"},1500);
                 document.getElementById("verifyForm").style.left=0+"vh";
-                var tmp=JSON.stringify({id:"",vc:"",name:"",uid:uid,visibility:1,avatar:""});
+                var tmp=JSON.stringify({id:"",vc:"",name:"",uid:uid,visibility:1,mail:"",avatar:""});
                 localStorage.setItem("MateUserInfo",tmp);
                 countDownID=setInterval(countDown,1000);
 
@@ -262,8 +262,6 @@ function uploadAvatar(avatar){
     if (this.readyState == 4 && this.status == 200) {
 
          if(this.response==1){
-             info.avatar=avatar;
-             localStorage.setItem("MateUserInfo",JSON.stringify(info));
              return true;
          }
          if(this.response==0){
@@ -299,7 +297,7 @@ function uploadAvatar(avatar){
 
     var srcType = Camera.PictureSourceType.SAVEDPHOTOALBUM;
     var options = setOptions(srcType);
-    var flag=true;
+    
 
     navigator.camera.getPicture(function cameraSuccess(imageUri) {
 
@@ -308,6 +306,7 @@ function uploadAvatar(avatar){
 
         const img=new Image(); 
         img.src="data:image/png;base64," + imageUri 
+
         img.onload = () => {
             const elem = document.createElement('canvas');
             elem.width = 128;
@@ -317,7 +316,11 @@ function uploadAvatar(avatar){
             ctx.drawImage(img, 0, 0, 128, 128);
             elem.toBlob(function(blob){
                 uploadAvatar(blob);
-            },"image/png",1)
+            },"image/png",1);
+
+            info=JSON.parse(localStorage.getItem("MateUserInfo"));
+            info.avatar=img.src;
+            localStorage.setItem("MateUserInfo",JSON.stringify(info));    
         }
 
     }, function cameraError(error) {
@@ -356,7 +359,7 @@ function uploadAvatar(avatar){
 
          }
          if(this.response==0){
-             alert("request failed,try agai");
+             alert("request failed,try again");
              return;  
          }
          if(this.response==-1){
@@ -486,6 +489,65 @@ function visibilityToggle(){
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/////save profile changes
+
+function saveProfileChanges(){
+
+    username=document.getElementById("profileUsername").value;
+    email   =document.getElementById("profileEmail").value;
+    info=storageRetrieve("MateUserInfo");
+
+    if(username!=info.name){
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+    
+            if(this.response=="reserved"){
+                alert("username taken");
+                return;
+            }
+             if(this.response==1){
+    
+                info.name=username;
+                localStorage.setItem("MateUserInfo",JSON.stringify(info));
+                closeMenu("profileMenu");
+             }
+             if(this.response==0){
+                 alert("request failed,try again");
+                 return;  
+             }
+             if(this.response==-1){
+                 localStorage.removeItem("MateUserInfo");
+                 alert("bad request:7");
+                 closeMenu("profileMenu");
+                 return false;
+             }else{
+                 alert("request failed,try again");
+                 return;
+             }
+          
+            }
+               
+        };
+     
+        xhttp.open("POST", "https://guarded-castle-67026.herokuapp.com/UserName?id="+info.id+"&vc="+info.vc+"&username="+username, true);
+        //xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send();           
+
+    }
+
+    if(email!=info.mail){
+        info.mail=email;
+        localStorage.setItem("MateUserInfo",JSON.stringify(info));
+        closeMenu("profileMenu");
+    }
+
+    
+
+
+}
 
 
 //localStorage.removeItem("MateUserInfo");

@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Fri Apr 26 11:13:03 BST 2019
+#Mon Apr 29 20:37:17 BST 2019
 5.base=/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/assets/debug
 22.path=www/plugins/cordova-plugin-camera/www/CameraConstants.js
 32.set=ASSET
@@ -9,6 +9,7 @@
 27.baseType=DIRECTORY
 9.base=/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/assets/debug
 21.set=ASSET
+39.set=ASSET
 26.path=www/assets/img/location pointer.svg
 6.baseType=DIRECTORY
 36.path=www/css/style.css
@@ -45,9 +46,10 @@
 33.path=www/plugins/cordova-plugin-camera/www/CameraPopoverHandle.js
 17.path=www/assets/bg2.png
 31.set=ASSET
+39.baseType=DIRECTORY
 20.baseType=DIRECTORY
 27.path=www/cordova-js-src/android/promptbasednativeapi.js
-37.path=www/assets/img/addAvatar.svg
+37.path=www/assets/img/cross.svg
 20.set=ASSET
 38.set=ASSET
 23.base=/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/assets/debug
@@ -56,7 +58,7 @@
 13.path=www/js/KBHandling.js
 17.base=/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/assets/debug
 27.set=ASSET
-count=39
+count=40
 27.base=/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/assets/debug
 16.set=ASSET
 37.base=/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/assets/debug
@@ -89,7 +91,7 @@ count=39
 30.base=/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/assets/debug
 10.path=www/js/cordova.js
 13.baseType=DIRECTORY
-38.path=www/assets/img/logo.svg
+38.path=www/assets/img/addAvatar.svg
 32.baseType=DIRECTORY
 30.set=ASSET
 24.base=/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/assets/debug
@@ -134,6 +136,7 @@ count=39
 31.base=/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/assets/debug
 11.path=www/assets/font/Vazir-Bold.woff
 2.set=ASSET
+39.path=www/assets/img/logo.svg
 25.base=/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/assets/debug
 16.baseType=DIRECTORY
 25.baseType=DIRECTORY
@@ -145,6 +148,7 @@ count=39
 29.base=/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/assets/debug
 11.base=/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/assets/debug
 36.set=ASSET
+39.base=/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/assets/debug
 1.path=www/assets/img/inner-outer.svg
 25.set=ASSET
 15.base=/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/assets/debug
