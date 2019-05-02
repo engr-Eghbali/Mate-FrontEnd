@@ -343,7 +343,7 @@ input:focus {
     padding: 0;
     z-index: 99;
     background-color: #eeeeee;
-    display: block;
+    display: none;
 }
 
 .saveANDdiscard{
@@ -610,6 +610,58 @@ input:focus {
     direction: rtl;
     color: #4d4d4d;
     margin-top: 60%;
+}
+
+#friendsMenu{
+    right: -100vh;
+    display: none;
+    transition: right 0.5s cubic-bezier(0.5, -0.4, 0.5, 1.5);
+}
+
+#search{
+    width: 90%;
+    height: 8vh;
+    margin-left: 5%;
+    padding-bottom: 1%;
+    text-align: center;
+    direction: rtl;
+    border-bottom: 1px solid #999;
+}
+
+#FsearchBTN{
+
+    padding: 0;
+    width: 14%;
+    height: 38px;
+    float: left;
+    margin-top: 2%;
+    border: 1px solid #999;
+    background-color: white;
+    border-bottom-left-radius: 3vh;
+    border-top-left-radius: 3vh;
+    border-right-color: white;
+    outline: none;
+    background-image: url('../assets/img/search.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 60%;
+}
+#FsearchInput{
+    padding: 0;
+    border: 1px solid #999;
+    width: 85%;
+    height: 36px;
+    float: left;
+    margin-top: 2%;
+    border-top-right-radius: 3vh;
+    border-bottom-right-radius: 3vh;
+    border-left-color: white;
+    text-align: center;
+    color: #4d4d4d;
+    font-family: "medium";
+    font-size: 3vh;
+    outline: none;
+
 }
 /*******************************************/
 

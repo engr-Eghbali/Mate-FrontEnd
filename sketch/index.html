@@ -10,7 +10,8 @@
         <meta name="HandheldFriendly" content="True">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/solid.css" integrity="sha384-QokYePQSOwpBDuhlHOsX0ymF6R/vLk/UQVz3WHa6wygxI5oGTmDTv8wahFOSspdm" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/fontawesome.css" integrity="sha384-vd1e11sR28tEK9YANUtpIOdjGW14pS87bUBuOIoBILVWLFnS+MCX9T6MMf0VdPGq" crossorigin="anonymous">
         <link href="./css/style.css" rel="stylesheet">
         <script type="text/javascript" src="cordova.js"></script>
         <script src="./js/navigation.js"></script>
@@ -28,7 +29,7 @@
 <div id="sideBar">
     <button id="profileBTN" class="sideBTN" onclick="openMenu('profileMenu')"></button>
     <button id="upcomingBTN" class="sideBTN" onclick="openMenu('scheduleMenu')"></button>
-    <button id="friendBTN" class="sideBTN"></button>
+    <button id="friendBTN" class="sideBTN" onclick="openMenu('friendsMenu')"></button>
     <button id="pendingReqBTN" class="sideBTN"></button>
     <button id="setMeetingBTN" class="sideBTN"></button>
     <button id="fullScrBTN" class="sideBTN" onclick="ToggleMenu()"></button>
@@ -107,60 +108,22 @@
 
 <div id="scheduleMenu" class="menu">
     <div class="navbar" ><div onclick="closeMenu('scheduleMenu')"><p> لیست قرارها</p> <i class="fas fa-caret-left"></i></div><button id="updateMeetingsBTN" class="refreshBTN" onclick="retrieveMeetingsList()"><i class="fas fa-undo"></i></button></div>
+    <div id="eventContainer" style="width:100%;height:86vh;overflow-y: scroll;"></div>
+</div>
 
-    <div id="eventContainer" style="width:100%;height:86vh;overflow-y: scroll;">
-    
-        <div class="event">
-            <button class="cancelBTN" onclick="leaveMeeting(this)"></button>
-            <div style="display:none"></div>
-            <div style="display:none"></div>
-            <div class="titleEvent">نمونه یک قرار</div>
-            <div class="hostEvent">دعوت کننده: کاربر۱</div>
-            <div class="timeEvent">22:00</div>
-            <div class="dateEvent">23/04/98</div>
+<!---->
+
+<div id="friendsMenu" class="menu">
+    <div class="navbar" ><div onclick="closeMenu('friendsMenu')"><p> دوستان</p> <i class="fas fa-caret-left"></i></div><button id="updateFriendsBTN" class="refreshBTN" onclick="retrieveFriendsList()"><i class="fas fa-undo"></i></button></div>
+    <div id="friendsContainer" style="width:100%;height:86vh;overflow-y: scroll;">
+        <div id="search">
+            <button id="FsearchBTN"></button>
+            <input type="text" id="FsearchInput" placeholder="جست و جوی نام کاربری">
         </div>
-
-        <div class="event">
-                <button class="cancelBTN" onclick="leaveMeeting(this)"></button>
-                <div class="titleEvent">نمونه یک قرار</div>
-                <div class="hostEvent">دعوت کننده: کاربر۱</div>
-                <div class="timeEvent">22:00</div>
-                <div class="dateEvent">23/04/98</div>
-            </div>
-
-            <div class="event">
-                    <button class="cancelBTN" onclick="leaveMeeting(this)"></button>
-                    <div class="titleEvent">نمونه یک قرار</div>
-                    <div class="hostEvent">دعوت کننده: کاربر۱</div>
-                    <div class="timeEvent">22:00</div>
-                    <div class="dateEvent">23/04/98</div>
-                </div>
-
-                <div class="event">
-                        <button class="cancelBTN" onclick="leaveMeeting(this)"></button>
-                        <div class="titleEvent">نمونه یک قرار</div>
-                        <div class="hostEvent">دعوت کننده: کاربر۱</div>
-                        <div class="timeEvent">22:00</div>
-                        <div class="dateEvent">23/04/98</div>
-                    </div>
-
-                    <div class="event">
-                            <button class="cancelBTN" onclick="leaveMeeting(this)"></button>
-                            <div class="titleEvent">نمونه یک قرار</div>
-                            <div class="hostEvent">دعوت کننده: کاربر۱</div>
-                            <div class="timeEvent">22:00</div>
-                            <div class="dateEvent">23/04/98</div>
-                        </div>
-
-                        <div class="event">
-                                <button class="cancelBTN" onclick="leaveMeeting(this)"></button>
-                                <div class="titleEvent">نمونه یک قرار</div>
-                                <div class="hostEvent">دعوت کننده: کاربر۱</div>
-                                <div class="timeEvent">22:00</div>
-                                <div class="dateEvent">23/04/98</div>
-                            </div>
-                    
+    
+    
     </div>
+
 </div>
 
     <script async defer

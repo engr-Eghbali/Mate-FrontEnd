@@ -401,6 +401,11 @@ function openMenu(elemID){
         loadMeetings();
         retrieveMeetingsList();
         break;
+
+        case "friendsMenu":
+        loadFriends();
+        //retrieveFriendsList()
+        break;
         
         default:
         return
@@ -698,6 +703,13 @@ function loadMeetings(){
     }else{
 
     }
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//////load friends list an
+function loadFriends(){
+
 }
 //localStorage.removeItem("MateUserInfo");
 
