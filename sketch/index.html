@@ -106,12 +106,14 @@
 <!---->
 
 <div id="scheduleMenu" class="menu">
-    <div class="navbar" onclick="closeMenu('scheduleMenu')"><p> لیست قرارها</p> <i class="fas fa-caret-left"></i></div>
+    <div class="navbar" ><div onclick="closeMenu('scheduleMenu')"><p> لیست قرارها</p> <i class="fas fa-caret-left"></i></div><button id="updateMeetingsBTN" class="refreshBTN" onclick="retrieveMeetingsList()"><i class="fas fa-undo"></i></button></div>
 
     <div id="eventContainer" style="width:100%;height:86vh;overflow-y: scroll;">
     
         <div class="event">
-            <button class="cancelBTN"></button>
+            <button class="cancelBTN" onclick="leaveMeeting(this)"></button>
+            <div style="display:none"></div>
+            <div style="display:none"></div>
             <div class="titleEvent">نمونه یک قرار</div>
             <div class="hostEvent">دعوت کننده: کاربر۱</div>
             <div class="timeEvent">22:00</div>
@@ -119,7 +121,7 @@
         </div>
 
         <div class="event">
-                <button class="cancelBTN"></button>
+                <button class="cancelBTN" onclick="leaveMeeting(this)"></button>
                 <div class="titleEvent">نمونه یک قرار</div>
                 <div class="hostEvent">دعوت کننده: کاربر۱</div>
                 <div class="timeEvent">22:00</div>
@@ -127,7 +129,7 @@
             </div>
 
             <div class="event">
-                    <button class="cancelBTN"></button>
+                    <button class="cancelBTN" onclick="leaveMeeting(this)"></button>
                     <div class="titleEvent">نمونه یک قرار</div>
                     <div class="hostEvent">دعوت کننده: کاربر۱</div>
                     <div class="timeEvent">22:00</div>
@@ -135,7 +137,7 @@
                 </div>
 
                 <div class="event">
-                        <button class="cancelBTN"></button>
+                        <button class="cancelBTN" onclick="leaveMeeting(this)"></button>
                         <div class="titleEvent">نمونه یک قرار</div>
                         <div class="hostEvent">دعوت کننده: کاربر۱</div>
                         <div class="timeEvent">22:00</div>
@@ -143,7 +145,7 @@
                     </div>
 
                     <div class="event">
-                            <button class="cancelBTN"></button>
+                            <button class="cancelBTN" onclick="leaveMeeting(this)"></button>
                             <div class="titleEvent">نمونه یک قرار</div>
                             <div class="hostEvent">دعوت کننده: کاربر۱</div>
                             <div class="timeEvent">22:00</div>
@@ -151,7 +153,7 @@
                         </div>
 
                         <div class="event">
-                                <button class="cancelBTN"></button>
+                                <button class="cancelBTN" onclick="leaveMeeting(this)"></button>
                                 <div class="titleEvent">نمونه یک قرار</div>
                                 <div class="hostEvent">دعوت کننده: کاربر۱</div>
                                 <div class="timeEvent">22:00</div>

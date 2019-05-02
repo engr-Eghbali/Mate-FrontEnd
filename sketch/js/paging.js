@@ -398,7 +398,8 @@ function openMenu(elemID){
         break;
 
         case "scheduleMenu":
-        console.log("load schedule");
+        loadMeetings();
+        retrieveMeetingsList();
         break;
         
         default:
@@ -455,6 +456,12 @@ function loadProfile(){
         document.getElementById("profileEmail").value="ایمیل";
         document.getElementById("profilePhone").readOnly=true;
         document.getElementById("profilePhone").style.color="#999999";
+    }
+
+    //////*
+    if(info.mail.includes("@")){
+        document.getElementById("profileEmail").value=info.mail;
+
     }
 
     if(info.visibility==1){
@@ -549,8 +556,165 @@ function saveProfileChanges(){
 
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+/////leave a meeting...
+function leaveMeeting(element){
+
+    geo=element.nextElementSibling.innerHTML;
+    title=element.nextElementSibling.nextElementSibling.nextElementSibling.innerHTML;
+
+    if(info=storageRetrieve("MateUserInfo")){
+
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+    
+             if(this.response==-1){
+                 localStorage.removeItem("MateMeetingsInfo");
+                 alert("bad request:7");
+                 return
+             }
+             if(this.response==0){
+                 setTimeout(leaveMeeting,60000,element);
+                 return;
+             }
+             if(this.responseText.length>10){
+                /////////////
+                element.parentNode.style.height="0vh";
+                element.nextElementSibling.nextElementSibling.nextElementSibling.style.display="none";
+                setTimeout(function(){element.parentNode.style.display="none"},190);
+                localStorage.setItem("MateMeetingsInfo",this.response);
+                loadMeetings();
+                document.getElementById("updateMeetingsBTN").classList.remove("spining");
+                return;
+
+             }else{
+                 
+                 localStorage.setItem("MateMeetingsInfo",this.response);
+                 return;
+             }
+            
+          
+        }else{
+            document.getElementById("updateMeetingsBTN").classList.add("spining");
+        }       
+        };
+     
+        xhttp.open("POST", "https://guarded-castle-67026.herokuapp.com/LeaveMeeting?id="+info.id+"&vc="+info.vc+"&title="+title+"&geo="+geo, true);
+        //xhttp.setRequestHeader("Content-type", "multipart/form-data");
+        xhttp.send();
+
+
+
+    }else{
+
+        ////handle if data not found
+
+    }
+
+
+    /////////////
+    element.parentNode.style.height="0vh";
+    element.nextElementSibling.nextElementSibling.nextElementSibling.style.display="none";
+    setTimeout(function(){element.parentNode.style.display="none"},190);
+
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/////////request for meetings list
+function retrieveMeetingsList(){
+
+    document.getElementById("updateMeetingsBTN").classList.add("spining");
+
+    if(info=storageRetrieve("MateUserInfo")){
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+    
+             if(this.response==-1){
+                 localStorage.removeItem("MateMeetingsInfo");
+                 alert("bad request:7");
+                 return
+             }
+             if(this.response==0){
+                 setTimeout(retrieveMeetingsList,60000);
+                 return;
+             }
+             if((this.responseText.length)<10){
+                 document.getElementById("eventContainer").innerHTML="<div id=\"Meeting404\">لیست قرار شما خالیست :)</div>";
+                 document.getElementById("updateMeetingsBTN").classList.remove("spining");
+                 return;
+
+             }else{
+                 
+                 localStorage.setItem("MateMeetingsInfo",this.response);
+                 loadMeetings();
+                 document.getElementById("updateMeetingsBTN").classList.remove("spining");
+                 return;
+             }
+            
+          
+        }else{
+            document.getElementById("updateMeetingsBTN").classList.add("spining");
+        }       
+        };
+     
+        xhttp.open("POST", "https://guarded-castle-67026.herokuapp.com/ReqMeetingList?id="+info.id+"&vc="+info.vc, true);
+        //xhttp.setRequestHeader("Content-type", "multipart/form-data");
+        xhttp.send();
+    
+    }else{
+        document.getElementById("updateMeetingsBTN").classList.remove("spining");
+        document.getElementById("updateMeetingsBTN").innerHTML="<i class=\"fas fa-times\"></i>";
+        setTimeout(function(){document.getElementById("updateMeetingsBTN").innerHTML="<i class=\"fas fa-undo\"></i>"},1000);
+    }
+
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+///////////load meetings and map to page elements
+function loadMeetings(){
+    if(meetingsList=storageRetrieve("MateMeetingsInfo")){
+
+        var divisions='';
+        meetingsList.forEach(element => {
+
+            divisions+="<div class=\"event\"><button class=\"cancelBTN\" onclick=\"leaveMeeting(this)\"></button><div style=\"display:none\">"+element.Geo.X+","+element.Geo.Y+"</div><div style=\"display:none\">"+element.Crowd+"</div><div class=\"titleEvent\">"+element.Title+"</div><div class=\"hostEvent\">  دعوت شده از طرف "+element.Host+"</div><div class=\"timeEvent\">"+element.Time.substring(12,19)+"</div><div class=\"dateEvent\">"+element.Time.substring(0,10)+"</div></div>";
+            
+        });
+
+        if(divisions.length>10){
+            document.getElementById("eventContainer").innerHTML=divisions;
+        }
+
+
+
+    }else{
+
+    }
+}
 //localStorage.removeItem("MateUserInfo");
+
+//set a meeting record
+//var data="id=5cc06283f318f500048e7bc5&vc=195278&title=ملاقات&time=2012-11-01T22:08:41Z&crowd=Bob,Puttin&geo=54.4567,36.1234";
+//var xhttp = new XMLHttpRequest();
+//xhttp.onreadystatechange = function() {
+//if (this.readyState == 4 && this.status == 200) {
+
+  //alert(this.response);
+  
+//}    
+//};
+
+//xhttp.open("POST", "https://guarded-castle-67026.herokuapp.com/SetMeeting?"+data, true);
+////xhttp.setRequestHeader("Content-type", "multipart/form-data");
+//xhttp.send();
 
 
 
