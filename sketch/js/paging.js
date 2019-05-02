@@ -715,13 +715,66 @@ function makeConfirm(msg,func,arg){
     document.getElementById("popupPage").style.display="block";
 
 }
-
+/////
 function closePopup(){
     document.getElementById("popupPage").style.display="none";
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////ask for friendlist
+function retrieveFriendsList(){
+
+    document.getElementById("updateFriendsBTN").classList.add("spining");
+
+    if(info=storageRetrieve("MateUserInfo")){
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+    
+             if(this.response==-1){
+                 localStorage.removeItem("MateMeetingsInfo");
+                 alert("bad request:7");
+                 return
+             }
+             if(this.response==0){
+                 setTimeout(retrieveMeetingsList,60000);
+                 return;
+             }
+             if((this.responseText.length)<10){
+                 document.getElementById("Flist").innerHTML="<div id=\"Friend404\">لیست دوستان شما خالیست :)</div>";
+                 document.getElementById("updateFriendsBTN").classList.remove("spining");
+                 return;
+
+             }else{
+                 
+                 localStorage.setItem("MateFriendsInfo",this.response);
+                 loadFriends();
+                 document.getElementById("updateFriendsBTN").classList.remove("spining");
+                 return;
+             }
+            
+          
+        }else{
+            document.getElementById("updateFriendsBTN").classList.add("spining");
+        }       
+        };
+     
+        xhttp.open("POST", "https://guarded-castle-67026.herokuapp.com/ReqFriendList?id="+info.id+"&vc="+info.vc, true);
+        //xhttp.setRequestHeader("Content-type", "multipart/form-data");
+        xhttp.send();
+    
+    }else{
+        document.getElementById("updateFriendsBTN").classList.remove("spining");
+        document.getElementById("updateFriendsBTN").innerHTML="<i class=\"fas fa-times\"></i>";
+        setTimeout(function(){document.getElementById("updateFriendsBTN").innerHTML="<i class=\"fas fa-undo\"></i>"},1000);
+    }
 
 
+
+}
 //////load friends list an
 function loadFriends(){
 
