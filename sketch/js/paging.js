@@ -690,7 +690,7 @@ function loadMeetings(){
         var divisions='';
         meetingsList.forEach(element => {
 
-            divisions+="<div class=\"event\"><button class=\"cancelBTN\" onclick=\"leaveMeeting(this)\"></button><div style=\"display:none\">"+element.Geo.X+","+element.Geo.Y+"</div><div style=\"display:none\">"+element.Crowd+"</div><div class=\"titleEvent\">"+element.Title+"</div><div class=\"hostEvent\">  دعوت شده از طرف "+element.Host+"</div><div class=\"timeEvent\">"+element.Time.substring(12,19)+"</div><div class=\"dateEvent\">"+element.Time.substring(0,10)+"</div></div>";
+            divisions+="<div class=\"event\"><button class=\"cancelBTN\" onclick=\"makeConfirm('آیا مایل به حذف قرار هستید؟',leaveMeeting,this)\"></button><div style=\"display:none\">"+element.Geo.X+","+element.Geo.Y+"</div><div style=\"display:none\">"+element.Crowd+"</div><div class=\"titleEvent\">"+element.Title+"</div><div class=\"hostEvent\">  دعوت شده از طرف "+element.Host+"</div><div class=\"timeEvent\">"+element.Time.substring(12,19)+"</div><div class=\"dateEvent\">"+element.Time.substring(0,10)+"</div></div>";
             
         });
 
@@ -707,6 +707,21 @@ function loadMeetings(){
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+//////confirm generator
+function makeConfirm(msg,func,arg){
+
+    document.getElementById("msg").innerHTML=msg;
+    document.getElementById("confirmY").onclick=function(){func(arg);closePopup()};
+    document.getElementById("popupPage").style.display="block";
+
+}
+
+function closePopup(){
+    document.getElementById("popupPage").style.display="none";
+}
+
+
+
 //////load friends list an
 function loadFriends(){
 
@@ -714,19 +729,19 @@ function loadFriends(){
 //localStorage.removeItem("MateUserInfo");
 
 //set a meeting record
-//var data="id=5cc06283f318f500048e7bc5&vc=195278&title=ملاقات&time=2012-11-01T22:08:41Z&crowd=Bob,Puttin&geo=54.4567,36.1234";
-//var xhttp = new XMLHttpRequest();
-//xhttp.onreadystatechange = function() {
-//if (this.readyState == 4 && this.status == 200) {
+var data="id=5cc06283f318f500048e7bc5&vc=195278&title=ملاقات&time=2012-11-01T22:08:41Z&crowd=Bob,Puttin&geo=54.4567,36.1234";
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+if (this.readyState == 4 && this.status == 200) {
 
-  //alert(this.response);
+  alert(this.response);
   
-//}    
-//};
+}    
+};
 
-//xhttp.open("POST", "https://guarded-castle-67026.herokuapp.com/SetMeeting?"+data, true);
-////xhttp.setRequestHeader("Content-type", "multipart/form-data");
-//xhttp.send();
+xhttp.open("POST", "https://guarded-castle-67026.herokuapp.com/SetMeeting?"+data, true);
+//xhttp.setRequestHeader("Content-type", "multipart/form-data");
+xhttp.send();
 
 
 
