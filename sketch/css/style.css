@@ -31,7 +31,7 @@ body{
 }
 #profileBTN{
    
-    background-image: url("../assets/img/profile\ avatar.svg");
+    background-image: url("../assets/img/profileAvatar.svg");
     background-size: 100%;
     margin-top: 2vh;
 
@@ -679,6 +679,12 @@ input:focus {
     margin-left: 5%;
     margin-top: 4%;
     height: 12vh;
+
+    -webkit-transition-property: height; /* Safari */
+    -webkit-transition-duration: 0.2s; /* Safari */
+    transition-property: height;
+    transition-duration: 0.2s;
+
 }
 .favatar{
     width: 12vh;
@@ -706,6 +712,14 @@ input:focus {
     margin-top: 8%;
     width: 5vh;
     height: 5vh;
+}
+
+#search404{
+    text-align: center;
+    font-family: "medium";
+    margin-top: 8%;
+    direction: rtl;
+    color: #4d4d4d;
 }
 
 
@@ -736,6 +750,7 @@ input:focus {
     font-weight: 600;
     color: #4d4d4d;
     padding-top: 4vh;
+    direction: rtl;
 }
 /********************************************************/
 

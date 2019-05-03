@@ -47,6 +47,33 @@ document.onreadystatechange = () => {
 
     if (document.readyState === 'complete') {
         
+
+
+        //////////////////////////////////////////////////////
+        //////////search query delay
+        var timeout = null;
+        // Listen for keystroke events
+        sinput=document.getElementById("FsearchInput");
+        sinput.onkeyup = function (e) {
+
+            document.getElementById("updateFriendsBTN").classList.add("spining");
+            clearTimeout(timeout);
+
+            // Make a new timeout set to go off
+            timeout = setTimeout(function () {
+
+                ///////send query and response
+
+                /////change limit to 3
+                if(sinput.value.length>2)
+                    fSearch(sinput.value);
+    
+            }, 1500);
+        };
+        //////////////////////////////////////////////////
+        //////////////////////////////////////////////////
+
+
     }
 };
     
@@ -590,9 +617,9 @@ function leaveMeeting(element){
                 /////////////
                 element.parentNode.style.height="0vh";
                 element.nextElementSibling.nextElementSibling.nextElementSibling.style.display="none";
-                setTimeout(function(){element.parentNode.style.display="none"},190);
+                setTimeout(function(){element.parentNode.remove()},190);
                 localStorage.setItem("MateMeetingsInfo",this.response);
-                loadMeetings();
+                //loadMeetings();
                 document.getElementById("updateMeetingsBTN").classList.remove("spining");
                 return;
 
@@ -702,6 +729,8 @@ function loadMeetings(){
 
     }else{
 
+        ////handle info not found 
+
     }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -775,26 +804,223 @@ function retrieveFriendsList(){
 
 
 }
+////////////////////////////////////////////////////////////
 //////load friends list an
 function loadFriends(){
 
+    if(friends=storageRetrieve("MateFriendsInfo")){
+
+        var divisions='';
+        friends.forEach(element => {
+
+            divisions+= "<div class=\"friend\"><div class=\"favatar\" style=\"backgrond-image:url('"+element.Avatar+"') \"></div><div class=\"fname\">"+element.Name+"</div><div class=\"cancelBTN\" onclick=\"makeConfirm(' مایل به حذف "+element.Name+" هستید؟',unfriend,this)\"></div></div>";
+            
+        });
+
+        if(divisions.length>10){
+            document.getElementById("Flist").innerHTML=divisions;
+        }
+
+
+
+    }else{
+        ///handle not found
+    }
+
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+///////////asks for unfriend someone
+
+function unfriend(el){
+    
+    fname=el.previousElementSibling.innerHTML;
+
+    if(fname.length<3){
+        return;
+    }
+    if(info=storageRetrieve("MateUserInfo")){
+
+        data="id="+info.id+"&vc="+info.vc+"&target="+fname;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+
+                if(this.response==-1){
+                    localStorage.removeItem("MateUserInfo");
+                    alert("bad request:7");
+                    document.getElementById("updateFriendsBTN").classList.remove("spining");
+                    return;
+                }
+                if(this.response==0){
+                    setTimeout(unfriend,6000,el);
+                    return;
+                }
+                if(this.response==1){
+
+                    el.parentElement.style.height="0vh";
+                    setTimeout(function(){el.parentElement.remove()},190);
+                    Flist=storageRetrieve("MateFriendsInfo");
+
+                    for(var i=0;i<Flist.length;i++){
+                        if(Flist[i].Name==fname){
+                            Flist.splice(i,1);
+                        }
+                    }
+
+                    localStorage.setItem("MateFriendsInfo",Flist);
+                    //loadFriends();
+                    document.getElementById("updateFriendsBTN").classList.remove("spining");
+
+                }else{
+                    alert("request failed")
+                    document.getElementById("updateFriendsBTN").classList.remove("spining");
+                    return;
+                }
+
+                
+                
+  
+            }else{
+                document.getElementById("updateFriendsBTN").classList.add("spining");
+            } 
+        };
+
+        xhttp.open("POST", "https://guarded-castle-67026.herokuapp.com/Unfriend?"+data, true);
+        //xhttp.setRequestHeader("Content-type", "multipart/form-data");
+        xhttp.send();
+
+    }
+    
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/////triger when focus on search input
+
+function focusToFsearch(el){
+
+    document.getElementById("Flist").style.display="none";
+    document.getElementById("Slist").style.display="block";
+    document.getElementById("FsearchBTN").style.backgroundImage="url('./assets/img/cross.svg')";
+    document.getElementById("FsearchBTN").onclick=function(){ cancelFsearch()};
+    
+
+}
+/////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+
+function cancelFsearch(){
+    document.getElementById("Flist").style.display="block";
+    document.getElementById("Slist").style.display="none";
+    document.getElementById("FsearchInput").value='';
+    document.getElementById("FsearchInput").blur();
+    document.getElementById("FsearchBTN").style.backgroundImage="url('./assets/img/search.svg')";
+    document.getElementById("FsearchBTN").onclick=function(){};
+    document.getElementById("updateFriendsBTN").classList.remove("spining");
+
+
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+///////search for a username and map to <div>
+function fSearch(Query){
+
+    if(info=storageRetrieve("MateUserInfo")){
+
+        if(Query==info.name){
+            document.getElementById("Slist").innerHTML="<div id=\"search404\">دنبال خودت میگردی؟ :)</div> ";
+            document.getElementById("updateFriendsBTN").classList.remove("spining");
+            return;
+        }
+        if(friends=storageRetrieve("MateFriendsInfo")){
+
+            var divisions='';
+            friends.forEach(f=>{
+                if(f.Name==Query){
+                    divisions+= "<div class=\"friend\"><div class=\"favatar\" style=\"backgrond-image:url('"+f.Avatar+"') \"></div><div class=\"fname\">"+f.Name+"</div><div class=\"cancelBTN\" onclick=\"makeConfirm(' مایل به حذف "+f.Name+" هستید؟',unfriend,this)\"></div></div>";
+                    document.getElementById("Slist").innerHTML=divisions;
+                    document.getElementById("updateFriendsBTN").classList.remove("spining");
+                    return;
+                }
+            })
+            if(divisions.length>10)
+            return;
+        }
+        var data="id="+info.id+"&vc="+info.vc+"&query="+Query;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                
+                if(this.response==0){
+                    document.getElementById("Slist").innerHTML="<div id=\"search404\">نتیجه ای یافت نشد.</div> ";
+                    document.getElementById("updateFriendsBTN").classList.remove("spining");
+                    return;
+
+                }
+                if(this.response==-1){
+                    document.getElementById("Slist").innerHTML="<div id=\"search404\">خطا در جست و جو.</div> ";
+                    document.getElementById("updateFriendsBTN").classList.remove("spining");
+                    return;
+                }
+
+                var divisions='';
+                if(this.response.length>5){
+
+                    element=JSON.parse(this.response);
+                    divisions+= "<div class=\"friend\"><div class=\"favatar\" style=\"background-image:url('"+element.Avatar+"') \"></div><div class=\"fname\">"+element.Name+"</div><div class=\"cancelBTN\" style=\"background-image:url('./assets/img/tick.svg');\" onclick=\"makeConfirm(' برای "+element.Name+" درخواست دوستی ارسال شود؟',frequest,this)\"></div></div>";
+                    document.getElementById("Slist").innerHTML=divisions;
+                    document.getElementById("updateFriendsBTN").classList.remove("spining");
+                    return;
+
+
+
+
+                }else{
+                    document.getElementById("Slist").innerHTML="<div id=\"search404\">خطا در جست و جو.</div> ";
+                    document.getElementById("updateFriendsBTN").classList.remove("spining");
+                    return;
+                }
+
+
+  
+            }else{
+                document.getElementById("updateFriendsBTN").classList.add("spining");
+            }    
+        };
+
+        xhttp.open("POST", "https://guarded-castle-67026.herokuapp.com/Whois?"+data, true);
+        //xhttp.setRequestHeader("Content-type", "multipart/form-data");
+        xhttp.send();
+
+
+    }else{
+
+        ////handle if not found
+    }
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 //localStorage.removeItem("MateUserInfo");
 
 //set a meeting record
-var data="id=5cc06283f318f500048e7bc5&vc=195278&title=ملاقات&time=2012-11-01T22:08:41Z&crowd=Bob,Puttin&geo=54.4567,36.1234";
-var xhttp = new XMLHttpRequest();
-xhttp.onreadystatechange = function() {
-if (this.readyState == 4 && this.status == 200) {
-
-  alert(this.response);
-  
-}    
-};
-
-xhttp.open("POST", "https://guarded-castle-67026.herokuapp.com/SetMeeting?"+data, true);
-//xhttp.setRequestHeader("Content-type", "multipart/form-data");
-xhttp.send();
+//var data="id=5cc06283f318f500048e7bc5&vc=195278&title=ملاقات&time=2012-11-01T22:08:41Z&crowd=Bob,Puttin&geo=54.4567,36.1234";
+//var xhttp = new XMLHttpRequest();
+//xhttp.onreadystatechange = function() {
+//if (this.readyState == 4 && this.status == 200) {
+//  alert(this.response);
+//  
+//}    
+//};
+//
+//xhttp.open("POST", "https://guarded-castle-67026.herokuapp.com/SetMeeting?"+data, true);
+////xhttp.setRequestHeader("Content-type", "multipart/form-data");
+//xhttp.send();
 
 
 

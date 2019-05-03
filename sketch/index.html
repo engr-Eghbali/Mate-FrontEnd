@@ -128,27 +128,17 @@
     <div id="friendsContainer" style="width:100%;height:86vh;overflow-y: scroll;">
         <div id="Fsearch">
             <button id="FsearchBTN"></button>
-            <input type="text" id="FsearchInput" placeholder="جست و جوی نام کاربری">
+            <input type="text" id="FsearchInput" placeholder="جست و جوی نام کاربری" onfocus="focusToFsearch(this)">
         </div>
 
+        <div id="Slist" style="display:none;"></div>
         <div id="Flist">
-        <div class="friend">
-            <div class="favatar"></div>
-            <div class="fname">user</div>
-            <div class="cancelBTN"></div>
-        </div>
-
-        <div class="friend">
-            <div class="favatar"></div>
-            <div class="fname">user</div>
-            <div class="cancelBTN"></div>
-        </div>
-
-        <div class="friend">
-            <div class="favatar"></div>
-            <div class="fname">user</div>
-            <div class="cancelBTN"></div>
-        </div>
+     
+            <div class="friend">
+                <div class="favatar"></div>
+                <div class="fname">user</div>
+                <div class="cancelBTN" onclick="unfriend(this)"></div>
+            </div>
 
     </div>
     </div>
