@@ -1006,6 +1006,59 @@ function fSearch(Query){
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+function frequest(account){
+
+    
+    name=account.previousElementSibling.innerHTML;
+
+    if(info=storageRetrieve("MateUserInfo")){
+
+        var data="id="+info.id+"&vc="+info.vc+"&frequest="+name;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                
+                if(this.response=="sent befor"){
+                    alert("درخواست شما قبلا ثبت شده");
+                    document.getElementById("updateFriendsBTN").classList.remove("spining");
+                    return
+                }
+                if(this.response==0){
+                    alert("کاربر یافت نشد");
+                    document.getElementById("updateFriendsBTN").classList.remove("spining");
+                    return
+                }
+                if(this.response==-1){
+                    alert("bad request:7");
+                    localStorage.removeItem("MateUserInfo");
+                    return
+                }
+
+                if(this.response==1){
+                    document.getElementById("updateFriendsBTN").classList.remove("spining");
+                    account.style.backgroundImage="url('./assets/img/clock.svg')";
+                    return
+
+                }
+
+            }else{
+                document.getElementById("updateFriendsBTN").classList.add("spining");
+            }    
+        };
+
+        xhttp.open("POST", "https://guarded-castle-67026.herokuapp.com/Frequest?"+data, true);
+       //xhttp.setRequestHeader("Content-type", "multipart/form-data");
+       xhttp.send();
+
+
+    }else{
+        
+        //handle not found
+
+    }
+
+}
+
 //localStorage.removeItem("MateUserInfo");
 
 //set a meeting record
