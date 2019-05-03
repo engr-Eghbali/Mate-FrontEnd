@@ -972,7 +972,7 @@ function fSearch(Query){
                 if(this.response.length>5){
 
                     element=JSON.parse(this.response);
-                    divisions+= "<div class=\"friend\"><div class=\"favatar\" style=\"background-image:url('"+element.Avatar+"') \"></div><div class=\"fname\">"+element.Name+"</div><div class=\"cancelBTN\" style=\"background-image:url('./assets/img/tick.svg');\" onclick=\"makeConfirm(' برای "+element.Name+" درخواست دوستی ارسال شود؟',frequest,this)\"></div></div>";
+                    divisions+= "<div class=\"friend\"><div class=\"favatar\" style=\"background-image:url('"+element.Avatar+"') \"></div><div class=\"fname\">"+element.Name+"</div><div class=\"cancelBTN\" style=\"background-image:url('./assets/img/addUser.svg');\" onclick=\"makeConfirm(' برای "+element.Name+" درخواست دوستی ارسال شود؟',frequest,this)\"></div></div>";
                     document.getElementById("Slist").innerHTML=divisions;
                     document.getElementById("updateFriendsBTN").classList.remove("spining");
                     return;
@@ -1018,7 +1018,7 @@ function frequest(account){
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 
-                if(this.response=="sent befor"){
+                if(this.response==2){
                     alert("درخواست شما قبلا ثبت شده");
                     document.getElementById("updateFriendsBTN").classList.remove("spining");
                     return
