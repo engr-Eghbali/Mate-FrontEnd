@@ -413,6 +413,9 @@ function uploadAvatar(avatar){
 function closeMenu(elemID){
     document.getElementById(elemID).style.right="-100vh";
     setTimeout(function(elemID){document.getElementById(elemID).style.display="none";},1000,elemID);
+    
+    if(elemID=="auxiliaryMap")
+    document.getElementById("map2").innerHTML=null;
     return;
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -425,13 +428,21 @@ function openMenu(elemID){
         break;
 
         case "scheduleMenu":
-        loadMeetings();
+        loadPage("scheduleMenu");
         retrieveMeetingsList();
         break;
 
         case "friendsMenu":
-        loadFriends();
+        loadPage("friendsMenu");
         //retrieveFriendsList()
+        break;
+
+        case "pendingsMenu":
+        loadPage("pendingsMenu");
+        break;
+
+        case "auxiliaryMap":
+        loadAUXmap();
         break;
         
         default:
@@ -619,7 +630,6 @@ function leaveMeeting(element){
                 element.nextElementSibling.nextElementSibling.nextElementSibling.style.display="none";
                 setTimeout(function(){element.parentNode.remove()},190);
                 localStorage.setItem("MateMeetingsInfo",this.response);
-                //loadMeetings();
                 document.getElementById("updateMeetingsBTN").classList.remove("spining");
                 return;
 
@@ -685,7 +695,7 @@ function retrieveMeetingsList(){
              }else{
                  
                  localStorage.setItem("MateMeetingsInfo",this.response);
-                 loadMeetings();
+                 loadPage("scheduleMenu");
                  document.getElementById("updateMeetingsBTN").classList.remove("spining");
                  return;
              }
@@ -709,32 +719,6 @@ function retrieveMeetingsList(){
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-///////////load meetings and map to page elements
-function loadMeetings(){
-    if(meetingsList=storageRetrieve("MateMeetingsInfo")){
-
-        var divisions='';
-        meetingsList.forEach(element => {
-
-            divisions+="<div class=\"event\"><button class=\"cancelBTN\" onclick=\"makeConfirm('آیا مایل به حذف قرار هستید؟',leaveMeeting,this)\"></button><div style=\"display:none\">"+element.Geo.X+","+element.Geo.Y+"</div><div style=\"display:none\">"+element.Crowd+"</div><div class=\"titleEvent\">"+element.Title+"</div><div class=\"hostEvent\">  دعوت شده از طرف "+element.Host+"</div><div class=\"timeEvent\">"+element.Time.substring(12,19)+"</div><div class=\"dateEvent\">"+element.Time.substring(0,10)+"</div></div>";
-            
-        });
-
-        if(divisions.length>10){
-            document.getElementById("eventContainer").innerHTML=divisions;
-        }
-
-
-
-    }else{
-
-        ////handle info not found 
-
-    }
-}
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //////confirm generator
 function makeConfirm(msg,func,arg){
@@ -780,7 +764,7 @@ function retrieveFriendsList(){
              }else{
                  
                  localStorage.setItem("MateFriendsInfo",this.response);
-                 loadFriends();
+                 loadPage("friendsMenu");
                  document.getElementById("updateFriendsBTN").classList.remove("spining");
                  return;
              }
@@ -805,32 +789,7 @@ function retrieveFriendsList(){
 
 }
 ////////////////////////////////////////////////////////////
-//////load friends list an
-function loadFriends(){
 
-    if(friends=storageRetrieve("MateFriendsInfo")){
-
-        var divisions='';
-        friends.forEach(element => {
-
-            divisions+= "<div class=\"friend\"><div class=\"favatar\" style=\"backgrond-image:url('"+element.Avatar+"') \"></div><div class=\"fname\">"+element.Name+"</div><div class=\"cancelBTN\" onclick=\"makeConfirm(' مایل به حذف "+element.Name+" هستید؟',unfriend,this)\"></div></div>";
-            
-        });
-
-        if(divisions.length>10){
-            document.getElementById("Flist").innerHTML=divisions;
-        }
-
-
-
-    }else{
-        ///handle not found
-    }
-
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ///////////asks for unfriend someone
 
@@ -871,7 +830,6 @@ function unfriend(el){
                     }
 
                     localStorage.setItem("MateFriendsInfo",Flist);
-                    //loadFriends();
                     document.getElementById("updateFriendsBTN").classList.remove("spining");
 
                 }else{
@@ -942,7 +900,7 @@ function fSearch(Query){
             var divisions='';
             friends.forEach(f=>{
                 if(f.Name==Query){
-                    divisions+= "<div class=\"friend\"><div class=\"favatar\" style=\"backgrond-image:url('"+f.Avatar+"') \"></div><div class=\"fname\">"+f.Name+"</div><div class=\"cancelBTN\" onclick=\"makeConfirm(' مایل به حذف "+f.Name+" هستید؟',unfriend,this)\"></div></div>";
+                    divisions+= "<div class=\"friend\"><div class=\"favatar\" style=\"background-image:url('"+f.Avatar+"') \"></div><div class=\"fname\">"+f.Name+"</div><div class=\"cancelBTN\" onclick=\"makeConfirm(' مایل به حذف "+f.Name+" هستید؟',unfriend,this)\"></div></div>";
                     document.getElementById("Slist").innerHTML=divisions;
                     document.getElementById("updateFriendsBTN").classList.remove("spining");
                     return;
@@ -1058,6 +1016,229 @@ function frequest(account){
     }
 
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function loadPage(id){
+    switch(id){
+
+        case "scheduleMenu":
+
+            if(meetingsList=storageRetrieve("MateMeetingsInfo")){
+
+                var divisions='';
+                meetingsList.forEach(element => {
+    
+                    divisions+="<div class=\"event\"><button class=\"cancelBTN\" onclick=\"makeConfirm('آیا مایل به حذف قرار هستید؟',leaveMeeting,this)\"></button><div style=\"display:none\">"+element.Geo.X+","+element.Geo.Y+"</div><div style=\"display:none\">"+element.Crowd+"</div><div class=\"titleEvent\">"+element.Title+"</div><div class=\"hostEvent\">  دعوت شده از طرف "+element.Host+"</div><div class=\"timeEvent\">"+element.Time.substring(12,19)+"</div><div class=\"dateEvent\">"+element.Time.substring(0,10)+"</div></div>";
+                
+                });
+    
+                if(divisions.length>10){
+                     document.getElementById("eventContainer").innerHTML=divisions;
+                }
+            }    
+    
+        break;
+
+        case "friendsMenu":
+
+            if(friends=storageRetrieve("MateFriendsInfo")){
+
+                var divisions='';
+                friends.forEach(element => {
+    
+                    divisions+= "<div class=\"friend\"><div class=\"favatar\" style=\"background-image:url('"+element.Avatar+"')\" onclick=\"panToFriend(this)\" ></div><div class=\"fname\">"+element.Name+"</div><div class=\"cancelBTN\" onclick=\"makeConfirm(' مایل به حذف "+element.Name+" هستید؟',unfriend,this)\"></div></div>";
+                
+                });
+    
+                if(divisions.length>10){
+                    document.getElementById("Flist").innerHTML=divisions;
+                }
+            }
+
+        break;
+
+        case "pendingsMenu":
+             
+            retrievePendingsList();
+
+        break;
+
+        default:
+        return;
+
+    }
+}
+///////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////
+
+////////fetch pending requests from server
+
+function retrievePendingsList(){
+
+    if(info=storageRetrieve("MateUserInfo")){
+
+        var data="id="+info.id+"&vc="+info.vc;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+                 if(this.response==0 || this.response.length<10){
+                    document.getElementById("Reqlist").innerHTML="<div id=\"req404\">در حال حاضر درخواستی وجود ندارد.</div>";
+                    document.getElementById("updatePendingsBTN").classList.remove("spining");
+                      
+                 }else{
+
+                    list=JSON.parse(this.response);
+                    var divisions='';
+                    list.forEach(element => {
+        
+                        divisions+= "<div class=\"friend\"><div class=\"favatar\" style=\"background-image:url('"+element.SenderPic+"')\"></div><div class=\"fname\">"+element.SenderName+"</div> <div class=\"confirmBTN\" onclick=\"makeConfirm(' "+element.SenderName+" به لیست دوستان اضافه شود؟',accFrequest,this)\"></div> <div class=\"cancelBTN\" onclick=\"makeConfirm(' مایل به حذف "+element.SenderName+" هستید؟',denyFrequest,this)\"></div></div>";
+                    
+                    });
+                    document.getElementById("Reqlist").innerHTML=divisions;
+                    document.getElementById("updatePendingsBTN").classList.remove("spining");
+
+                 }
+  
+        }else{
+            document.getElementById("updatePendingsBTN").classList.add("spining");
+            document.getElementById("Reqlist").innerHTML="<div id=\"req404\">در حال بروز رسانی...</div>";
+        }   
+        };
+
+        xhttp.open("POST", "https://guarded-castle-67026.herokuapp.com/ReqPendingReqs?"+data, true);
+        //xhttp.setRequestHeader("Content-type", "multipart/form-data");
+        xhttp.send();
+
+
+    }else{
+
+        //handle not found
+
+    }
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/////accept recieved frequest
+function accFrequest(el){
+
+    name=el.previousElementSibling.innerHTML;
+    if(info=storageRetrieve("MateUserInfo")){
+
+        var data="id="+info.id+"&vc="+info.vc+"&fname="+name;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                
+                if(this.response==0){
+                    setTimeout(accFrequest,10000,el);
+                    return
+
+                }
+                if(this.response==-1){
+                    localStorage.removeItem("MateUserInfo");
+                    alert("bad request:7");
+                    return;
+                }
+                if(this.response==1){
+
+                    el.parentElement.style.height="0vh";
+                    el.parentElement.remove();
+                    document.getElementById("updatePendingsBTN").classList.remove("spining");
+                    retrieveFriendsList();
+                    return
+
+                }else{
+                    alert("Request failed,try again");
+                    document.getElementById("updatePendingsBTN").classList.remove("spining");
+                    return
+                }
+  
+            }else{
+                document.getElementById("updatePendingsBTN").classList.add("spining");
+            }    
+       };
+
+
+      xhttp.open("POST", "https://guarded-castle-67026.herokuapp.com/AccFrequest?"+data, true);
+      //xhttp.setRequestHeader("Content-type", "multipart/form-data");
+      xhttp.send();
+
+
+    }else{
+
+    }
+
+
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+///////deny recieved frequest
+function denyFrequest(el){
+
+    name=el.previousElementSibling.innerHTML;
+    if(info=storageRetrieve("MateUserInfo")){
+
+        var data="id="+info.id+"&vc="+info.vc+"&target="+name;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                
+                if(this.response==0){
+                    alert("مجددا تلاش کنید");
+                    return
+
+                }
+                if(this.response==-1){
+                    localStorage.removeItem("MateUserInfo");
+                    alert("bad request:7");
+                    return;
+                }
+                if(this.response==1){
+
+                    el.parentElement.style.height="0vh";
+                    el.parentElement.remove();
+                    document.getElementById("updatePendingsBTN").classList.remove("spining");
+                    loadPage("pendingsMenu");
+                    return
+
+                }else{
+                    alert("Request failed,try again");
+                    document.getElementById("updatePendingsBTN").classList.remove("spining");
+                    return
+                }
+  
+            }else{
+                document.getElementById("updatePendingsBTN").classList.add("spining");
+            }    
+       };
+
+
+      xhttp.open("POST", "https://guarded-castle-67026.herokuapp.com/DenyFrequest?"+data, true);
+      //xhttp.setRequestHeader("Content-type", "multipart/form-data");
+      xhttp.send();
+
+
+    }else{
+
+    }
+
+
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+//////panTo user location in map and show info's
+function panToFriend(el){
+
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
 //localStorage.removeItem("MateUserInfo");
 

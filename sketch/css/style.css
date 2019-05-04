@@ -490,6 +490,24 @@ input:focus {
 
 }
 
+.confirmBTN{
+    
+    float: right;
+    margin-right: 2%;
+    margin-top: 2%;
+    width: 8%;
+    height: 20%;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    padding: 0;
+    background-image: url('../assets/img/tick.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+
+}
+
 
 .navbar{
     width: 92%;
@@ -751,6 +769,46 @@ input:focus {
     color: #4d4d4d;
     padding-top: 4vh;
     direction: rtl;
+}
+
+#req404{
+    text-align: center;
+    font-family: "medium";
+    color: #999;
+    margin-top: 16vh;
+    font-weight: 600;
+    direction: rtl;
+}
+
+#Reqlist{
+    margin-top: 4vh;
+}
+
+.friend > .confirmBTN{
+    margin-top: 8%;
+    width: 5vh;
+    height: 5vh;
+}
+
+#pendingsMenu{
+    right: -100vh;
+    display: none;
+    transition: right 0.5s cubic-bezier(0.5, -0.4, 0.5, 1.5);
+}
+
+#auxiliaryMap{
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    z-index: 999;
+    display: none;
+    right: -100vh;
+    transition: right 0.5s cubic-bezier(0.5, -0.4, 0.5, 1.5);
+}
+
+#map2{
+    width: 100%;
+    height: 90vh;
 }
 /********************************************************/
 

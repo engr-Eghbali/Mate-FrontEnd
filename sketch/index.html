@@ -30,8 +30,8 @@
     <button id="profileBTN" class="sideBTN" onclick="openMenu('profileMenu')"></button>
     <button id="upcomingBTN" class="sideBTN" onclick="openMenu('scheduleMenu')"></button>
     <button id="friendBTN" class="sideBTN" onclick="openMenu('friendsMenu')"></button>
-    <button id="pendingReqBTN" class="sideBTN"></button>
-    <button id="setMeetingBTN" class="sideBTN"></button>
+    <button id="pendingReqBTN" class="sideBTN" onclick="openMenu('pendingsMenu')"></button>
+    <button id="setMeetingBTN" class="sideBTN" onclick="openMenu('auxiliaryMap')"></button>
     <button id="fullScrBTN" class="sideBTN" onclick="ToggleMenu()"></button>
 
 </div>
@@ -145,6 +145,25 @@
 
 </div>
 
+<!---->
+
+<div id="pendingsMenu" class="menu">
+        <div class="navbar" ><div onclick="closeMenu('pendingsMenu')"><p> درخواست ها</p> <i class="fas fa-caret-left"></i></div><button id="updatePendingsBTN" class="refreshBTN" onclick="retrievePendingsList()"><i class="fas fa-undo"></i></button></div>
+        <div id="Reqlist"></div>
+</div>
+
+<!---->
+
+<div id="auxiliaryMap">
+
+    <div id="map2"></div>
+
+    <div class="saveANDdiscard">
+            <button class="YNButton" style="border-right: 1px solid #a5a3be;" onclick="closeMenu('auxiliaryMap')">انصراف</button>
+            <button class="YNButton" onclick="getChoosedLocation()" >ثبت قرار</button>
+        </div>
+    
+</div>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-74bxG6QQ9r83svnnZumBCg4FfE78Ujc&callback=initMap">
     </script> 
