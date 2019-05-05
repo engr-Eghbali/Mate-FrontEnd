@@ -10,7 +10,8 @@
         <meta name="HandheldFriendly" content="True">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/solid.css" integrity="sha384-QokYePQSOwpBDuhlHOsX0ymF6R/vLk/UQVz3WHa6wygxI5oGTmDTv8wahFOSspdm" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/fontawesome.css" integrity="sha384-vd1e11sR28tEK9YANUtpIOdjGW14pS87bUBuOIoBILVWLFnS+MCX9T6MMf0VdPGq" crossorigin="anonymous">
         <link href="./css/style.css" rel="stylesheet">
         <script type="text/javascript" src="cordova.js"></script>
         <script src="./js/navigation.js"></script>
@@ -28,9 +29,9 @@
 <div id="sideBar">
     <button id="profileBTN" class="sideBTN" onclick="openMenu('profileMenu')"></button>
     <button id="upcomingBTN" class="sideBTN" onclick="openMenu('scheduleMenu')"></button>
-    <button id="friendBTN" class="sideBTN"></button>
-    <button id="pendingReqBTN" class="sideBTN"></button>
-    <button id="setMeetingBTN" class="sideBTN"></button>
+    <button id="friendBTN" class="sideBTN" onclick="openMenu('friendsMenu')"></button>
+    <button id="pendingReqBTN" class="sideBTN" onclick="openMenu('pendingsMenu')"></button>
+    <button id="setMeetingBTN" class="sideBTN" onclick="openMenu('auxiliaryMap')"></button>
     <button id="fullScrBTN" class="sideBTN" onclick="ToggleMenu()"></button>
 
 </div>
@@ -80,7 +81,17 @@
 
 </div>
 <!-- -->
+<div id="popupPage">
+    <div class="msgBox">
+        <div id="msg">آیا مایل هستید؟</div>
+        <div class="saveANDdiscard" style="position:relative;">
+                <button id="confirmN" class="YNButton" style="border-right: 1px solid #a5a3be;border-bottom-left-radius: 4vh;" onclick="closePopup()">انصراف</button>
+                <button id="confirmY" class="YNButton" style="border-bottom-right-radius: 4vh;" >بلی</button>
+            </div>
+    </div>
 
+</div>
+<!---->
 <div id="profileMenu" class="menu">
     <div style="width:70%;margin-left:15%;margin-top:5vh;text-align:center;">
         <button id="chooseAvatar" onclick="choosedAvatar()"></button>
@@ -98,7 +109,7 @@
 
     <div class="saveANDdiscard">
         <button class="YNButton" style="border-right: 1px solid #a5a3be;" onclick="closeMenu('profileMenu')">انصراف</button>
-        <button class="YNButton" >ذخیره</button>
+        <button class="YNButton" onclick="saveProfileChanges()" >ذخیره</button>
     </div>
 
 </div>
@@ -106,63 +117,89 @@
 <!---->
 
 <div id="scheduleMenu" class="menu">
-    <div class="navbar" onclick="closeMenu('scheduleMenu')"><p> لیست قرارها</p> <i class="fas fa-caret-left"></i></div>
-
-    <div id="eventContainer" style="width:100%;height:86vh;overflow-y: scroll;">
-    
-        <div class="event">
-            <button class="cancelBTN"></button>
-            <div class="titleEvent">نمونه یک قرار</div>
-            <div class="hostEvent">دعوت کننده: کاربر۱</div>
-            <div class="timeEvent">22:00</div>
-            <div class="dateEvent">23/04/98</div>
-        </div>
-
-        <div class="event">
-                <button class="cancelBTN"></button>
-                <div class="titleEvent">نمونه یک قرار</div>
-                <div class="hostEvent">دعوت کننده: کاربر۱</div>
-                <div class="timeEvent">22:00</div>
-                <div class="dateEvent">23/04/98</div>
-            </div>
-
-            <div class="event">
-                    <button class="cancelBTN"></button>
-                    <div class="titleEvent">نمونه یک قرار</div>
-                    <div class="hostEvent">دعوت کننده: کاربر۱</div>
-                    <div class="timeEvent">22:00</div>
-                    <div class="dateEvent">23/04/98</div>
-                </div>
-
-                <div class="event">
-                        <button class="cancelBTN"></button>
-                        <div class="titleEvent">نمونه یک قرار</div>
-                        <div class="hostEvent">دعوت کننده: کاربر۱</div>
-                        <div class="timeEvent">22:00</div>
-                        <div class="dateEvent">23/04/98</div>
-                    </div>
-
-                    <div class="event">
-                            <button class="cancelBTN"></button>
-                            <div class="titleEvent">نمونه یک قرار</div>
-                            <div class="hostEvent">دعوت کننده: کاربر۱</div>
-                            <div class="timeEvent">22:00</div>
-                            <div class="dateEvent">23/04/98</div>
-                        </div>
-
-                        <div class="event">
-                                <button class="cancelBTN"></button>
-                                <div class="titleEvent">نمونه یک قرار</div>
-                                <div class="hostEvent">دعوت کننده: کاربر۱</div>
-                                <div class="timeEvent">22:00</div>
-                                <div class="dateEvent">23/04/98</div>
-                            </div>
-                    
-    </div>
+    <div class="navbar" ><div onclick="closeMenu('scheduleMenu')"><p> لیست قرارها</p> <i class="fas fa-caret-left"></i></div><button id="updateMeetingsBTN" class="refreshBTN" onclick="retrieveMeetingsList()"><i class="fas fa-undo"></i></button></div>
+    <div id="eventContainer" style="width:100%;height:86vh;overflow-y: scroll;"></div>
 </div>
 
+<!---->
+
+<div id="friendsMenu" class="menu">
+    <div class="navbar" ><div onclick="closeMenu('friendsMenu')"><p> دوستان</p> <i class="fas fa-caret-left"></i></div><button id="updateFriendsBTN" class="refreshBTN" onclick="retrieveFriendsList()"><i class="fas fa-undo"></i></button></div>
+    <div id="friendsContainer" style="width:100%;height:86vh;overflow-y: scroll;">
+        <div id="Fsearch">
+            <button id="FsearchBTN"></button>
+            <input type="text" id="FsearchInput" placeholder="جست و جوی نام کاربری" onfocus="focusToFsearch(this)">
+        </div>
+
+        <div id="Slist" style="display:none;"></div>
+        <div id="Flist">
+     
+            <div class="friend">
+                <div class="favatar"></div>
+                <div class="fname">user</div>
+                <div class="cancelBTN" onclick="unfriend(this)"></div>
+            </div>
+
+    </div>
+    </div>
+
+</div>
+
+<!---->
+
+<div id="pendingsMenu" class="menu">
+        <div class="navbar" ><div onclick="closeMenu('pendingsMenu')"><p> درخواست ها</p> <i class="fas fa-caret-left"></i></div><button id="updatePendingsBTN" class="refreshBTN" onclick="retrievePendingsList()"><i class="fas fa-undo"></i></button></div>
+        <div id="Reqlist"></div>
+</div>
+
+<!---->
+
+<div id="auxiliaryMap">
+
+    <div id="map2"></div>
+
+    <div class="saveANDdiscard">
+            <button class="YNButton" style="border-right: 1px solid #a5a3be;" onclick="closeMenu('auxiliaryMap')">انصراف</button>
+            <button class="YNButton" onclick="loadMeetingForm()" >ثبت قرار</button>
+        </div>
+    
+</div>
+
+<!---->
+
+<div id="AddMeetingMenu" class="menu">
+
+    <div id="addMeetingForm">
+
+        <input id="meetingTitle" type="text" maxlength="36" class="formInput" placeholder="عنوان قرار" required>
+        <div style="width:80%;height:2px;background-color:#808080;margin-top: 11vh;margin-bottom: 2vh;margin-right: 10%;"></div>
+
+        <div class="meetIcon" style="background-image:url('./assets/img/calendar.svg')"></div>
+        <input id="meetingDate" class="formInput" type="date" value="تاریخ">
+        <div class="meetIcon" style="background-image:url('./assets/img/clock.svg')"></div>
+        <input id="meetingTime" class="formInput" type="time" value="ساعت">
+        <div class="meetIcon" style="background-image:url('./assets/img/mapMarker.svg')"></div>
+        <div id="meetingAddress" class="formInput" >آدرس</div>
+        <div class="meetIcon" style="background-image:url('./assets/img/addUser.svg')"></div>
+        <button id="meetingMembers">اضافه کردن دوستان</button>
+        <div id="meetingFlist"></div>
+
+        <div id="meetingCHBX">
+            <input type="checkbox" style="margin-right:4vh;" id="notifyByMail">اطلاع رسانی با ایمیل<br>
+            <input type="checkbox" style="margin-right:4vh;" id="notifyBySms">اطلاع رسانی با پیامک<br>
+        </div>
+
+
+        <div class="saveANDdiscard" style="position: fixed;margin-top: 55vh;width: 80%;bottom: unset;">
+            <button class="YNButton" style="border-right: 1px solid #a5a3be;border-bottom-left-radius: 4vh;" onclick="closeMenu('AddMeetingMenu')">انصراف</button>
+            <button class="YNButton" style="border-bottom-right-radius:4vh;" onclick="setMeeting()" >ثبت قرار</button>
+        </div>
+        
+    </div>
+
+</div>
     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-74bxG6QQ9r83svnnZumBCg4FfE78Ujc&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-74bxG6QQ9r83svnnZumBCg4FfE78Ujc&language=fa&callback=initMap">
     </script> 
 </body>
 </html>

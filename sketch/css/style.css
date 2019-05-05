@@ -824,9 +824,10 @@ input:focus {
 #meetingTitle{
     color: #808080;
     margin-top: 2vh;
-    width: 74% !important;
+    width: 80% !important;
+    padding: 0 !important;
     margin-left: 10% !important;
-    text-align: center;
+    text-align: center !important;
 }
 
 #addMeetingForm > .formInput{
@@ -834,10 +835,12 @@ input:focus {
     width: 56%;
     margin-right: 10%;
     float: right;
+    position: relative;
     margin-bottom: 1vh;
     margin-left: 2%;
     text-align: left;
     padding-left: 4%;
+    color: #808080;
 }
 
 .meetIcon{
@@ -876,6 +879,11 @@ input:focus {
     float: right;
     margin-right: 10%;
     overflow-y: scroll;
+    direction: ltr;
+    color: #666;
+    font-weight: 600;
+    font-family: "medium";
+    font-style: italic;
 }
 
 #meetingCHBX{
@@ -888,6 +896,51 @@ input:focus {
     margin-top: 1vh;
     font-family: "medium";
     direction: initial;
+}
+
+#meetingAddress{
+    overflow-y: auto;
+    font-size: 1.8vh;
+    
+    direction: rtl;
+    color: #4d4d4d;
+}
+
+
+.maskInput{
+
+    text-align: left;
+    width: 53%;
+    margin-left: 35%;
+    height: 6vh;
+    margin-top: 3vh;
+    position: fixed;
+    font-family: "medium";
+    color: #808080;
+    font-weight: 600;
+    z-index: 0;
+}
+
+#contactList{
+    width: 80%;
+    height: 68vh;
+    margin-left: 10%;
+    padding: 0;
+    position: fixed;
+    display: none;   
+    z-index: 9;
+    background-color: #fff;
+    border-radius: 4vh;
+}
+
+#contactList > .friend{
+    margin-right: 4%;
+    border-radius: 2vh;
+    height: 12.5;
+}
+
+.blueBackground{
+    background-color: #29abe2;
 }
 /********************************************************/
 

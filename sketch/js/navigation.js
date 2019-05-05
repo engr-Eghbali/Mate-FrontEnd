@@ -111,7 +111,7 @@ function initMap() {
 
     map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: parseFloat(currentGeo.lat), lng: parseFloat(currentGeo.lng)},
-      zoom: 13,
+      zoom: 14,
       disableDefaultUI: true,
       mapTypeControlOptions:{
         mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain',
@@ -343,6 +343,7 @@ function loadAUXmap(){
 
       google.maps.event.addListenerOnce(map2, 'idle', function(){
         map2.panTo(currentGeo);
+        lastChoosedPlace=currentGeo;
         InputMarker = new google.maps.Marker({
             position: {lat: parseFloat(currentGeo.lat), lng: parseFloat(currentGeo.lng)},
             map: map2,
@@ -387,3 +388,37 @@ function loadAUXmap(){
     
 
 }
+////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+
+////////get formated address of geolocation
+function geoCoder(geoLocation){
+    var formatedAdd; 
+  if(!geoLocation){
+        geoLocation=lastChoosedPlace;
+    }
+    var geocoder = new google.maps.Geocoder;
+    var latlng = new google.maps.LatLng(geoLocation.lat,geoLocation.lng);
+  
+    geocoder.geocode({'latLng': latlng}, function(results, status) {
+        if(status == google.maps.GeocoderStatus.OK) {
+           
+            if(results[0]) {
+                formatedAdd= results[0].formatted_address;
+                ////////bad idea...handle this sit
+                document.getElementById("meetingAddress").innerHTML=formatedAdd;
+                
+            } else {
+              formatedAdd= "آدرسی برای این مکان ثبت نشده";
+            }
+        } else {
+            // alert('Geocoder failed due to: ' + status);
+            formatedAdd= "دسترسی به مکان یاب را فعال کنید";
+        }
+        
+    });
+   
+}
+//////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////
+

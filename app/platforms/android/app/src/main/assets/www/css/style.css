@@ -31,7 +31,7 @@ body{
 }
 #profileBTN{
    
-    background-image: url("../assets/img/profile\ avatar.svg");
+    background-image: url("../assets/img/profileAvatar.svg");
     background-size: 100%;
     margin-top: 2vh;
 
@@ -343,7 +343,10 @@ input:focus {
     padding: 0;
     z-index: 99;
     background-color: #eeeeee;
-    display: block;
+    display: none;
+    right: -100vh;
+    transition: right 0.5s cubic-bezier(0.5, -0.4, 0.5, 1.5);
+
 }
 
 .saveANDdiscard{
@@ -363,6 +366,7 @@ input:focus {
     font-family: "medium";
     font-size: 3vh;
     float: left;
+    outline: none;
 }
 
 .formInput{
@@ -489,6 +493,24 @@ input:focus {
 
 }
 
+.confirmBTN{
+    
+    float: right;
+    margin-right: 2%;
+    margin-top: 2%;
+    width: 8%;
+    height: 20%;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    padding: 0;
+    background-image: url('../assets/img/tick.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+
+}
+
 
 .navbar{
     width: 92%;
@@ -522,6 +544,12 @@ input:focus {
     margin-top: 2vh;
     border: 2px solid #666666;
     border-radius: 10px;
+ 
+    -webkit-transition-property: height; /* Safari */
+    -webkit-transition-duration: 0.2s; /* Safari */
+    transition-property: height;
+    transition-duration: 0.2s;
+
 }
 
 
@@ -573,8 +601,338 @@ input:focus {
     text-align: right;
 }
 
-#scheduleMenu{
-    right: -100vh;
+
+.refreshBTN{
+    height: 6vh;
+    width: 15%;
+    border: none;
+    background-color: transparent;
+    margin-right: 2%;
+    float: right;
+    padding: 0;
+    margin-top: -8vh;
+    outline: none;
+    color: #4d4d4d;
+}
+
+.refreshBTN i{
+    font-size: 4vh;
+}
+
+#Meeting404{
+    text-align: center;
+    width: 100%;
+    font-size: 3vh;
+    font-family: "bold";
+    direction: rtl;
+    color: #4d4d4d;
+    margin-top: 60%;
+}
+
+
+#Fsearch{
+    width: 90%;
+    height: 8vh;
+    margin-left: 5%;
+    padding-bottom: 1%;
+    text-align: center;
+    direction: rtl;
+    border-bottom: 1px solid #999;
+}
+
+#FsearchBTN{
+
+    padding: 0;
+    width: 14%;
+    height: 38px;
+    float: left;
+    margin-top: 2%;
+    border: 1px solid #999;
+    background-color: white;
+    border-bottom-left-radius: 3vh;
+    border-top-left-radius: 3vh;
+    border-right-color: white;
+    outline: none;
+    background-image: url('../assets/img/search.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 60%;
+}
+#FsearchInput{
+    padding: 0;
+    border: 1px solid #999;
+    width: 85%;
+    height: 36px;
+    float: left;
+    margin-top: 2%;
+    border-top-right-radius: 3vh;
+    border-bottom-right-radius: 3vh;
+    border-left-color: white;
+    text-align: center;
+    color: #4d4d4d;
+    font-family: "medium";
+    font-size: 3vh;
+    outline: none;
+
+}
+
+#Friend404{
+    direction: rtl;
+    text-align: center;
+    margin-top: 8vh;
+    color: #4d4d4d;
+    font-family: "medium";
+}
+/******************/
+
+.friend{
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 4%;
+    height: 12vh;
+
+    -webkit-transition-property: height; /* Safari */
+    -webkit-transition-duration: 0.2s; /* Safari */
+    transition-property: height;
+    transition-duration: 0.2s;
+
+}
+.favatar{
+    width: 12vh;
+    height: 12vh;
+    border-radius: 100%;
+    float: left;
+    background-image: url('../assets/img/boy.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 1px solid #29abe2;
+
+}
+.fname{
+    position: fixed;
+    width: 40%;
+    margin-left: 30%;
+    height: 9vh;
+    margin-top: 3vh;
+    font-family: "medium";
+    font-size: 4vh;
+    color: #4d4d4d;
+}
+.friend > .cancelBTN{
+    margin-top: 8%;
+    width: 5vh;
+    height: 5vh;
+}
+
+#search404{
+    text-align: center;
+    font-family: "medium";
+    margin-top: 8%;
+    direction: rtl;
+    color: #4d4d4d;
+}
+
+
+#popupPage{
+    position: fixed;
+    z-index: 999;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(238, 238, 238, 0.8);
     display: none;
+}
+
+.msgBox{
+    width: 80%;
+    height: 24vh;
+    background-color: #e6e6e6;
+    border-radius: 4vh;
+    margin-top: 35vh;
+    margin-left: 10%;
+    border: 2px solid #808080;
+}
+
+#msg{
+    height: 10vh;
+    text-align: center;
+    font-size: 3vh;
+    font-family: "medium";
+    font-weight: 600;
+    color: #4d4d4d;
+    padding-top: 4vh;
+    direction: rtl;
+}
+
+#req404{
+    text-align: center;
+    font-family: "medium";
+    color: #999;
+    margin-top: 16vh;
+    font-weight: 600;
+    direction: rtl;
+}
+
+#Reqlist{
+    margin-top: 4vh;
+}
+
+.friend > .confirmBTN{
+    margin-top: 8%;
+    width: 5vh;
+    height: 5vh;
+}
+
+
+#auxiliaryMap{
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    z-index: 999;
+    display: none;
+    right: -100vh;
     transition: right 0.5s cubic-bezier(0.5, -0.4, 0.5, 1.5);
 }
+
+#map2{
+    width: 100%;
+    height: 90vh;
+}
+
+#AddMeetingMenu{
+    background-image: url('../assets/img/meetingBG.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    display: block;
+}
+
+#addMeetingForm{
+    width: 80%;
+    height: 78%;
+    background-color: #fff;
+    margin-left: 10%;
+    margin-top: 12%;
+    border-radius: 4vh;
+    border: 2px solid #1b1464;
+    text-align: left;
+    direction: rtl; 
+    box-shadow: 0px 0px 12px black;
+}
+
+#meetingTitle{
+    color: #808080;
+    margin-top: 2vh;
+    width: 80% !important;
+    padding: 0 !important;
+    margin-left: 10% !important;
+    text-align: center !important;
+}
+
+#addMeetingForm > .formInput{
+    background-color: #fff;
+    width: 56%;
+    margin-right: 10%;
+    float: right;
+    margin-bottom: 1vh;
+    margin-left: 2%;
+    text-align: left;
+    padding-left: 4%;
+    color:#808080;
+}
+
+.meetIcon{
+    width: 15%;
+    height: 6vh;
+    float: left;
+    background-color: transparent;
+    margin-top: 2vh;
+    margin-left: 10%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+#meetingMembers{
+    width: 60%;
+    float: right;
+    margin-right: 10%;
+    margin-top: 2vh;
+    text-align: left;
+    direction: rtl;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-size: 3vh;
+    font-family: "medium";
+    color: #808080;
+    padding: 0;
+
+}
+
+#meetingFlist{
+    background-color: transparent;
+    width: 60%;
+    height: 11vh;
+    float: right;
+    margin-right: 10%;
+    overflow-y: scroll;
+}
+
+#meetingCHBX{
+    width: 80%;
+    height: 10vh;
+    float: left;
+    margin-left: 15%;
+    text-align: left;
+    color: #808080;
+    margin-top: 1vh;
+    font-family: "medium";
+    direction: initial;
+}
+
+#meetingAddress{
+    overflow-y: auto;
+    font-size: 1.8vh;
+    
+    direction: rtl;
+    color: #4d4d4d;
+}
+/********************************************************/
+
+@-webkit-keyframes spining /* Safari and Chrome */ {
+    from {
+      -webkit-transform: rotate(0deg);
+      -o-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    to {
+      -webkit-transform: rotate(-360deg);
+      -o-transform: rotate(-360deg);
+      transform: rotate(-360deg);
+    }
+  }
+  @keyframes spining {
+    from {
+      -ms-transform: rotate(0deg);
+      -moz-transform: rotate(0deg);
+      -webkit-transform: rotate(0deg);
+      -o-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    to {
+      -ms-transform: rotate(-360deg);
+      -moz-transform: rotate(-360deg);
+      -webkit-transform: rotate(-360deg);
+      -o-transform: rotate(-360deg);
+      transform: rotate(-360deg);
+    }
+  }
+  .spining {
+    -webkit-animation: spining 2s linear infinite;
+    -moz-animation: spining 2s linear infinite;
+    -ms-animation: spining 2s linear infinite;
+    -o-animation: spining 2s linear infinite;
+    animation: spining 2s linear infinite;
+  }

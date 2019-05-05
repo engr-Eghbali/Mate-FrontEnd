@@ -445,6 +445,9 @@ function openMenu(elemID){
         loadAUXmap();
         break;
         
+        case "AddMeetingMenu":
+        break;
+
         default:
         return
     }
@@ -680,7 +683,9 @@ function retrieveMeetingsList(){
     
              if(this.response==-1){
                  localStorage.removeItem("MateMeetingsInfo");
+                 localStorage.removeItem("MateUserInfo");
                  alert("bad request:7");
+                 location.reload();
                  return
              }
              if(this.response==0){
@@ -1064,6 +1069,25 @@ function loadPage(id){
 
         break;
 
+        case "contactList":
+
+        if(friends=storageRetrieve("MateFriendsInfo")){
+
+            var divisions='';
+            friends.forEach(element => {
+
+                divisions+= "<div class=\"friend\" onclick=\"invite(this)\"><div class=\"favatar\" style=\"background-image:url('"+element.Avatar+"')\" ></div><div class=\"fname\">"+element.Name+"</div></div>";
+            
+            });
+
+            if(divisions.length>10){
+                document.getElementById("contactList").innerHTML=divisions;
+            }
+        }
+
+
+
+        break;
         default:
         return;
 
@@ -1231,6 +1255,62 @@ function denyFrequest(el){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+
+////get choosed location,format to address,close auxMap and page to meetingForm
+function loadMeetingForm(){
+    //lastChoosedPlace
+    updateTimeBoard();
+    closeMenu("auxiliaryMap");
+    geoCoder(lastChoosedPlace);
+    openMenu("AddMeetingMenu");
+
+   
+
+
+
+}
+
+////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////
+
+function updateTimeBoard(){
+
+    var date = new Date(document.getElementById("meetingDate").value);
+    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    document.getElementById("timeBoard").innerHTML= date.toLocaleDateString('fa-IR',options);
+    
+}
+
+
+//////////////////////////
+function chooseContact(){
+    document.getElementById("contactList").style.display="block";
+    loadPage("contactList");
+    document.getElementById("saveMeeting").innerHTML="ذخیره";
+    document.getElementById("saveMeeting").setAttribute("onclick","saveInviteList()");
+}
+////////////////
+
+function invite(el){
+    
+    el.classList.toggle("blueBackground");
+    name=el.lastChild.innerHTML;
+     
+    list=document.getElementById("meetingFlist").innerHTML;
+    list+=name+"<br>";
+
+    document.getElementById("meetingFlist").innerHTML=list;
+
+
+
+
+}
+
+//////////////
+///////save invited friends,find thier ids and close contactlist
+function saveInviteList(){
+
+}
 //////panTo user location in map and show info's
 function panToFriend(el){
 
@@ -1258,6 +1338,7 @@ function panToFriend(el){
 
 
 
+// → "12/19/2012"
 
 //beginAuth();
 

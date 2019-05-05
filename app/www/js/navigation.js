@@ -1,9 +1,10 @@
 ///global vars
-var map,CurrentPin;
+var map,CurrentPin,InputMarker,map2;
 var currentGeo ={
     lat: 32.492270, 
     lng: 51.764425
 };
+var lastChoosedPlace;
 /////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////
 
@@ -125,8 +126,9 @@ function initMap() {
     CurrentPin = {
         url: './assets/img/gps.png',
         size: new google.maps.Size(64, 64),
-        origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(0, 48)
+        scaledSize: new google.maps.Size(64, 64), // scaled size
+        origin: new google.maps.Point(0,0), // origin
+        anchor: new google.maps.Point(32, 64) // anchor
       };
 
       google.maps.event.addListenerOnce(map, 'idle', function(){
@@ -214,4 +216,209 @@ function onDeviceReady() {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+////load second-map to get a location from user
+function loadAUXmap(){
+
+    var styledMapType = new google.maps.StyledMapType(
+        [
+            {
+                "featureType": "administrative",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                    {
+                        "color": "#444444"
+                    }
+                ]
+            },
+            {
+                "featureType": "landscape",
+                "elementType": "all",
+                "stylers": [
+                    {
+                        "color": "#f2f2f2"
+                    }
+                ]
+            },
+            {
+                "featureType": "poi",
+                "elementType": "all",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "road",
+                "elementType": "all",
+                "stylers": [
+                    {
+                        "saturation": -100
+                    },
+                    {
+                        "lightness": 45
+                    }
+                ]
+            },
+            {
+                "featureType": "road.highway",
+                "elementType": "all",
+                "stylers": [
+                    {
+                        "visibility": "simplified"
+                    }
+                ]
+            },
+            {
+                "featureType": "road.highway",
+                "elementType": "geometry.fill",
+                "stylers": [
+                    {
+                        "visibility": "on"
+                    },
+                    {
+                        "color": "#b5afff"
+                    }
+                ]
+            },
+            {
+                "featureType": "road.arterial",
+                "elementType": "labels.icon",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "transit",
+                "elementType": "all",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "water",
+                "elementType": "all",
+                "stylers": [
+                    {
+                        "color": "#46bcec"
+                    },
+                    {
+                        "visibility": "on"
+                    }
+                ]
+            }
+        ],
+    {name: 'Styled Map'}
+    );
+
+
+    map2 = new google.maps.Map(document.getElementById('map2'), {
+      center: {lat: parseFloat(currentGeo.lat), lng: parseFloat(currentGeo.lng)},
+      zoom: 13,
+      disableDefaultUI: true,
+      mapTypeControlOptions:{
+        mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain',
+        'styled_map']
+      }
+    });
+
+    map2.mapTypes.set('styled_map', styledMapType);
+    map2.setMapTypeId('styled_map'); 
+
+    //init markers here
+    InputPin = {
+        url: './assets/img/redpin.png',
+        size: new google.maps.Size(64, 64),
+        scaledSize: new google.maps.Size(64, 64), // scaled size
+        origin: new google.maps.Point(0,0), // origin
+        anchor: new google.maps.Point(32, 64) // anchor
+      };
+
+      google.maps.event.addListenerOnce(map2, 'idle', function(){
+        map2.panTo(currentGeo);
+        lastChoosedPlace=currentGeo;
+        InputMarker = new google.maps.Marker({
+            position: {lat: parseFloat(currentGeo.lat), lng: parseFloat(currentGeo.lng)},
+            map: map2,
+            draggable:true,
+            animation: google.maps.Animation.DROP,  
+            icon: InputPin
+        });
+
+        InputMarker.addListener('dragend', function(event){
+            lastChoosedPlace={
+                lat:event.latLng.lat(),
+                lng:event.latLng.lng()
+            }
+        });
+
+        google.maps.event.addListener(map2, 'click', function(event) {
+            lastChoosedPlace={
+                lat:event.latLng.lat(),
+                lng:event.latLng.lng()
+            }
+           
+            InputMarker.setMap(null);
+
+            InputMarker= new google.maps.Marker({
+                position: {lat: parseFloat(lastChoosedPlace.lat), lng: parseFloat(lastChoosedPlace.lng)},
+                map: map2,
+                draggable:true,
+                animation: google.maps.Animation.DROP,  
+                icon: InputPin
+            });
+
+            InputMarker.addListener('dragend', function(event){
+                lastChoosedPlace={
+                    lat:event.latLng.lat(),
+                    lng:event.latLng.lng()
+                }
+            });
+
+        });
+        // do something only the first time the map is loaded
+    });
+    
+
+}
+////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+
+////////get formated address of geolocation
+function geoCoder(geoLocation){
+    var formatedAdd; 
+  if(!geoLocation){
+        geoLocation=lastChoosedPlace;
+    }
+    var geocoder = new google.maps.Geocoder;
+    var latlng = new google.maps.LatLng(geoLocation.lat,geoLocation.lng);
+  
+    geocoder.geocode({'latLng': latlng}, function(results, status) {
+        if(status == google.maps.GeocoderStatus.OK) {
+           
+            if(results[0]) {
+                formatedAdd= results[0].formatted_address;
+                ////////bad idea...handle this sit
+                document.getElementById("meetingAddress").innerHTML=formatedAdd;
+                
+            } else {
+              formatedAdd= "آدرسی برای این مکان ثبت نشده";
+            }
+        } else {
+            // alert('Geocoder failed due to: ' + status);
+            formatedAdd= "دسترسی به مکان یاب را فعال کنید";
+        }
+        
+    });
+   
+}
+//////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////
 
