@@ -415,7 +415,7 @@ function closeMenu(elemID){
     setTimeout(function(elemID){document.getElementById(elemID).style.display="none";},1000,elemID);
     
     if(elemID=="auxiliaryMap")
-    document.getElementById("map2").innerHTML=null;
+    setTimeout(function(){document.getElementById("map2").innerHTML=null},1000);
     return;
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////

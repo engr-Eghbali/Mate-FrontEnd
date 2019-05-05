@@ -164,6 +164,40 @@
         </div>
     
 </div>
+
+<!---->
+
+<div id="AddMeetingMenu" class="menu">
+
+    <div id="addMeetingForm">
+
+        <input id="meetingTitle" type="text" maxlength="36" class="formInput" placeholder="عنوان قرار" required>
+        <div style="width:80%;height:2px;background-color:#808080;margin-top: 11vh;margin-bottom: 2vh;margin-right: 10%;"></div>
+
+        <div class="meetIcon" style="background-image:url('./assets/img/calendar.svg')"></div>
+        <input id="meetingDate" class="formInput" type="date" value="تاریخ">
+        <div class="meetIcon" style="background-image:url('./assets/img/clock.svg')"></div>
+        <input id="meetingTime" class="formInput" type="time" value="ساعت">
+        <div class="meetIcon" style="background-image:url('./assets/img/mapMarker.svg')"></div>
+        <div id="meetingAddress" class="formInput">آدرس</div>
+        <div class="meetIcon" style="background-image:url('./assets/img/addUser.svg')"></div>
+        <button id="meetingMembers">اضافه کردن دوستان</button>
+        <div id="meetingFlist"></div>
+
+        <div id="meetingCHBX">
+            <input type="checkbox" style="margin-right:4vh;" id="notifyByMail">اطلاع رسانی با ایمیل<br>
+            <input type="checkbox" style="margin-right:4vh;" id="notifyBySms">اطلاع رسانی با پیامک<br>
+        </div>
+
+
+        <div class="saveANDdiscard" style="position: fixed;margin-top: 55vh;width: 80%;bottom: unset;">
+            <button class="YNButton" style="border-right: 1px solid #a5a3be;border-bottom-left-radius: 4vh;" onclick="closeMenu('AddMeetingMenu')">انصراف</button>
+            <button class="YNButton" style="border-bottom-right-radius:4vh;" onclick="setMeeting()" >ثبت قرار</button>
+        </div>
+        
+    </div>
+
+</div>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-74bxG6QQ9r83svnnZumBCg4FfE78Ujc&callback=initMap">
     </script> 

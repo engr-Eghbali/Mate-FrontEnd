@@ -344,6 +344,9 @@ input:focus {
     z-index: 99;
     background-color: #eeeeee;
     display: none;
+    right: -100vh;
+    transition: right 0.5s cubic-bezier(0.5, -0.4, 0.5, 1.5);
+
 }
 
 .saveANDdiscard{
@@ -598,11 +601,6 @@ input:focus {
     text-align: right;
 }
 
-#scheduleMenu{
-    right: -100vh;
-    display: none;
-    transition: right 0.5s cubic-bezier(0.5, -0.4, 0.5, 1.5);
-}
 
 .refreshBTN{
     height: 6vh;
@@ -631,11 +629,6 @@ input:focus {
     margin-top: 60%;
 }
 
-#friendsMenu{
-    right: -100vh;
-    display: none;
-    transition: right 0.5s cubic-bezier(0.5, -0.4, 0.5, 1.5);
-}
 
 #Fsearch{
     width: 90%;
@@ -790,11 +783,6 @@ input:focus {
     height: 5vh;
 }
 
-#pendingsMenu{
-    right: -100vh;
-    display: none;
-    transition: right 0.5s cubic-bezier(0.5, -0.4, 0.5, 1.5);
-}
 
 #auxiliaryMap{
     width: 100%;
@@ -809,6 +797,97 @@ input:focus {
 #map2{
     width: 100%;
     height: 90vh;
+}
+
+#AddMeetingMenu{
+    background-image: url('../assets/img/meetingBG.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    display: block;
+}
+
+#addMeetingForm{
+    width: 80%;
+    height: 78%;
+    background-color: #fff;
+    margin-left: 10%;
+    margin-top: 12%;
+    border-radius: 4vh;
+    border: 2px solid #1b1464;
+    text-align: left;
+    direction: rtl; 
+    box-shadow: 0px 0px 12px black;
+}
+
+#meetingTitle{
+    color: #808080;
+    margin-top: 2vh;
+    width: 74% !important;
+    margin-left: 10% !important;
+    text-align: center;
+}
+
+#addMeetingForm > .formInput{
+    background-color: #fff;
+    width: 56%;
+    margin-right: 10%;
+    float: right;
+    margin-bottom: 1vh;
+    margin-left: 2%;
+    text-align: left;
+    padding-left: 4%;
+}
+
+.meetIcon{
+    width: 15%;
+    height: 6vh;
+    float: left;
+    background-color: transparent;
+    margin-top: 2vh;
+    margin-left: 10%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+#meetingMembers{
+    width: 60%;
+    float: right;
+    margin-right: 10%;
+    margin-top: 2vh;
+    text-align: left;
+    direction: rtl;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-size: 3vh;
+    font-family: "medium";
+    color: #808080;
+    padding: 0;
+
+}
+
+#meetingFlist{
+    background-color: transparent;
+    width: 60%;
+    height: 11vh;
+    float: right;
+    margin-right: 10%;
+    overflow-y: scroll;
+}
+
+#meetingCHBX{
+    width: 80%;
+    height: 10vh;
+    float: left;
+    margin-left: 15%;
+    text-align: left;
+    color: #808080;
+    margin-top: 1vh;
+    font-family: "medium";
+    direction: initial;
 }
 /********************************************************/
 
