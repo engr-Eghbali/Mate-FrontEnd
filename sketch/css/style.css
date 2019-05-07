@@ -805,7 +805,7 @@ input:focus {
     background-repeat: no-repeat;
     background-size: cover;
 
-    display: block;
+    
 }
 
 #addMeetingForm{
@@ -822,12 +822,12 @@ input:focus {
 }
 
 #meetingTitle{
-    color: #808080;
-    margin-top: 2vh;
+    margin-top: 3vh;
     width: 80% !important;
     padding: 0 !important;
     margin-left: 10% !important;
     text-align: center !important;
+    border: none;
 }
 
 #addMeetingForm > .formInput{
@@ -909,15 +909,16 @@ input:focus {
 
 .maskInput{
 
-    text-align: left;
-    width: 53%;
-    margin-left: 35%;
+    text-align: right;
+    width: 46%;
+    margin-right: 9%;
     height: 6vh;
     margin-top: 3vh;
     position: fixed;
     font-family: "medium";
     color: #808080;
     font-weight: 600;
+    font-size: 2.3vh;
     z-index: 0;
 }
 
@@ -931,12 +932,14 @@ input:focus {
     z-index: 9;
     background-color: #fff;
     border-radius: 4vh;
+    top:unset;
+    transition: top 1s cubic-bezier(0.5, -0.4, 0.5, 1.5);
 }
 
 #contactList > .friend{
     margin-right: 4%;
     border-radius: 2vh;
-    height: 12.5;
+    height: 12.5vh;
 }
 
 .blueBackground{

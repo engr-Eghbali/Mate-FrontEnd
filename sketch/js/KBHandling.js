@@ -44,27 +44,112 @@ function infoHandleOut(){
     document.getElementById("submitInfo").style.height="10vh";
     return
 }
+function fsearchIn(){
+    
+    
+    document.querySelectorAll(".navbar").forEach(function(elem){
+        elem.style.height="14vh";
+        elem.style.paddingTop="5vh";
+      },this)
+    
+    
+      document.querySelectorAll(".friend").forEach(function(elem){
+        elem.style.height="18vh";
+      },this)   
+
+   document.getElementById("FsearchBTN").style.height="48px";
+   document.getElementById("FsearchInput").style.height="46px";
+   document.getElementById("Fsearch").style.height="22vh";
+   return
+}
+/////////////////////////////////////////////////////////////
+function fsearchOut(){
+
+  //  navbar= document.getElementsByClassName("navbar");
+  //  friend= document.getElementsByClassName("friend");
+ 
+  document.querySelectorAll(".navbar").forEach(function(elem){
+    elem.style.height="9vh";
+    elem.style.paddingTop="1vh";
+  },this)
+
+
+  document.querySelectorAll(".friend").forEach(function(elem){
+    elem.style.height="12vh";
+  },this)
+   
+    
+ 
+    document.getElementById("FsearchBTN").style.height="38px";
+    document.getElementById("FsearchInput").style.height="36px";
+    document.getElementById("Fsearch").style.height="8vh";
+    return
+ }
 //////////////////////////////////////////////////
 /////////////////////////////////////////////////
 
 
-document.addEventListener('deviceready', function () {
 
-        var phoneInpt=document.getElementById("phoneNo");
-        var vcInpt   =document.getElementById("vc")
-        var userInpt =document.getElementById("username")
+//////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+var kbStatus=false;
 
-        if(phoneInpt!=null || vcInpt!=null || userInpt!=null){
-            phoneInpt.addEventListener("focusin",uidHandleIn);
-            phoneInpt.addEventListener("focusout",uidHandleOut);
-            //
-            vcInpt.addEventListener("focusin",vcHandleIn);
-            vcInpt.addEventListener("focusout",vcHandleOut);
-            //
-            userInpt.addEventListener("focusin",infoHandleIn);
-            userInpt.addEventListener("focusout",infoHandleOut);
+document.onreadystatechange = () => {
+
+    if (document.readyState === 'complete') {
+
+   
+        //////////////////////////////////////////////////////     //////////search query delay
+      
+
+
+window.addEventListener("resize",function(){
+
+    var phoneInpt=document.getElementById("phoneNo");
+    var vcInpt   =document.getElementById("vc");
+    var userInpt =document.getElementById("username");
+    var searchQuery =document.getElementById("FsearchInput");
+
+    
+    if(!kbStatus){
+
+        if(phoneInpt!=null){
+            alert(phoneInpt)
+            uidHandleIn();
+        }
+        if(vcInpt!=null){
+            vcHandleIn();
+        }
+        if(userInpt!=null){
+            infoHandleIn();
+        }
+        if(searchQuery!=null){
+            fsearchIn();
         }
         
+        
+        kbStatus=true;
+
+    }else{
+
+        if(phoneInpt!=null){
+            uidHandleOut();
+        }
+        if(vcInpt!=null){
+            vcHandleOut();
+        }
+        if(userInpt!=null){
+            infoHandleOut();
+        }
+        if(searchQuery!=null){
+            fsearchOut();
+        }
+        
+
+        kbStatus=false
+
+    }
+
 });
-
-
+    }
+};

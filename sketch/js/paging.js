@@ -16,6 +16,10 @@ function beginAuth(){
     if (this.readyState == 4 && this.status == 200) {
         if(this.response==1){
             document.getElementById("signInPage").remove();
+            
+            if(!storageRetrieve("MateFriendsInfo")){
+                retrieveFriendsList();
+            }
             return
         }
         if(this.response==0){
@@ -47,31 +51,6 @@ document.onreadystatechange = () => {
 
     if (document.readyState === 'complete') {
         
-
-
-        //////////////////////////////////////////////////////
-        //////////search query delay
-        var timeout = null;
-        // Listen for keystroke events
-        sinput=document.getElementById("FsearchInput");
-        sinput.onkeyup = function (e) {
-
-            document.getElementById("updateFriendsBTN").classList.add("spining");
-            clearTimeout(timeout);
-
-            // Make a new timeout set to go off
-            timeout = setTimeout(function () {
-
-                ///////send query and response
-
-                /////change limit to 3
-                if(sinput.value.length>2)
-                    fSearch(sinput.value);
-    
-            }, 1500);
-        };
-        //////////////////////////////////////////////////
-        //////////////////////////////////////////////////
 
 
     }
@@ -418,6 +397,7 @@ function closeMenu(elemID){
     setTimeout(function(){document.getElementById("map2").innerHTML=null},1000);
     return;
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////a function for openning menu pages
 function openMenu(elemID){
@@ -446,6 +426,7 @@ function openMenu(elemID){
         break;
         
         case "AddMeetingMenu":
+        geoCoder(lastChoosedPlace);
         break;
 
         default:
@@ -862,8 +843,33 @@ function unfriend(el){
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /////triger when focus on search input
-
+var timeout = null;
 function focusToFsearch(el){
+
+            // Listen for keystroke events
+            sinput=document.getElementById("FsearchInput");
+        
+            sinput.onkeyup = function (e) {
+    
+                
+                document.getElementById("updateFriendsBTN").classList.add("spining");
+                clearTimeout(timeout);
+    
+                // Make a new timeout set to go off
+                timeout = setTimeout(function () {
+    
+                    ///////send query and response
+    
+                   
+                    /////change limit to 3
+                    if(sinput.value.length>2)
+                        fSearch(sinput.value);
+        
+                }, 1500);
+            };
+            //////////////////////////////////////////////////
+            //////////////////////////////////////////////////
+    
 
     document.getElementById("Flist").style.display="none";
     document.getElementById("Slist").style.display="block";
@@ -1076,7 +1082,14 @@ function loadPage(id){
             var divisions='';
             friends.forEach(element => {
 
-                divisions+= "<div class=\"friend\" onclick=\"invite(this)\"><div class=\"favatar\" style=\"background-image:url('"+element.Avatar+"')\" ></div><div class=\"fname\">"+element.Name+"</div></div>";
+                if(document.getElementById("meetingFlist").innerHTML.includes(element.Name)){
+                    divisions+= "<div class=\"friend blueBackground\" onclick=\"invite(this)\"><div class=\"favatar\" style=\"background-image:url('"+element.Avatar+"')\" ></div><div class=\"fname\">"+element.Name+"</div></div>";    
+                }else{
+
+                    divisions+= "<div class=\"friend\" onclick=\"invite(this)\"><div class=\"favatar\" style=\"background-image:url('"+element.Avatar+"')\" ></div><div class=\"fname\">"+element.Name+"</div></div>";
+
+                }
+                
             
             });
 
@@ -1259,20 +1272,37 @@ function denyFrequest(el){
 ////get choosed location,format to address,close auxMap and page to meetingForm
 function loadMeetingForm(){
     //lastChoosedPlace
+
+    ////////////////generate time string
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; 
+    var yyyy = today.getFullYear();
+
+    if(dd<10) 
+        {
+            dd='0'+dd;
+        } 
+
+    if(mm<10) 
+        {
+            mm='0'+mm;
+        } 
+    today = yyyy+"-"+mm+"-"+dd;
+    
+    
+    document.getElementById("meetingDate").value=today;
+    
     updateTimeBoard();
     closeMenu("auxiliaryMap");
-    geoCoder(lastChoosedPlace);
     openMenu("AddMeetingMenu");
-
-   
-
-
 
 }
 
 ////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////
 
+///update Time pallet when user choosed time
 function updateTimeBoard(){
 
     var date = new Date(document.getElementById("meetingDate").value);
@@ -1281,15 +1311,24 @@ function updateTimeBoard(){
     
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//////////////////////////
+//////////////////////////when wants to see contacts to add
 function chooseContact(){
+    
     document.getElementById("contactList").style.display="block";
+    document.getElementById("contactList").style.top="unset";
     loadPage("contactList");
     document.getElementById("saveMeeting").innerHTML="ذخیره";
-    document.getElementById("saveMeeting").setAttribute("onclick","saveInviteList()");
+    document.getElementById("saveMeeting").setAttribute("onclick","closeContactList()");
+    document.getElementById("cancelAddMeeting").setAttribute("onclick","closeContactList()");
+    
 }
-////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////when tap on contact to select...
 
 function invite(el){
     
@@ -1297,18 +1336,47 @@ function invite(el){
     name=el.lastChild.innerHTML;
      
     list=document.getElementById("meetingFlist").innerHTML;
-    list+=name+"<br>";
+
+    if(list.includes(name)){
+        list=list.replace(name+"<br>",'');
+    }else{
+        list+=name+"<br>";
+    }
+    
 
     document.getElementById("meetingFlist").innerHTML=list;
 
+}
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+///////save invited friends,find thier ids and close contactlist
+function getInviteList(){
+
+    list=document.getElementById("meetingFlist").innerHTML;
+
+    usernameList=list.split("<br>");
+
+    return usernameList;
 
 
 }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////close contact list selector 
+function closeContactList(){
 
-//////////////
-///////save invited friends,find thier ids and close contactlist
-function saveInviteList(){
+    document.getElementById("contactList").style.top="-100vh";
+    document.getElementById("cancelAddMeeting").setAttribute("onclick","closeMenu('AddMeetingMenu')");
+    document.getElementById("saveMeeting").setAttribute("onclick","setMeeting('AddMeetingMenu')");
+    //setTimeout(function(){document.getElementById("contactList").style.display="none"},1500);
+    
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function setMeeting(){
 
 }
 //////panTo user location in map and show info's
@@ -1340,6 +1408,7 @@ function panToFriend(el){
 
 // → "12/19/2012"
 
-//beginAuth();
+
+beginAuth();
 
 ////5cc06283f318f500048e7bc5

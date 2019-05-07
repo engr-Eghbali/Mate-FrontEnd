@@ -48,23 +48,51 @@ function infoHandleOut(){
 /////////////////////////////////////////////////
 
 
-document.addEventListener('deviceready', function () {
+
+//////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+var kbStatus=false;
+
+document.onreadystatechange = () => {
+
+    if (document.readyState === 'complete') {
 
         var phoneInpt=document.getElementById("phoneNo");
         var vcInpt   =document.getElementById("vc")
         var userInpt =document.getElementById("username")
 
-        if(phoneInpt!=null || vcInpt!=null || userInpt!=null){
-            phoneInpt.addEventListener("focusin",uidHandleIn);
-            phoneInpt.addEventListener("focusout",uidHandleOut);
-            //
-            vcInpt.addEventListener("focusin",vcHandleIn);
-            vcInpt.addEventListener("focusout",vcHandleOut);
-            //
-            userInpt.addEventListener("focusin",infoHandleIn);
-            userInpt.addEventListener("focusout",infoHandleOut);
-        }
+
+        //////////////////////////////////////////////////////
+        //////////search query delay
+      
+
+
+window.addEventListener("resize",function(){
+    
+    if(!kbStatus){
+
+        if(phoneInpt!=null)
+        uidHandleIn();
+        if(vcInpt!=null)
+        vcHandleIn();
+        if(userInpt!=null)
+        infoHandleIn();
         
+        kbStatus=true;
+
+    }else{
+
+        if(phoneInpt!=null)
+        uidHandleOut();
+        if(vcInpt!=null)
+        vcHandleOut();
+        if(userInpt!=null)
+        infoHandleOut();
+
+        kbStatus=false
+
+    }
+
 });
-
-
+    }
+};
