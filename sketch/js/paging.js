@@ -1370,13 +1370,49 @@ function closeContactList(){
     document.getElementById("contactList").style.top="-100vh";
     document.getElementById("cancelAddMeeting").setAttribute("onclick","closeMenu('AddMeetingMenu')");
     document.getElementById("saveMeeting").setAttribute("onclick","setMeeting('AddMeetingMenu')");
-    //setTimeout(function(){document.getElementById("contactList").style.display="none"},1500);
+    setTimeout(function(){document.getElementById("contactList").style.display="none"},1500);
     
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function setMeeting(){
+
+
+    if(info=storageRetrieve("MateUserInfo")){
+
+        title=document.getElementById("meetingTitle").value;
+        date =document.getElementById("meetingDate").value;
+        time =document.getElementById("meetingTime").value;
+        crowd=document.getElementById("meetingFlist").innerHTML;
+        geo=lastChoosedPlace;
+
+        if(title.length<3){
+            alert("عنوان قرار را وارد کنید");
+            return;
+        }
+        if(date.length<10){
+            alert("تاریخ قرار را انتخاب کنید");
+            return;
+        }
+
+        var data="id="+info.id+"&vc="+info.vc+"&title="+title+"&time="+date+"T"+time+":00Z&crowd="+crowd+"&geo="+geo.lat+","+geo.lng;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            
+             alert(this.response);
+             
+        }    
+        };
+        xhttp.open("POST", "https://guarded-castle-67026.herokuapp.com/SetMeeting?"+data, true);
+        //xhttp.setRequestHeader("Content-type", "multipart/form-data");
+        xhttp.send();
+
+    }else{
+
+        ///handle if not found
+    }
 
 }
 //////panTo user location in map and show info's

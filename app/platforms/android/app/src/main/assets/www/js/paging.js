@@ -16,6 +16,10 @@ function beginAuth(){
     if (this.readyState == 4 && this.status == 200) {
         if(this.response==1){
             document.getElementById("signInPage").remove();
+            
+            if(!storageRetrieve("MateFriendsInfo")){
+                retrieveFriendsList();
+            }
             return
         }
         if(this.response==0){
@@ -856,7 +860,7 @@ function focusToFsearch(el){
     
                     ///////send query and response
     
-                    alert(sinput.value)
+                   
                     /////change limit to 3
                     if(sinput.value.length>2)
                         fSearch(sinput.value);
