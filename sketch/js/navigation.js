@@ -1,5 +1,5 @@
 ///global vars
-var map,map2,CurrentPin,InputMarker,AuxMarker;
+var map,map2,CurrentPin,InputMarker,AuxMarker,directionsDisplay,infoWindow;
 var currentGeo ={
     lat: 32.492270, 
     lng: 51.764425
@@ -140,6 +140,10 @@ function initMap() {
             animation: google.maps.Animation.DROP,  
             icon: CurrentPin
         });
+
+        /// init when google is ready!
+        directionsDisplay = new google.maps.DirectionsRenderer();
+        infoWindow = new google.maps.InfoWindow;
         // do something only the first time the map is loaded
     });
     
@@ -175,8 +179,11 @@ function onDeviceReady() {
         lng: position.coords.longitude
         };
 
+        ////check if map is loaded 
         google.maps.event.addListenerOnce(map, 'idle', function(){
+
             map.panTo(currentGeo);
+
             Currentmarker = new google.maps.Marker({
                 position: {lat: parseFloat(currentGeo.lat), lng: parseFloat(currentGeo.lng)},
                 map: map,
@@ -184,11 +191,10 @@ function onDeviceReady() {
                 animation: google.maps.Animation.DROP,  
                 icon: CurrentPin
             });
+
             // do something only the first time the map is loaded
         });
-    
-
-        
+          
     }
 ///if GPS is not available
     function positionError(){
@@ -426,10 +432,14 @@ function geoCoder(geoLocation){
 
 function pathFinder(origin,destination,Gmap){
 
-    
-
-    var directionsDisplay=new google.maps.DirectionsRenderer();
     var directionsService = new google.maps.DirectionsService();
+
+    ///remove previous route,infowindow and marker
+    directionsDisplay.setDirections({routes: []});
+    infoWindow.close();
+    if(AuxMarker){
+        AuxMarker.setMap(null);
+    }
     
     if(!Gmap){
         setTimeout(pathFinder(),2000,origin,destination);
@@ -449,7 +459,6 @@ function pathFinder(origin,destination,Gmap){
       if (status == google.maps.DirectionsStatus.OK) {
 
         var route = response.routes[0].legs[0];
-        var infoWindow = new google.maps.InfoWindow;
 
         directionsDisplay.setDirections(response);
 
@@ -473,13 +482,7 @@ function pathFinder(origin,destination,Gmap){
         ///open info window
         infoWindow.setContent("<div id='summary'>"+route.duration.text+"<br>"+route.distance.text+"</div>");
         infoWindow.open(Gmap,AuxMarker);
-        directionsDisplay.setOptions( { suppressMarkers: true } );
-
-
-        
-
-        
-        
+        directionsDisplay.setOptions( { suppressMarkers: true } );        
 
       } else {
 

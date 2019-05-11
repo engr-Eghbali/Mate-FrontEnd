@@ -1504,9 +1504,9 @@ function panToFriend(el){
                 }else{
 
                     
-                    summary=pathFinder(currentGeo,geo,map);
-                    alert(summary);
-
+                    pathFinder(currentGeo,geo,map);
+                    closeMenu("friendsMenu");
+                    ToggleMenu();
 
                 }
 
