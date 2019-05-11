@@ -50,7 +50,9 @@ function beginAuth(){
 document.onreadystatechange = () => {
 
     if (document.readyState === 'complete') {
-        
+
+  
+  
 
 
     }
@@ -1378,36 +1380,84 @@ function closeContactList(){
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function setMeeting(){
 
+    pathFinder(currentGeo.lat+","+currentGeo.lng,"32.637234, 51.676515");
+    return;
+
 
     if(info=storageRetrieve("MateUserInfo")){
 
-        title=document.getElementById("meetingTitle").value;
-        date =document.getElementById("meetingDate").value;
-        time =document.getElementById("meetingTime").value;
-        crowd=document.getElementById("meetingFlist").innerHTML;
-        geo=lastChoosedPlace;
+        if(friends=storageRetrieve("MateFriendsInfo")){
+            title=document.getElementById("meetingTitle").value;
+            date =document.getElementById("meetingDate").value;
+            time =document.getElementById("meetingTime").value;
+            crowd=document.getElementById("meetingFlist").innerHTML.split("<br>");
+            var crowdIds='';
+            geo=lastChoosedPlace;
+    
+            crowd.forEach(C=>{
+                
+                friends.forEach(F=>{
+                    if (F.Name==C){
+                        crowdIds+=F.ID+",";
+                        
+                    }
+                    
+                })
+               
+            })
+            crowdIds=crowdIds.substring(0,49);
 
-        if(title.length<3){
-            alert("عنوان قرار را وارد کنید");
-            return;
-        }
-        if(date.length<10){
-            alert("تاریخ قرار را انتخاب کنید");
-            return;
-        }
-
-        var data="id="+info.id+"&vc="+info.vc+"&title="+title+"&time="+date+"T"+time+":00Z&crowd="+crowd+"&geo="+geo.lat+","+geo.lng;
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
             
-             alert(this.response);
-             
-        }    
-        };
-        xhttp.open("POST", "https://guarded-castle-67026.herokuapp.com/SetMeeting?"+data, true);
-        //xhttp.setRequestHeader("Content-type", "multipart/form-data");
-        xhttp.send();
+            
+            
+            if(title.length<3){
+                alert("عنوان قرار را وارد کنید");
+                return;
+            }
+            if(date.length<10){
+                alert("تاریخ قرار را انتخاب کنید");
+                return;
+            }
+    
+            var data="id="+info.id+"&vc="+info.vc+"&title="+title+"&time="+date+"T"+time+":00Z&crowd="+crowdIds+"&geo="+geo.lat+","+geo.lng;
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+
+                if(this.response==-1){
+                    localStorage.removeItem("MateUserInfo");
+                    alert("bad request:7")
+                    location.reload();
+                    return;
+                }
+                if(this.response==0){
+                    setTimeout(setMeeting,30000);
+                    closeMenu("AddMeetingMenu");
+                    return;
+                }
+
+                if(JSON.parse(this.responseText)){
+                    localStorage.setItem("MateMeetingsInfo",this.responseText);
+                    closeMenu("AddMeetingMenu");
+                    return;
+                }else{
+                    alert("مجددا تلاش کنید");
+                    return;
+                }
+                
+                 
+                 
+            }    
+            };
+            xhttp.open("POST", "https://guarded-castle-67026.herokuapp.com/SetMeeting?"+data, true);
+            //xhttp.setRequestHeader("Content-type", "multipart/form-data");
+            xhttp.send();    
+
+
+        }else{
+            alert("لیست دوستان را بروزرسانی کنید");
+            return;
+        }
 
     }else{
 
@@ -1415,8 +1465,66 @@ function setMeeting(){
     }
 
 }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 //////panTo user location in map and show info's
 function panToFriend(el){
+
+    name=el.nextElementSibling.innerHTML;
+    var id='';
+    var geo='';
+
+    ////find friends id by name
+    if(friendsInfo=storageRetrieve("MateFriendsInfo")){
+
+        friendsInfo.forEach(f=>{
+            if(f.Name==name){
+                id=f.ID;
+                return;
+            }
+        });
+
+        ///get his geo by id
+        if(id.length==24){
+
+            if(friendsMap=storageRetrieve("MateMap")){
+
+                friendsMap.forEach(f=>{
+                    if(f.ID==id){
+                        geo=f.Geo;
+                        return;
+                    }
+
+                });
+
+                if(geo.length<10){
+                    alert("User unreachable...");
+                    return;
+                }else{
+
+                    
+                    summary=pathFinder(currentGeo,geo,map);
+                    alert(summary);
+
+
+                }
+
+            }else{
+                ///handle when not found
+            }
+
+        }else{
+
+            ///handle if <> 24
+            return
+        }
+
+
+
+    }else{
+        ////handle when not found
+    }
 
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1445,6 +1553,7 @@ function panToFriend(el){
 // → "12/19/2012"
 
 
-beginAuth();
+
+//beginAuth();
 
 ////5cc06283f318f500048e7bc5

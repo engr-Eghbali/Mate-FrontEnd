@@ -114,7 +114,7 @@ window.addEventListener("resize",function(){
     if(!kbStatus){
 
         if(phoneInpt!=null){
-            alert(phoneInpt)
+            
             uidHandleIn();
         }
         if(vcInpt!=null){

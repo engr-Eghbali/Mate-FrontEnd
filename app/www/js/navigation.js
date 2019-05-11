@@ -422,3 +422,40 @@ function geoCoder(geoLocation){
 //////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////
 
+/////////// showing route through A to B and return time+distance
+
+function pathFinder(origin,destination){
+
+    var directionsDisplay=new google.maps.DirectionsRenderer();
+    var directionsService = new google.maps.DirectionsService();
+    
+    if(!map2){
+        setTimeout(pathFinder(),2000,origin,destination);
+        return
+    }
+
+    directionsDisplay.setMap(map2);
+
+    var request = {
+        // from: Blackpool to: Preston to: Blackburn
+        origin: origin, 
+        destination: destination, 
+        travelMode: google.maps.DirectionsTravelMode.DRIVING
+    };
+
+    directionsService.route(request, function(response, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+        directionsDisplay.setDirections(response);
+        var route = response.routes[0];
+
+        alert(JSON.stringify(route.legs[0].duration.text));
+        
+
+      } else {
+        alert("directions response "+status);
+      }
+    });
+
+}
+
+

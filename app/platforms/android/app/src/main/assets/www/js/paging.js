@@ -50,7 +50,9 @@ function beginAuth(){
 document.onreadystatechange = () => {
 
     if (document.readyState === 'complete') {
-        
+
+  
+  
 
 
     }
@@ -1370,13 +1372,97 @@ function closeContactList(){
     document.getElementById("contactList").style.top="-100vh";
     document.getElementById("cancelAddMeeting").setAttribute("onclick","closeMenu('AddMeetingMenu')");
     document.getElementById("saveMeeting").setAttribute("onclick","setMeeting('AddMeetingMenu')");
-    //setTimeout(function(){document.getElementById("contactList").style.display="none"},1500);
+    setTimeout(function(){document.getElementById("contactList").style.display="none"},1500);
     
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function setMeeting(){
+
+    //pathFinder(currentGeo.lat+","+currentGeo.lng,"32.637234, 51.676515");
+    //return;
+
+
+    if(info=storageRetrieve("MateUserInfo")){
+
+        if(friends=storageRetrieve("MateFriendsInfo")){
+            title=document.getElementById("meetingTitle").value;
+            date =document.getElementById("meetingDate").value;
+            time =document.getElementById("meetingTime").value;
+            crowd=document.getElementById("meetingFlist").innerHTML.split("<br>");
+            var crowdIds='';
+            geo=lastChoosedPlace;
+    
+            crowd.forEach(C=>{
+                
+                friends.forEach(F=>{
+                    if (F.Name==C){
+                        crowdIds+=F.ID+",";
+                        
+                    }
+                    
+                })
+               
+            })
+            crowdIds=crowdIds.substring(0,49);
+
+            
+            
+            
+            if(title.length<3){
+                alert("عنوان قرار را وارد کنید");
+                return;
+            }
+            if(date.length<10){
+                alert("تاریخ قرار را انتخاب کنید");
+                return;
+            }
+    
+            var data="id="+info.id+"&vc="+info.vc+"&title="+title+"&time="+date+"T"+time+":00Z&crowd="+crowdIds+"&geo="+geo.lat+","+geo.lng;
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+
+                if(this.response==-1){
+                    localStorage.removeItem("MateUserInfo");
+                    alert("bad request:7")
+                    location.reload();
+                    return;
+                }
+                if(this.response==0){
+                    setTimeout(setMeeting,30000);
+                    closeMenu("AddMeetingMenu");
+                    return;
+                }
+
+                if(JSON.parse(this.responseText)){
+                    localStorage.setItem("MateMeetingsInfo",this.responseText);
+                    closeMenu("AddMeetingMenu");
+                    return;
+                }else{
+                    alert("مجددا تلاش کنید");
+                    return;
+                }
+                
+                 
+                 
+            }    
+            };
+            xhttp.open("POST", "https://guarded-castle-67026.herokuapp.com/SetMeeting?"+data, true);
+            //xhttp.setRequestHeader("Content-type", "multipart/form-data");
+            xhttp.send();    
+
+
+        }else{
+            alert("لیست دوستان را بروزرسانی کنید");
+            return;
+        }
+
+    }else{
+
+        ///handle if not found
+    }
 
 }
 //////panTo user location in map and show info's

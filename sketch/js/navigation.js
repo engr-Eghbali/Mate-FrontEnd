@@ -1,5 +1,5 @@
 ///global vars
-var map,CurrentPin,InputMarker,map2;
+var map,map2,CurrentPin,InputMarker,AuxMarker;
 var currentGeo ={
     lat: 32.492270, 
     lng: 51.764425
@@ -421,4 +421,74 @@ function geoCoder(geoLocation){
 }
 //////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////
+
+/////////// showing route through A to B and return time+distance
+
+function pathFinder(origin,destination,Gmap){
+
+    
+
+    var directionsDisplay=new google.maps.DirectionsRenderer();
+    var directionsService = new google.maps.DirectionsService();
+    
+    if(!Gmap){
+        setTimeout(pathFinder(),2000,origin,destination);
+        return
+    }
+
+    directionsDisplay.setMap(Gmap);
+
+    var request = {
+        // from: Blackpool to: Preston to: Blackburn
+        origin: origin, 
+        destination: destination, 
+        travelMode: google.maps.DirectionsTravelMode.DRIVING
+    };
+
+    directionsService.route(request, function(response, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+
+        var route = response.routes[0].legs[0];
+        var infoWindow = new google.maps.InfoWindow;
+
+        directionsDisplay.setDirections(response);
+
+            //init marker here
+        Pin = {
+            url: './assets/img/gps.png',
+            size: new google.maps.Size(64, 64),
+            scaledSize: new google.maps.Size(64, 64), // scaled size
+            origin: new google.maps.Point(0,0), // origin
+            anchor: new google.maps.Point(32, 64) // anchor
+        };
+
+        AuxMarker = new google.maps.Marker({
+            position: {lat: parseFloat(destination.split(",")[0]), lng: parseFloat(destination.split(",")[1])},
+            map: Gmap,
+            //draggable:true,
+            //animation: google.maps.Animation.DROP,  
+            icon: Pin
+        });
+        
+        ///open info window
+        infoWindow.setContent("<div id='summary'>"+route.duration.text+"<br>"+route.distance.text+"</div>");
+        infoWindow.open(Gmap,AuxMarker);
+        directionsDisplay.setOptions( { suppressMarkers: true } );
+
+
+        
+
+        
+        
+
+      } else {
+
+        ///////handle after development cmpl (ZERO_RESULT)
+        alert("directions response "+status);
+        return null;
+      }
+    });
+
+}
+
 
