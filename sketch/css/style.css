@@ -29,6 +29,24 @@ body{
     
 
 }
+
+#backBTN{
+    display: none;
+    position: fixed;
+    left: 2%;
+    z-index: 9;
+    width: 25%;
+    height: 10vh;
+    bottom: 4%;
+    background-color: transparent;
+    background-image: url(../assets/img/back.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    border-radius: 100%;
+    transition: left 1s cubic-bezier(0.5, -0.4, 0.5, 1.5);
+}
+
 #profileBTN{
    
     background-image: url("../assets/img/profileAvatar.svg");
@@ -952,7 +970,7 @@ input:focus {
     font-family: "bold";
 }
 
-.gm-style{
+.gm-style-iw{
     padding-left: 20px !important;
 }
 /********************************************************/

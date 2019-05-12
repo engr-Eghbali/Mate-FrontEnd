@@ -592,7 +592,7 @@ function saveProfileChanges(){
 function leaveMeeting(element){
 
     geo=element.nextElementSibling.innerHTML;
-    title=element.nextElementSibling.nextElementSibling.nextElementSibling.innerHTML;
+    title=element.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild.innerHTML;
 
     if(info=storageRetrieve("MateUserInfo")){
 
@@ -1042,7 +1042,7 @@ function loadPage(id){
                 var divisions='';
                 meetingsList.forEach(element => {
     
-                    divisions+="<div class=\"event\"><button class=\"cancelBTN\" onclick=\"makeConfirm('آیا مایل به حذف قرار هستید؟',leaveMeeting,this)\"></button><div style=\"display:none\">"+element.Geo.X+","+element.Geo.Y+"</div><div style=\"display:none\">"+element.Crowd+"</div><div class=\"titleEvent\">"+element.Title+"</div><div class=\"hostEvent\">  دعوت شده از طرف "+element.Host+"</div><div class=\"timeEvent\">"+element.Time.substring(12,19)+"</div><div class=\"dateEvent\">"+element.Time.substring(0,10)+"</div></div>";
+                    divisions+="<div class=\"event\"><button class=\"cancelBTN\" onclick=\"makeConfirm('آیا مایل به حذف قرار هستید؟',leaveMeeting,this)\"></button><div style=\"display:none\">"+element.Geo.X+","+element.Geo.Y+"</div><div style=\"display:none\">"+element.Crowd+"</div><div style='height:-webkit-fill-available' onclick='panToMeeting(this)'><div class=\"titleEvent\">"+element.Title+"</div><div class=\"hostEvent\">  دعوت شده از طرف "+element.Host+"</div><div class=\"timeEvent\">"+element.Time.substring(12,19)+"</div><div class=\"dateEvent\">"+element.Time.substring(0,10)+"</div></div></div>";
                 
                 });
     
@@ -1380,10 +1380,6 @@ function closeContactList(){
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function setMeeting(){
 
-    pathFinder(currentGeo.lat+","+currentGeo.lng,"32.637234, 51.676515");
-    return;
-
-
     if(info=storageRetrieve("MateUserInfo")){
 
         if(friends=storageRetrieve("MateFriendsInfo")){
@@ -1405,7 +1401,8 @@ function setMeeting(){
                 })
                
             })
-            crowdIds=crowdIds.substring(0,49);
+           
+            crowdIds=crowdIds.substring(0,crowdIds.length-1);
 
             
             
@@ -1506,6 +1503,8 @@ function panToFriend(el){
                     
                     pathFinder(currentGeo,geo,map);
                     closeMenu("friendsMenu");
+                    document.getElementById("backBTN").style.display="block";
+                    document.getElementById("backBTN").style.left="2%";
                     ToggleMenu();
 
                 }
@@ -1530,6 +1529,18 @@ function panToFriend(el){
 /////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
+function exitPanToFriend(){
+
+    directionsDisplay.setDirections({routes: []});
+    infoWindow.close();
+    if(AuxMarker){
+        AuxMarker.setMap(null);
+    }
+
+    ToggleMenu()
+    document.getElementById("backBTN").style.left="-20%";
+    setTimeout(function(){document.getElementById("backBTN").style.display="none";},1200);
+}
 
 
 //localStorage.removeItem("MateUserInfo");
