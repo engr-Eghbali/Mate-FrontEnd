@@ -1082,16 +1082,11 @@ function loadPage(id){
         if(friends=storageRetrieve("MateFriendsInfo")){
 
             var divisions='';
-            friends.forEach(element => {
+            meetingsList=document.getElementById("meetingFlist").children;
 
-                if(document.getElementById("meetingFlist").innerHTML.includes(element.Name)){
-                    divisions+= "<div class=\"friend blueBackground\" onclick=\"invite(this)\"><div class=\"favatar\" style=\"background-image:url('"+element.Avatar+"')\" ></div><div class=\"fname\">"+element.Name+"</div></div>";    
-                }else{
+            friends.forEach(f => {
 
-                    divisions+= "<div class=\"friend\" onclick=\"invite(this)\"><div class=\"favatar\" style=\"background-image:url('"+element.Avatar+"')\" ></div><div class=\"fname\">"+element.Name+"</div></div>";
-
-                }
-                
+                    divisions+= "<div class=\"friend\" onclick=\"invite(this)\"><div class=\"favatar\" style=\"background-image:url('"+f.Avatar+"')\" ></div><div class=\"fname\">"+f.Name+"</div></div>";
             
             });
 
@@ -1100,9 +1095,9 @@ function loadPage(id){
             }
         }
 
-
-
         break;
+
+
         default:
         return;
 
@@ -1298,6 +1293,7 @@ function loadMeetingForm(){
     updateTimeBoard();
     closeMenu("auxiliaryMap");
     openMenu("AddMeetingMenu");
+    loadPage("contactList");
 
 }
 
@@ -1321,7 +1317,7 @@ function chooseContact(){
     
     document.getElementById("contactList").style.display="block";
     document.getElementById("contactList").style.top="unset";
-    loadPage("contactList");
+    
     document.getElementById("saveMeeting").innerHTML="ذخیره";
     document.getElementById("saveMeeting").setAttribute("onclick","closeContactList()");
     document.getElementById("cancelAddMeeting").setAttribute("onclick","closeContactList()");
@@ -1334,19 +1330,35 @@ function chooseContact(){
 
 function invite(el){
     
+    var divisions='';
+    var flg=false;
     el.classList.toggle("blueBackground");
-    name=el.lastChild.innerHTML;
-     
-    list=document.getElementById("meetingFlist").innerHTML;
 
-    if(list.includes(name)){
-        list=list.replace(name+"<br>",'');
-    }else{
-        list+=name+"<br>";
+    avatar=el.firstElementChild.style.backgroundImage;
+    name=el.lastChild.innerHTML;
+    
+    list=document.getElementById("meetingFlist").children;
+
+    
+    if(list.length>0){
+        
+        [...list].forEach(f=>{
+            if(f.id==name){
+                document.getElementById(name).remove();
+                flg=true;
+                return
+            }
+    
+        });
+        if(flg){
+            return
+        }
     }
+  
+    divisions+=document.getElementById("meetingFlist").innerHTML+"<div id='"+name+"' class='stackedAvatar' style='background-image:"+avatar+"'></div>";
     
 
-    document.getElementById("meetingFlist").innerHTML=list;
+    document.getElementById("meetingFlist").innerHTML=divisions;
 
 }
 
@@ -1371,7 +1383,7 @@ function closeContactList(){
 
     document.getElementById("contactList").style.top="-100vh";
     document.getElementById("cancelAddMeeting").setAttribute("onclick","closeMenu('AddMeetingMenu')");
-    document.getElementById("saveMeeting").setAttribute("onclick","setMeeting('AddMeetingMenu')");
+    document.getElementById("saveMeeting").setAttribute("onclick","setMeeting()");
     setTimeout(function(){document.getElementById("contactList").style.display="none"},1500);
     
 }
@@ -1529,7 +1541,9 @@ function panToFriend(el){
 /////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-function exitPanToFriend(){
+//// remove route and infowindow,open side again and hide backBTN
+
+function exitPan(){
 
     directionsDisplay.setDirections({routes: []});
     infoWindow.close();
@@ -1541,6 +1555,24 @@ function exitPanToFriend(){
     document.getElementById("backBTN").style.left="-20%";
     setTimeout(function(){document.getElementById("backBTN").style.display="none";},1200);
 }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//// pan to selected meeting and and show infowindow
+function panToMeeting(el){
+
+    geo=el.previousElementSibling.previousElementSibling.innerHTML;
+
+    pathFinder(currentGeo,geo,map);
+    closeMenu("scheduleMenu");
+    document.getElementById("backBTN").style.display="block";
+    document.getElementById("backBTN").style.left="2%";
+    ToggleMenu();
+
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 //localStorage.removeItem("MateUserInfo");
