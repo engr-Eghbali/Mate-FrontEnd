@@ -1082,11 +1082,9 @@ function loadPage(id){
         if(friends=storageRetrieve("MateFriendsInfo")){
 
             var divisions='';
-            meetingsList=document.getElementById("meetingFlist").children;
-
             friends.forEach(f => {
 
-                    divisions+= "<div class=\"friend\" onclick=\"invite(this)\"><div class=\"favatar\" style=\"background-image:url('"+f.Avatar+"')\" ></div><div class=\"fname\">"+f.Name+"</div></div>";
+                divisions+= "<div class=\"friend\" onclick=\"invite(this)\"><div class=\"favatar\" style=\"background-image:url('"+f.Avatar+"')\" ></div><div class=\"fname\">"+f.Name+"</div></div>";
             
             });
 
@@ -1368,9 +1366,16 @@ function invite(el){
 ///////save invited friends,find thier ids and close contactlist
 function getInviteList(){
 
-    list=document.getElementById("meetingFlist").innerHTML;
+    list=document.getElementById("meetingFlist").children;
 
-    usernameList=list.split("<br>");
+    var usernameList=[];
+
+    [...list].forEach(f=>{
+
+        console.log(f.id)
+        usernameList.push(f.id);
+
+    });
 
     return usernameList;
 
@@ -1398,7 +1403,7 @@ function setMeeting(){
             title=document.getElementById("meetingTitle").value;
             date =document.getElementById("meetingDate").value;
             time =document.getElementById("meetingTime").value;
-            crowd=document.getElementById("meetingFlist").innerHTML.split("<br>");
+            crowd=getInviteList();
             var crowdIds='';
             geo=lastChoosedPlace;
     
