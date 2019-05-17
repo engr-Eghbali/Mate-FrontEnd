@@ -29,6 +29,24 @@ body{
     
 
 }
+
+#backBTN{
+    display: none;
+    position: fixed;
+    left: 2%;
+    z-index: 9;
+    width: 25%;
+    height: 10vh;
+    bottom: 4%;
+    background-color: transparent;
+    background-image: url(../assets/img/back.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    border-radius: 100%;
+    transition: left 1s cubic-bezier(0.5, -0.4, 0.5, 1.5);
+}
+
 #profileBTN{
    
     background-image: url("../assets/img/profileAvatar.svg");
@@ -877,7 +895,7 @@ input:focus {
     height: 11vh;
     float: right;
     margin-right: 10%;
-    overflow-y: scroll;
+    overflow-x: scroll;
     direction: ltr;
     color: #666;
     font-weight: 600;
@@ -943,6 +961,34 @@ input:focus {
 
 .blueBackground{
     background-color: #29abe2;
+}
+
+#summary{
+    direction: rtl;
+    text-align: right;
+    color: #4d4d4d;
+    font-family: "bold";
+}
+
+.gm-style-iw{
+    padding-left: 20px !important;
+}
+
+.stackedAvatar{
+    width: 6vh;
+    height: 6vh;
+    background-color: transparent;
+    background-position: center;
+    background-size: cover;
+    border-radius: 100%;
+    float: left;
+    border: 1px solid #29abe2;
+    margin-left: -3vh;
+    margin-top: 8%;
+}
+
+#meetingFlist :first-child{
+    margin-left: 0 !important;
 }
 /********************************************************/
 

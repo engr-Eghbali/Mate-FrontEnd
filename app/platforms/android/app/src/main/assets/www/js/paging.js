@@ -592,7 +592,7 @@ function saveProfileChanges(){
 function leaveMeeting(element){
 
     geo=element.nextElementSibling.innerHTML;
-    title=element.nextElementSibling.nextElementSibling.nextElementSibling.innerHTML;
+    title=element.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild.innerHTML;
 
     if(info=storageRetrieve("MateUserInfo")){
 
@@ -1042,7 +1042,7 @@ function loadPage(id){
                 var divisions='';
                 meetingsList.forEach(element => {
     
-                    divisions+="<div class=\"event\"><button class=\"cancelBTN\" onclick=\"makeConfirm('آیا مایل به حذف قرار هستید؟',leaveMeeting,this)\"></button><div style=\"display:none\">"+element.Geo.X+","+element.Geo.Y+"</div><div style=\"display:none\">"+element.Crowd+"</div><div class=\"titleEvent\">"+element.Title+"</div><div class=\"hostEvent\">  دعوت شده از طرف "+element.Host+"</div><div class=\"timeEvent\">"+element.Time.substring(12,19)+"</div><div class=\"dateEvent\">"+element.Time.substring(0,10)+"</div></div>";
+                    divisions+="<div class=\"event\"><button class=\"cancelBTN\" onclick=\"makeConfirm('آیا مایل به حذف قرار هستید؟',leaveMeeting,this)\"></button><div style=\"display:none\">"+element.Geo.X+","+element.Geo.Y+"</div><div style=\"display:none\">"+element.Crowd+"</div><div style='height:-webkit-fill-available' onclick='panToMeeting(this)'><div class=\"titleEvent\">"+element.Title+"</div><div class=\"hostEvent\">  دعوت شده از طرف "+element.Host+"</div><div class=\"timeEvent\">"+element.Time.substring(12,19)+"</div><div class=\"dateEvent\">"+element.Time.substring(0,10)+"</div></div></div>";
                 
                 });
     
@@ -1082,16 +1082,9 @@ function loadPage(id){
         if(friends=storageRetrieve("MateFriendsInfo")){
 
             var divisions='';
-            friends.forEach(element => {
+            friends.forEach(f => {
 
-                if(document.getElementById("meetingFlist").innerHTML.includes(element.Name)){
-                    divisions+= "<div class=\"friend blueBackground\" onclick=\"invite(this)\"><div class=\"favatar\" style=\"background-image:url('"+element.Avatar+"')\" ></div><div class=\"fname\">"+element.Name+"</div></div>";    
-                }else{
-
-                    divisions+= "<div class=\"friend\" onclick=\"invite(this)\"><div class=\"favatar\" style=\"background-image:url('"+element.Avatar+"')\" ></div><div class=\"fname\">"+element.Name+"</div></div>";
-
-                }
-                
+                divisions+= "<div class=\"friend\" onclick=\"invite(this)\"><div class=\"favatar\" style=\"background-image:url('"+f.Avatar+"')\" ></div><div class=\"fname\">"+f.Name+"</div></div>";
             
             });
 
@@ -1100,9 +1093,9 @@ function loadPage(id){
             }
         }
 
-
-
         break;
+
+
         default:
         return;
 
@@ -1298,6 +1291,7 @@ function loadMeetingForm(){
     updateTimeBoard();
     closeMenu("auxiliaryMap");
     openMenu("AddMeetingMenu");
+    loadPage("contactList");
 
 }
 
@@ -1321,7 +1315,7 @@ function chooseContact(){
     
     document.getElementById("contactList").style.display="block";
     document.getElementById("contactList").style.top="unset";
-    loadPage("contactList");
+    
     document.getElementById("saveMeeting").innerHTML="ذخیره";
     document.getElementById("saveMeeting").setAttribute("onclick","closeContactList()");
     document.getElementById("cancelAddMeeting").setAttribute("onclick","closeContactList()");
@@ -1334,19 +1328,35 @@ function chooseContact(){
 
 function invite(el){
     
+    var divisions='';
+    var flg=false;
     el.classList.toggle("blueBackground");
-    name=el.lastChild.innerHTML;
-     
-    list=document.getElementById("meetingFlist").innerHTML;
 
-    if(list.includes(name)){
-        list=list.replace(name+"<br>",'');
-    }else{
-        list+=name+"<br>";
+    avatar=el.firstElementChild.style.backgroundImage;
+    name=el.lastChild.innerHTML;
+    
+    list=document.getElementById("meetingFlist").children;
+
+    
+    if(list.length>0){
+        
+        [...list].forEach(f=>{
+            if(f.id==name){
+                document.getElementById(name).remove();
+                flg=true;
+                return
+            }
+    
+        });
+        if(flg){
+            return
+        }
     }
+  
+    divisions+=document.getElementById("meetingFlist").innerHTML+"<div id='"+name+"' class='stackedAvatar' style='background-image:"+avatar+"'></div>";
     
 
-    document.getElementById("meetingFlist").innerHTML=list;
+    document.getElementById("meetingFlist").innerHTML=divisions;
 
 }
 
@@ -1356,9 +1366,16 @@ function invite(el){
 ///////save invited friends,find thier ids and close contactlist
 function getInviteList(){
 
-    list=document.getElementById("meetingFlist").innerHTML;
+    list=document.getElementById("meetingFlist").children;
 
-    usernameList=list.split("<br>");
+    var usernameList=[];
+
+    [...list].forEach(f=>{
+
+        console.log(f.id)
+        usernameList.push(f.id);
+
+    });
 
     return usernameList;
 
@@ -1371,7 +1388,7 @@ function closeContactList(){
 
     document.getElementById("contactList").style.top="-100vh";
     document.getElementById("cancelAddMeeting").setAttribute("onclick","closeMenu('AddMeetingMenu')");
-    document.getElementById("saveMeeting").setAttribute("onclick","setMeeting('AddMeetingMenu')");
+    document.getElementById("saveMeeting").setAttribute("onclick","setMeeting()");
     setTimeout(function(){document.getElementById("contactList").style.display="none"},1500);
     
 }
@@ -1380,17 +1397,13 @@ function closeContactList(){
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function setMeeting(){
 
-    //pathFinder(currentGeo.lat+","+currentGeo.lng,"32.637234, 51.676515");
-    //return;
-
-
     if(info=storageRetrieve("MateUserInfo")){
 
         if(friends=storageRetrieve("MateFriendsInfo")){
             title=document.getElementById("meetingTitle").value;
             date =document.getElementById("meetingDate").value;
             time =document.getElementById("meetingTime").value;
-            crowd=document.getElementById("meetingFlist").innerHTML.split("<br>");
+            crowd=getInviteList();
             var crowdIds='';
             geo=lastChoosedPlace;
     
@@ -1405,7 +1418,8 @@ function setMeeting(){
                 })
                
             })
-            crowdIds=crowdIds.substring(0,49);
+           
+            crowdIds=crowdIds.substring(0,crowdIds.length-1);
 
             
             
@@ -1465,13 +1479,105 @@ function setMeeting(){
     }
 
 }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 //////panTo user location in map and show info's
 function panToFriend(el){
+
+    name=el.nextElementSibling.innerHTML;
+    var id='';
+    var geo='';
+
+    ////find friends id by name
+    if(friendsInfo=storageRetrieve("MateFriendsInfo")){
+
+        friendsInfo.forEach(f=>{
+            if(f.Name==name){
+                id=f.ID;
+                return;
+            }
+        });
+
+        ///get his geo by id
+        if(id.length==24){
+
+            if(friendsMap=storageRetrieve("MateMap")){
+
+                friendsMap.forEach(f=>{
+                    if(f.ID==id){
+                        geo=f.Geo;
+                        return;
+                    }
+
+                });
+
+                if(geo.length<10){
+                    alert("User unreachable...");
+                    return;
+                }else{
+
+                    
+                    pathFinder(currentGeo,geo,map);
+                    closeMenu("friendsMenu");
+                    document.getElementById("backBTN").style.display="block";
+                    document.getElementById("backBTN").style.left="2%";
+                    ToggleMenu();
+
+                }
+
+            }else{
+                ///handle when not found
+            }
+
+        }else{
+
+            ///handle if <> 24
+            return
+        }
+
+
+
+    }else{
+        ////handle when not found
+    }
 
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
+//// remove route and infowindow,open side again and hide backBTN
+
+function exitPan(){
+
+    directionsDisplay.setDirections({routes: []});
+    infoWindow.close();
+    if(AuxMarker){
+        AuxMarker.setMap(null);
+    }
+
+    ToggleMenu()
+    document.getElementById("backBTN").style.left="-20%";
+    setTimeout(function(){document.getElementById("backBTN").style.display="none";},1200);
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//// pan to selected meeting and and show infowindow
+function panToMeeting(el){
+
+    geo=el.previousElementSibling.previousElementSibling.innerHTML;
+
+    pathFinder(currentGeo,geo,map);
+    closeMenu("scheduleMenu");
+    document.getElementById("backBTN").style.display="block";
+    document.getElementById("backBTN").style.left="2%";
+    ToggleMenu();
+
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 //localStorage.removeItem("MateUserInfo");
@@ -1493,6 +1599,7 @@ function panToFriend(el){
 
 
 // → "12/19/2012"
+
 
 
 beginAuth();

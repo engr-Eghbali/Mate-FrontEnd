@@ -1,5 +1,5 @@
 ///global vars
-var map,CurrentPin,InputMarker,map2;
+var map,map2,CurrentPin,InputMarker,AuxMarker,directionsDisplay,infoWindow;
 var currentGeo ={
     lat: 32.492270, 
     lng: 51.764425
@@ -140,6 +140,10 @@ function initMap() {
             animation: google.maps.Animation.DROP,  
             icon: CurrentPin
         });
+
+        /// init when google is ready!
+        directionsDisplay = new google.maps.DirectionsRenderer();
+        infoWindow = new google.maps.InfoWindow;
         // do something only the first time the map is loaded
     });
     
@@ -175,8 +179,11 @@ function onDeviceReady() {
         lng: position.coords.longitude
         };
 
+        ////check if map is loaded 
         google.maps.event.addListenerOnce(map, 'idle', function(){
+
             map.panTo(currentGeo);
+
             Currentmarker = new google.maps.Marker({
                 position: {lat: parseFloat(currentGeo.lat), lng: parseFloat(currentGeo.lng)},
                 map: map,
@@ -184,11 +191,10 @@ function onDeviceReady() {
                 animation: google.maps.Animation.DROP,  
                 icon: CurrentPin
             });
+
             // do something only the first time the map is loaded
         });
-    
-
-        
+          
     }
 ///if GPS is not available
     function positionError(){
@@ -424,17 +430,23 @@ function geoCoder(geoLocation){
 
 /////////// showing route through A to B and return time+distance
 
-function pathFinder(origin,destination){
+function pathFinder(origin,destination,Gmap){
 
-    var directionsDisplay=new google.maps.DirectionsRenderer();
     var directionsService = new google.maps.DirectionsService();
+
+    ///remove previous route,infowindow and marker
+    directionsDisplay.setDirections({routes: []});
+    infoWindow.close();
+    if(AuxMarker){
+        AuxMarker.setMap(null);
+    }
     
-    if(!map2){
+    if(!Gmap){
         setTimeout(pathFinder(),2000,origin,destination);
         return
     }
 
-    directionsDisplay.setMap(map2);
+    directionsDisplay.setMap(Gmap);
 
     var request = {
         // from: Blackpool to: Preston to: Blackburn
@@ -445,14 +457,38 @@ function pathFinder(origin,destination){
 
     directionsService.route(request, function(response, status) {
       if (status == google.maps.DirectionsStatus.OK) {
-        directionsDisplay.setDirections(response);
-        var route = response.routes[0];
 
-        alert(JSON.stringify(route.legs[0].duration.text));
+        var route = response.routes[0].legs[0];
+
+        directionsDisplay.setDirections(response);
+
+            //init marker here
+        Pin = {
+            url: './assets/img/gps.png',
+            size: new google.maps.Size(64, 64),
+            scaledSize: new google.maps.Size(64, 64), // scaled size
+            origin: new google.maps.Point(0,0), // origin
+            anchor: new google.maps.Point(32, 64) // anchor
+        };
+
+        AuxMarker = new google.maps.Marker({
+            position: {lat: parseFloat(destination.split(",")[0]), lng: parseFloat(destination.split(",")[1])},
+            map: Gmap,
+            //draggable:true,
+            //animation: google.maps.Animation.DROP,  
+            icon: Pin
+        });
         
+        ///open info window
+        infoWindow.setContent("<div id='summary'>"+route.duration.text+"<br>"+route.distance.text+"</div>");
+        infoWindow.open(Gmap,AuxMarker);
+        directionsDisplay.setOptions( { suppressMarkers: true } );        
 
       } else {
+
+        ///////handle after development cmpl (ZERO_RESULT)
         alert("directions response "+status);
+        return null;
       }
     });
 

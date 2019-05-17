@@ -990,6 +990,12 @@ input:focus {
 #meetingFlist :first-child{
     margin-left: 0 !important;
 }
+
+#pinCan{
+    display: block;
+    position: fixed;
+    z-index: 9999;
+}
 /********************************************************/
 
 @-webkit-keyframes spining /* Safari and Chrome */ {

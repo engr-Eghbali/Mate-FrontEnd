@@ -1,5 +1,6 @@
 ///global vars
 var map,map2,CurrentPin,InputMarker,AuxMarker,directionsDisplay,infoWindow;
+var FriendsMarkerTable=[];
 var currentGeo ={
     lat: 32.492270, 
     lng: 51.764425
@@ -133,6 +134,10 @@ function initMap() {
 
       google.maps.event.addListenerOnce(map, 'idle', function(){
         map.panTo(currentGeo);
+        try {
+            Currentmarker.setMap(null);
+            
+        } catch (error) {}
         Currentmarker = new google.maps.Marker({
             position: {lat: parseFloat(currentGeo.lat), lng: parseFloat(currentGeo.lng)},
             map: map,
@@ -183,7 +188,10 @@ function onDeviceReady() {
         google.maps.event.addListenerOnce(map, 'idle', function(){
 
             map.panTo(currentGeo);
-
+            try {
+                Currentmarker.setMap(null);
+                
+            } catch (error) {}
             Currentmarker = new google.maps.Marker({
                 position: {lat: parseFloat(currentGeo.lat), lng: parseFloat(currentGeo.lng)},
                 map: map,

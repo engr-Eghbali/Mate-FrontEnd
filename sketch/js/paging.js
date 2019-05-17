@@ -52,7 +52,7 @@ document.onreadystatechange = () => {
     if (document.readyState === 'complete') {
 
   
-  
+
 
 
     }
@@ -64,6 +64,8 @@ document.onreadystatechange = () => {
     
     ///////close sideMenu
 function ToggleMenu(){
+
+    markerIniter();
         
     document.getElementById("profileBTN").classList.toggle("closedMenu");
     setTimeout(function(){document.getElementById("upcomingBTN").classList.toggle("closedMenu");},200);
@@ -322,6 +324,9 @@ function uploadAvatar(avatar){
             const ctx = elem.getContext('2d');
             // img.width and img.height will contain the original dimensions
             ctx.drawImage(img, 0, 0, 128, 128);
+            context.arc(64, 64, 64, 0, Math.PI * 2, true);
+            context.clip();
+
             elem.toBlob(function(blob){
                 uploadAvatar(blob);
             },"image/png",1);
@@ -754,6 +759,9 @@ function retrieveFriendsList(){
                  localStorage.setItem("MateFriendsInfo",this.response);
                  loadPage("friendsMenu");
                  document.getElementById("updateFriendsBTN").classList.remove("spining");
+                 //////
+                 updatePinTable();
+
                  return;
              }
             
@@ -1179,6 +1187,7 @@ function accFrequest(el){
                     el.parentElement.remove();
                     document.getElementById("updatePendingsBTN").classList.remove("spining");
                     retrieveFriendsList();
+                    
                     return
 
                 }else{
@@ -1579,20 +1588,122 @@ function panToMeeting(el){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+////////make map pin marker for every person
+function updateFmarkerTable(){
+    
+    if(info=storageRetrieve("MateUserInfo")){
+
+
+        var data="id="+info.id+"&vc="+info.vc;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+                 
+            if(this.response==-1){
+                localStorage.removeItem("MateUserInfo");
+                alert("login again:7");
+                location.reload();
+            }else{
+               
+                pintable=JSON.parse(this.responseText);
+
+                pintable.forEach((pin,i)=>{
+                    tempIcon= {
+                        url: "data:image/png;base64,"+pin.Pin,
+                        size: new google.maps.Size(64, 64),
+                        scaledSize: new google.maps.Size(64, 64), // scaled size
+                        origin: new google.maps.Point(0,0), // origin
+                        anchor: new google.maps.Point(32, 64) // anchor
+                      };
+
+                      FriendsMarkerTable.push({ID:pin.ID,Marker:new google.maps.Marker({ icon: tempIcon} )   })}
+
+                )
+                console.log(FriendsMarkerTable)
+            } 
+            }    
+        };
+
+       xhttp.open("POST", "https://guarded-castle-67026.herokuapp.com/PinMap?"+data, true);
+       //xhttp.setRequestHeader("Content-type", "multipart/form-data");
+       xhttp.send();
+
+
+
+    }else{
+        //handle if not found
+    }
+}
+
+///////////////
+updateFmarkerTable()
+////////////////////////////pinmaker client side failed due to CORS privacy violation, Do somthing about...
+//function pinMaker(id,avatar){
+//
+//    rnd=Math.floor((Math.random()*10)+1);
+//
+//    var can = document.getElementById("pinCan");
+//    var ctx = can.getContext('2d');
+//
+//    var basePin = new Image();
+//    var pic     = new Image();
+//
+//   
+//
+//    basePin.onload = function() {
+//    ctx.drawImage(basePin, 0, 0,64,64);
+//
+//        var scale = Math.min(40 / 128, 40 / 128);
+//        // get the top left position of the image
+//        var x = 12;
+//        var y = 6;
+//       ctx.drawImage(pic, x, y, 128 * scale, 128 * scale);
+//
+//       pin=can.toDataURL()
+//       
+//      console.log();
+//
+//       row={ID:id,Pin:pin};
+//       
+//       Cin = {
+//        url: row.Pin,
+//        size: new google.maps.Size(64, 64),
+//        scaledSize: new google.maps.Size(64, 64), // scaled size
+//        origin: new google.maps.Point(0,0), // origin
+//        anchor: new google.maps.Point(32, 64) // anchor
+//     };
+//
+//
+//    new google.maps.Marker({
+//        position: {lat: parseFloat(currentGeo.lat), lng: parseFloat(currentGeo.lng)},
+//        map: map,
+//        //draggable:true,
+//        animation: google.maps.Animation.DROP,  
+//        icon: Cin
+//    });
+//
+//    }
+//
+//    basePin.src ="http://www.myiconfinder.com/uploads/iconsets/128-128-6096188ce806c80cf30dca727fe7c237.png"; // "./assets/pins/"+rnd+".svg";
+//    pic.src = "http://www.myiconfinder.com/uploads/iconsets/128-128-6096188ce806c80cf30dca727fe7c237.png";
+//}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
 //localStorage.removeItem("MateUserInfo");
 
 //set a meeting record
-//var data="id=5cc06283f318f500048e7bc5&vc=195278&title=ملاقات&time=2012-11-01T22:08:41Z&crowd=Bob,Puttin&geo=54.4567,36.1234";
+//var data="id=5cc06283f318f500048e7bc5&vc=331949";
 //var xhttp = new XMLHttpRequest();
 //xhttp.onreadystatechange = function() {
 //if (this.readyState == 4 && this.status == 200) {
-//  alert(this.response);
-//  
+ // console.log(this.response);
+  
 //}    
 //};
-//
-//xhttp.open("POST", "https://guarded-castle-67026.herokuapp.com/SetMeeting?"+data, true);
+
+//xhttp.open("POST", "https://guarded-castle-67026.herokuapp.com/PinMap?"+data, true);
 ////xhttp.setRequestHeader("Content-type", "multipart/form-data");
 //xhttp.send();
 
@@ -1603,5 +1714,8 @@ function panToMeeting(el){
 
 
 //beginAuth();
+
+
+//localStorage.removeItem("MateFriendsInfo");
 
 ////5cc06283f318f500048e7bc5
