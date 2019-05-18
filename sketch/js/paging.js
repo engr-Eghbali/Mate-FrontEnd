@@ -65,7 +65,7 @@ document.onreadystatechange = () => {
     ///////close sideMenu
 function ToggleMenu(){
 
-    markerIniter();
+   
         
     document.getElementById("profileBTN").classList.toggle("closedMenu");
     setTimeout(function(){document.getElementById("upcomingBTN").classList.toggle("closedMenu");},200);
@@ -626,8 +626,11 @@ function leaveMeeting(element){
 
              }else{
                  
-                 localStorage.setItem("MateMeetingsInfo",this.response);
-                 return;
+
+                document.getElementById("eventContainer").innerHTML="<div id='Meeting404'>لیست قرار شما خالیست :)<br><div  onclick=\"(function(){closeMenu(\'scheduleMenu\');openMenu(\'auxiliaryMap\');})();return;\"> + اضافه کنید.</div></div>";
+                localStorage.setItem("MateMeetingsInfo",this.response);
+                document.getElementById("updateMeetingsBTN").classList.remove("spining");
+                return;
              }
             
           
@@ -681,7 +684,7 @@ function retrieveMeetingsList(){
                  return;
              }
              if((this.responseText.length)<10){
-                 document.getElementById("eventContainer").innerHTML="<div id=\"Meeting404\">لیست قرار شما خالیست :)</div>";
+                document.getElementById("eventContainer").innerHTML="<div id='Meeting404'>لیست قرار شما خالیست :)<br><div  onclick=\"(function(){closeMenu(\'scheduleMenu\');openMenu(\'auxiliaryMap\');})();return;\"> + اضافه کنید.</div></div>";
                  document.getElementById("updateMeetingsBTN").classList.remove("spining");
                  return;
 
@@ -750,7 +753,7 @@ function retrieveFriendsList(){
                  return;
              }
              if((this.responseText.length)<10){
-                 document.getElementById("Flist").innerHTML="<div id=\"Friend404\">لیست دوستان شما خالیست :)</div>";
+                 document.getElementById("Flist").innerHTML="<div id=\"Friend404\">لیست وستان شما خالیست :)</div>";
                  document.getElementById("updateFriendsBTN").classList.remove("spining");
                  return;
 

@@ -996,6 +996,11 @@ input:focus {
     position: fixed;
     z-index: 9999;
 }
+
+#Meeting404 > div {
+    text-decoration-line: none;
+    color: #29abe2;
+}
 /********************************************************/
 
 @-webkit-keyframes spining /* Safari and Chrome */ {

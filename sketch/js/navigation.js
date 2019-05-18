@@ -112,7 +112,7 @@ function initMap() {
 
     map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: parseFloat(currentGeo.lat), lng: parseFloat(currentGeo.lng)},
-      zoom: 14,
+      zoom: 13,
       disableDefaultUI: true,
       mapTypeControlOptions:{
         mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain',
@@ -472,24 +472,25 @@ function pathFinder(origin,destination,Gmap){
 
             //init marker here
         Pin = {
-            url: './assets/img/gps.png',
+            url: null,
             size: new google.maps.Size(64, 64),
             scaledSize: new google.maps.Size(64, 64), // scaled size
             origin: new google.maps.Point(0,0), // origin
             anchor: new google.maps.Point(32, 64) // anchor
         };
 
-        AuxMarker = new google.maps.Marker({
-            position: {lat: parseFloat(destination.split(",")[0]), lng: parseFloat(destination.split(",")[1])},
-            map: Gmap,
-            //draggable:true,
-            //animation: google.maps.Animation.DROP,  
-            icon: Pin
-        });
+  //      AuxMarker = new google.maps.Marker({
+  //          position: {lat: parseFloat(destination.split(",")[0]), lng: parseFloat(destination.split(",")[1])},
+  //          map: Gmap,
+  //          //draggable:true,
+  //          //animation: google.maps.Animation.DROP,  
+  //          icon: Pin
+  //      });
         
         ///open info window
         infoWindow.setContent("<div id='summary'>"+route.duration.text+"<br>"+route.distance.text+"</div>");
-        infoWindow.open(Gmap,AuxMarker);
+        infoWindow.setPosition({lat: parseFloat(destination.split(",")[0]), lng: parseFloat(destination.split(",")[1])})
+        infoWindow.open(Gmap);
         directionsDisplay.setOptions( { suppressMarkers: true } );        
 
       } else {
