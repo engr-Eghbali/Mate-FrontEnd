@@ -176,8 +176,8 @@ window.addEventListener("resize",function(){
     var vcInpt   =document.getElementById("vc");
     var userInpt =document.getElementById("username");
     var searchQuery =document.getElementById("FsearchInput");
-    var profileMenuVis=document.getElementById("profileMenu").style.display;
-    var addMeetingMenuVis=document.getElementById("addMeetingMenu").style.display;
+    var profileMenu=document.getElementById("profileMenu");
+    var addMeetingMenu=document.getElementById("addMeetingMenu");
     
     if(!kbStatus){
 
@@ -194,10 +194,12 @@ window.addEventListener("resize",function(){
         if(searchQuery!=null){
             fsearchIn();
         }
-        if(profileMenuVis=='block'){
+        if(profileMenu!=null){
+            if(profileMenu.style.display=='block')
             profileIn();
         }
-        if(addMeetingMenuVis=='block'){
+        if(addMeetingMenu!=null){
+            if(addMeetingMenu.style.display=='block')
             addMeetingIn();
         }
         
@@ -217,10 +219,12 @@ window.addEventListener("resize",function(){
         if(searchQuery!=null){
             fsearchOut();
         }
-        if(profileMenuVis=='block'){
+        if(profileMenu!=null){
+            if(profileMenu.style.display=='none')
             profileOut();
         }
-        if(addMeetingMenuVis=='block'){
+        if(addMeetingMenu!=null){
+            if(addMeetingMenu.style.display=='none')
             addMeetingOut();
         }
 

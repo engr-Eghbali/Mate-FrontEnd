@@ -1,6 +1,7 @@
 ///global vars
-var map,map2,CurrentPin,InputMarker,AuxMarker,directionsDisplay,infoWindow;
+var map,map2,CurrentPin,InputMarker,directionsDisplay,infoWindow;
 var FriendsMarkerTable=[];
+var MeetingsMarkerList=[];
 var currentGeo ={
     lat: 32.492270, 
     lng: 51.764425
@@ -445,9 +446,9 @@ function pathFinder(origin,destination,Gmap){
     ///remove previous route,infowindow and marker
     directionsDisplay.setDirections({routes: []});
     infoWindow.close();
-    if(AuxMarker){
-        AuxMarker.setMap(null);
-    }
+//    if(AuxMarker){
+//        AuxMarker.setMap(null);
+//    }
     
     if(!Gmap){
         setTimeout(pathFinder(),2000,origin,destination);
@@ -471,13 +472,13 @@ function pathFinder(origin,destination,Gmap){
         directionsDisplay.setDirections(response);
 
             //init marker here
-        Pin = {
-            url: null,
-            size: new google.maps.Size(64, 64),
-            scaledSize: new google.maps.Size(64, 64), // scaled size
-            origin: new google.maps.Point(0,0), // origin
-            anchor: new google.maps.Point(32, 64) // anchor
-        };
+//        Pin = {
+//            url: null,
+//            size: new google.maps.Size(64, 64),
+//            scaledSize: new google.maps.Size(64, 64), // scaled size
+//            origin: new google.maps.Point(0,0), // origin
+//            anchor: new google.maps.Point(32, 64) // anchor
+//        };
 
   //      AuxMarker = new google.maps.Marker({
   //          position: {lat: parseFloat(destination.split(",")[0]), lng: parseFloat(destination.split(",")[1])},

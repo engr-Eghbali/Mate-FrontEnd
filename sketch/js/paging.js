@@ -15,11 +15,18 @@ function beginAuth(){
     xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
         if(this.response==1){
+        
             document.getElementById("signInPage").remove();
             
             if(!storageRetrieve("MateFriendsInfo")){
                 retrieveFriendsList();
             }
+            if(!storageRetrieve("MateMeetingsInfo")){
+                retrieveMeetingsList();
+            }else{
+                processMeetings();
+            }
+
             return
         }
         if(this.response==0){
@@ -693,6 +700,7 @@ function retrieveMeetingsList(){
                  localStorage.setItem("MateMeetingsInfo",this.response);
                  loadPage("scheduleMenu");
                  document.getElementById("updateMeetingsBTN").classList.remove("spining");
+                 setTimeout(processMeetings,200);
                  return;
              }
             
@@ -1564,10 +1572,6 @@ function exitPan(){
 
     directionsDisplay.setDirections({routes: []});
     infoWindow.close();
-    if(AuxMarker){
-        AuxMarker.setMap(null);
-    }
-
     ToggleMenu()
     document.getElementById("backBTN").style.left="-20%";
     setTimeout(function(){document.getElementById("backBTN").style.display="none";},1200);
@@ -1613,10 +1617,10 @@ function updateFmarkerTable(){
                 pintable.forEach((pin,i)=>{
                     tempIcon= {
                         url: "data:image/png;base64,"+pin.Pin,
-                        size: new google.maps.Size(64, 64),
-                        scaledSize: new google.maps.Size(64, 64), // scaled size
+                        size: new google.maps.Size(48, 48),
+                        scaledSize: new google.maps.Size(48, 48), // scaled size
                         origin: new google.maps.Point(0,0), // origin
-                        anchor: new google.maps.Point(32, 64) // anchor
+                        anchor: new google.maps.Point(24, 48) // anchor
                       };
 
                       FriendsMarkerTable.push({ID:pin.ID,Marker:new google.maps.Marker({ icon: tempIcon} )   })}
@@ -1638,8 +1642,74 @@ function updateFmarkerTable(){
     }
 }
 
-///////////////
-updateFmarkerTable()
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////pan to marker when click on...
+function panToMarker(marker){
+
+    console.log(marker);
+    position=marker.getPosition().lat()+","+marker.getPosition().lng();
+    pathFinder(currentGeo,position,map);
+    document.getElementById("backBTN").style.display="block";
+    document.getElementById("backBTN").style.left="2%";
+    ToggleMenu();
+
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+///////set marker for each meeting then init notification
+function processMeetings(){
+
+    if(MeetingsMarkerList!=[]){
+        MeetingsMarkerList.forEach(m=>{m.setMap(null)});
+    }
+
+    Pin = {
+        url: './assets/img/meetMarker.png',
+        size: new google.maps.Size(32, 32),
+        scaledSize: new google.maps.Size(32, 32), // scaled size
+        origin: new google.maps.Point(0,0), // origin
+        anchor: new google.maps.Point(16, 32) // anchor
+      };
+
+
+    if(meetings=storageRetrieve("MateMeetingsInfo")){
+
+        meetings.forEach((meeting,i)=>{
+            
+        /////set a marker
+            MeetingsMarkerList.push(new google.maps.Marker({
+                position: {lat: parseFloat(meeting.Geo.X), lng: parseFloat(meeting.Geo.Y)},
+                map: map,
+                //draggable:true,
+                //animation: google.maps.Animation.DROP,  
+                icon: Pin
+            }));
+            ///set onclick func to marker
+            google.maps.event.addListener(MeetingsMarkerList[i], 'click',function(){ panToMarker(MeetingsMarkerList[i])});
+            cordova.plugins.notification.local.schedule({
+        
+                title: 'Design team meeting',
+                text: '3:00 - 4:00 PM',
+                foreground: true,
+                icon:'./assets/img/meetMarker.png',
+                actions: [{ id: 'yes', title: 'Yes' }],
+                trigger: { in: 1, unit: 'minute' }
+            });
+    
+
+        })
+
+    }else{
+        //handle if not found
+    }
+
+}
+
+beginAuth();
+updateFmarkerTable();
 ////////////////////////////pinmaker client side failed due to CORS privacy violation, Do somthing about...
 //function pinMaker(id,avatar){
 //
@@ -1716,9 +1786,10 @@ updateFmarkerTable()
 
 
 
-//beginAuth();
+//
 
 
 //localStorage.removeItem("MateFriendsInfo");
 
 ////5cc06283f318f500048e7bc5
+
