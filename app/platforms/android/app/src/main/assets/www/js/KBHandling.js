@@ -115,6 +115,7 @@ function addMeetingIn(){
     document.getElementById("meetingAddress").style.fontSize="3vh";
     document.getElementById("meetingFlist").style.height="14vh";
     document.getElementById("meetingMembers").style.fontSize="5vh";
+    document.getElementById("alarmSet").style.display='none';
     document.querySelectorAll(".formInput").forEach(el=>{
         el.style.height="9vh";
     })
@@ -138,6 +139,7 @@ function addMeetingOut(){
     document.getElementById("meetingAddress").style.fontSize="1.8vh";
     document.getElementById("meetingFlist").style.height="11vh";
     document.getElementById("meetingMembers").style.fontSize="3vh";
+    document.getElementById("alarmSet").style.display='block';
     document.querySelectorAll(".formInput").forEach(el=>{
         el.style.height="6vh";
     })
@@ -177,7 +179,7 @@ window.addEventListener("resize",function(){
     var userInpt =document.getElementById("username");
     var searchQuery =document.getElementById("FsearchInput");
     var profileMenu=document.getElementById("profileMenu");
-    var addMeetingMenu=document.getElementById("addMeetingMenu");
+    var addMeetingMenu=document.getElementById("AddMeetingMenu");
     
     if(!kbStatus){
 
@@ -195,12 +197,16 @@ window.addEventListener("resize",function(){
             fsearchIn();
         }
         if(profileMenu!=null){
-            if(profileMenu.style.display=='block')
-            profileIn();
+          //  if(profileMenu.style.display=='block'){
+                profileIn();
+          //  }
+            
         }
         if(addMeetingMenu!=null){
-            if(addMeetingMenu.style.display=='block')
-            addMeetingIn();
+         //   if(addMeetingMenu.style.display=='block'){
+                addMeetingIn();
+        //    }
+            
         }
         
         kbStatus=true;
@@ -220,11 +226,15 @@ window.addEventListener("resize",function(){
             fsearchOut();
         }
         if(profileMenu!=null){
-            if(profileMenu.style.display=='none')
-            profileOut();
+         //   if(profileMenu.style.display=='none'){
+                console.log("pm resize");
+                profileOut();
+        //    }
+            
         }
         if(addMeetingMenu!=null){
-            if(addMeetingMenu.style.display=='none')
+         //   if(addMeetingMenu.style.display=='none')
+            console.log("am resize");
             addMeetingOut();
         }
 

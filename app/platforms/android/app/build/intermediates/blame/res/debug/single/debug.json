@@ -1,27 +1,23 @@
 [
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_notification_bg_low_pressed.9.png.flat",
-        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/6e484b758998a9aaf961cfdfc78c764f/res/drawable-xhdpi-v4/notification_bg_low_pressed.9.png"
+        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/2ea3431aae9b861477233e3fb01cda42/res/drawable-xhdpi-v4/notification_bg_low_pressed.9.png"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_notification_bg_low_normal.9.png.flat",
-        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/6e484b758998a9aaf961cfdfc78c764f/res/drawable-xhdpi-v4/notification_bg_low_normal.9.png"
+        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/2ea3431aae9b861477233e3fb01cda42/res/drawable-xhdpi-v4/notification_bg_low_normal.9.png"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/layout-v16_notification_template_custom_big.xml.flat",
-        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/6e484b758998a9aaf961cfdfc78c764f/res/layout-v16/notification_template_custom_big.xml"
+        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/2ea3431aae9b861477233e3fb01cda42/res/layout-v16/notification_template_custom_big.xml"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/drawable_notification_bg_low.xml.flat",
-        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/6e484b758998a9aaf961cfdfc78c764f/res/drawable/notification_bg_low.xml"
+        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/2ea3431aae9b861477233e3fb01cda42/res/drawable/notification_bg_low.xml"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/drawable-port-mdpi_screen.png.flat",
         "source": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/src/main/res/drawable-port-mdpi/screen.png"
-    },
-    {
-        "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/mipmap-mdpi_icon.png.flat",
-        "source": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/src/main/res/mipmap-mdpi/icon.png"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/drawable-port-hdpi_screen.png.flat",
@@ -29,19 +25,19 @@
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_notification_bg_normal.9.png.flat",
-        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/6e484b758998a9aaf961cfdfc78c764f/res/drawable-xhdpi-v4/notification_bg_normal.9.png"
+        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/2ea3431aae9b861477233e3fb01cda42/res/drawable-xhdpi-v4/notification_bg_normal.9.png"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_notification_bg_low_normal.9.png.flat",
-        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/6e484b758998a9aaf961cfdfc78c764f/res/drawable-mdpi-v4/notification_bg_low_normal.9.png"
+        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/2ea3431aae9b861477233e3fb01cda42/res/drawable-mdpi-v4/notification_bg_low_normal.9.png"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/layout_notification_media_action.xml.flat",
-        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/126770e02d55b8f516a107526ed72f7e/res/layout/notification_media_action.xml"
+        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/52c140c09fd90207d22aaed1e8e59098/res/layout/notification_media_action.xml"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/layout_notification_template_big_media_custom.xml.flat",
-        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/126770e02d55b8f516a107526ed72f7e/res/layout/notification_template_big_media_custom.xml"
+        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/52c140c09fd90207d22aaed1e8e59098/res/layout/notification_template_big_media_custom.xml"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/xml_camera_provider_paths.xml.flat",
@@ -49,15 +45,23 @@
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_notification_bg_low_pressed.9.png.flat",
-        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/6e484b758998a9aaf961cfdfc78c764f/res/drawable-hdpi-v4/notification_bg_low_pressed.9.png"
+        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/2ea3431aae9b861477233e3fb01cda42/res/drawable-hdpi-v4/notification_bg_low_pressed.9.png"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/xml_config.xml.flat",
         "source": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/src/main/res/xml/config.xml"
     },
     {
+        "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/mipmap-xxhdpi-v26_ic_launcher.xml.flat",
+        "source": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/src/main/res/mipmap-xxhdpi-v26/ic_launcher.xml"
+    },
+    {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/layout_notification_action_tombstone.xml.flat",
-        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/6e484b758998a9aaf961cfdfc78c764f/res/layout/notification_action_tombstone.xml"
+        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/2ea3431aae9b861477233e3fb01cda42/res/layout/notification_action_tombstone.xml"
+    },
+    {
+        "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/mipmap-ldpi-v26_ic_launcher_background.png.flat",
+        "source": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/src/main/res/mipmap-ldpi-v26/ic_launcher_background.png"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/drawable-land-xxxhdpi_screen.png.flat",
@@ -65,51 +69,59 @@
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/layout_notification_template_media_custom.xml.flat",
-        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/126770e02d55b8f516a107526ed72f7e/res/layout/notification_template_media_custom.xml"
+        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/52c140c09fd90207d22aaed1e8e59098/res/layout/notification_template_media_custom.xml"
     },
     {
-        "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/mipmap-ldpi_icon.png.flat",
-        "source": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/src/main/res/mipmap-ldpi/icon.png"
+        "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/mipmap-hdpi-v26_ic_launcher_background.png.flat",
+        "source": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/src/main/res/mipmap-hdpi-v26/ic_launcher_background.png"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_notification_bg_normal_pressed.9.png.flat",
-        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/6e484b758998a9aaf961cfdfc78c764f/res/drawable-xhdpi-v4/notification_bg_normal_pressed.9.png"
+        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/2ea3431aae9b861477233e3fb01cda42/res/drawable-xhdpi-v4/notification_bg_normal_pressed.9.png"
+    },
+    {
+        "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_notification_bg_normal_pressed.9.png.flat",
+        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/2ea3431aae9b861477233e3fb01cda42/res/drawable-mdpi-v4/notification_bg_normal_pressed.9.png"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/drawable-port-ldpi_screen.png.flat",
         "source": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/src/main/res/drawable-port-ldpi/screen.png"
     },
     {
-        "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_notification_bg_normal_pressed.9.png.flat",
-        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/6e484b758998a9aaf961cfdfc78c764f/res/drawable-mdpi-v4/notification_bg_normal_pressed.9.png"
-    },
-    {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/layout-v21_notification_template_icon_group.xml.flat",
-        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/6e484b758998a9aaf961cfdfc78c764f/res/layout-v21/notification_template_icon_group.xml"
+        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/2ea3431aae9b861477233e3fb01cda42/res/layout-v21/notification_template_icon_group.xml"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/layout_notification_template_lines_media.xml.flat",
-        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/126770e02d55b8f516a107526ed72f7e/res/layout/notification_template_lines_media.xml"
+        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/52c140c09fd90207d22aaed1e8e59098/res/layout/notification_template_lines_media.xml"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_notify_panel_notification_icon_bg.png.flat",
-        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/6e484b758998a9aaf961cfdfc78c764f/res/drawable-xhdpi-v4/notify_panel_notification_icon_bg.png"
-    },
-    {
-        "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/mipmap-xhdpi_icon.png.flat",
-        "source": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/src/main/res/mipmap-xhdpi/icon.png"
+        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/2ea3431aae9b861477233e3fb01cda42/res/drawable-xhdpi-v4/notify_panel_notification_icon_bg.png"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/layout_notification_action.xml.flat",
-        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/6e484b758998a9aaf961cfdfc78c764f/res/layout/notification_action.xml"
+        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/2ea3431aae9b861477233e3fb01cda42/res/layout/notification_action.xml"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_notification_bg_low_pressed.9.png.flat",
-        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/6e484b758998a9aaf961cfdfc78c764f/res/drawable-mdpi-v4/notification_bg_low_pressed.9.png"
+        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/2ea3431aae9b861477233e3fb01cda42/res/drawable-mdpi-v4/notification_bg_low_pressed.9.png"
+    },
+    {
+        "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/src/main/res/mipmap-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/mipmap-xhdpi-v26_ic_launcher_background.png.flat",
+        "source": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/src/main/res/mipmap-xhdpi-v26/ic_launcher_background.png"
+    },
+    {
+        "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/mipmap-xxhdpi-v26_ic_launcher_background.png.flat",
+        "source": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/src/main/res/mipmap-xxhdpi-v26/ic_launcher_background.png"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_notification_bg_normal_pressed.9.png.flat",
-        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/6e484b758998a9aaf961cfdfc78c764f/res/drawable-hdpi-v4/notification_bg_normal_pressed.9.png"
+        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/2ea3431aae9b861477233e3fb01cda42/res/drawable-hdpi-v4/notification_bg_normal_pressed.9.png"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/xml_localnotification_provider_paths.xml.flat",
@@ -117,47 +129,75 @@
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/drawable_notification_bg.xml.flat",
-        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/6e484b758998a9aaf961cfdfc78c764f/res/drawable/notification_bg.xml"
+        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/2ea3431aae9b861477233e3fb01cda42/res/drawable/notification_bg.xml"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/layout_notification_template_big_media_narrow_custom.xml.flat",
-        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/126770e02d55b8f516a107526ed72f7e/res/layout/notification_template_big_media_narrow_custom.xml"
+        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/52c140c09fd90207d22aaed1e8e59098/res/layout/notification_template_big_media_narrow_custom.xml"
+    },
+    {
+        "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi-v26_ic_launcher.xml.flat",
+        "source": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/src/main/res/mipmap-xxxhdpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/layout-v21_notification_action_tombstone.xml.flat",
+        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/2ea3431aae9b861477233e3fb01cda42/res/layout-v21/notification_action_tombstone.xml"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/drawable-port-xhdpi_screen.png.flat",
         "source": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/src/main/res/drawable-port-xhdpi/screen.png"
     },
     {
-        "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/layout-v21_notification_action_tombstone.xml.flat",
-        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/6e484b758998a9aaf961cfdfc78c764f/res/layout-v21/notification_action_tombstone.xml"
-    },
-    {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/layout-v21_notification_action.xml.flat",
-        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/6e484b758998a9aaf961cfdfc78c764f/res/layout-v21/notification_action.xml"
+        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/2ea3431aae9b861477233e3fb01cda42/res/layout-v21/notification_action.xml"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/layout_notification_template_media.xml.flat",
-        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/126770e02d55b8f516a107526ed72f7e/res/layout/notification_template_media.xml"
+        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/52c140c09fd90207d22aaed1e8e59098/res/layout/notification_template_media.xml"
+    },
+    {
+        "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi-v26_ic_launcher_foreground.png.flat",
+        "source": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/src/main/res/mipmap-xxxhdpi-v26/ic_launcher_foreground.png"
+    },
+    {
+        "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/mipmap-ldpi-v26_ic_launcher.xml.flat",
+        "source": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/src/main/res/mipmap-ldpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_notification_bg_normal.9.png.flat",
-        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/6e484b758998a9aaf961cfdfc78c764f/res/drawable-mdpi-v4/notification_bg_normal.9.png"
+        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/2ea3431aae9b861477233e3fb01cda42/res/drawable-mdpi-v4/notification_bg_normal.9.png"
+    },
+    {
+        "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/mipmap-mdpi-v26_ic_launcher_foreground.png.flat",
+        "source": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/src/main/res/mipmap-mdpi-v26/ic_launcher_foreground.png"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/drawable_notification_icon_background.xml.flat",
-        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/6e484b758998a9aaf961cfdfc78c764f/res/drawable/notification_icon_background.xml"
+        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/2ea3431aae9b861477233e3fb01cda42/res/drawable/notification_icon_background.xml"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/layout_notification_media_cancel_action.xml.flat",
-        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/126770e02d55b8f516a107526ed72f7e/res/layout/notification_media_cancel_action.xml"
+        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/52c140c09fd90207d22aaed1e8e59098/res/layout/notification_media_cancel_action.xml"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/drawable-land-xxhdpi_screen.png.flat",
         "source": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/src/main/res/drawable-land-xxhdpi/screen.png"
     },
     {
+        "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/mipmap-mdpi-v26_ic_launcher_background.png.flat",
+        "source": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/src/main/res/mipmap-mdpi-v26/ic_launcher_background.png"
+    },
+    {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/layout_notification_template_part_chronometer.xml.flat",
-        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/6e484b758998a9aaf961cfdfc78c764f/res/layout/notification_template_part_chronometer.xml"
+        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/2ea3431aae9b861477233e3fb01cda42/res/layout/notification_template_part_chronometer.xml"
+    },
+    {
+        "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi-v26_ic_launcher_background.png.flat",
+        "source": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/src/main/res/mipmap-xxxhdpi-v26/ic_launcher_background.png"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/drawable-land-ldpi_screen.png.flat",
@@ -168,20 +208,20 @@
         "source": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/src/main/res/drawable-port-xxxhdpi/screen.png"
     },
     {
-        "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/mipmap-xxhdpi_icon.png.flat",
-        "source": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/src/main/res/mipmap-xxhdpi/icon.png"
+        "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/mipmap-hdpi-v26_ic_launcher_foreground.png.flat",
+        "source": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/src/main/res/mipmap-hdpi-v26/ic_launcher_foreground.png"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/layout_notification_template_big_media.xml.flat",
-        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/126770e02d55b8f516a107526ed72f7e/res/layout/notification_template_big_media.xml"
+        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/52c140c09fd90207d22aaed1e8e59098/res/layout/notification_template_big_media.xml"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/layout_notification_template_big_media_narrow.xml.flat",
-        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/126770e02d55b8f516a107526ed72f7e/res/layout/notification_template_big_media_narrow.xml"
+        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/52c140c09fd90207d22aaed1e8e59098/res/layout/notification_template_big_media_narrow.xml"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/drawable_notification_tile_bg.xml.flat",
-        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/6e484b758998a9aaf961cfdfc78c764f/res/drawable/notification_tile_bg.xml"
+        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/2ea3431aae9b861477233e3fb01cda42/res/drawable/notification_tile_bg.xml"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/drawable-land-xhdpi_screen.png.flat",
@@ -189,54 +229,86 @@
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_notification_bg_normal.9.png.flat",
-        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/6e484b758998a9aaf961cfdfc78c764f/res/drawable-hdpi-v4/notification_bg_normal.9.png"
+        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/2ea3431aae9b861477233e3fb01cda42/res/drawable-hdpi-v4/notification_bg_normal.9.png"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/layout-v21_notification_template_custom_big.xml.flat",
-        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/6e484b758998a9aaf961cfdfc78c764f/res/layout-v21/notification_template_custom_big.xml"
+        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/2ea3431aae9b861477233e3fb01cda42/res/layout-v21/notification_template_custom_big.xml"
+    },
+    {
+        "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/mipmap-xhdpi-v26_ic_launcher_foreground.png.flat",
+        "source": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/src/main/res/mipmap-xhdpi-v26/ic_launcher_foreground.png"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_notify_panel_notification_icon_bg.png.flat",
-        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/6e484b758998a9aaf961cfdfc78c764f/res/drawable-hdpi-v4/notify_panel_notification_icon_bg.png"
+        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/2ea3431aae9b861477233e3fb01cda42/res/drawable-hdpi-v4/notify_panel_notification_icon_bg.png"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/layout_notification_template_icon_group.xml.flat",
-        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/6e484b758998a9aaf961cfdfc78c764f/res/layout/notification_template_icon_group.xml"
+        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/2ea3431aae9b861477233e3fb01cda42/res/layout/notification_template_icon_group.xml"
+    },
+    {
+        "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/mipmap-ldpi_ic_launcher.png.flat",
+        "source": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/src/main/res/mipmap-ldpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/mipmap-ldpi-v26_ic_launcher_foreground.png.flat",
+        "source": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/src/main/res/mipmap-ldpi-v26/ic_launcher_foreground.png"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_notify_panel_notification_icon_bg.png.flat",
-        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/6e484b758998a9aaf961cfdfc78c764f/res/drawable-mdpi-v4/notify_panel_notification_icon_bg.png"
+        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/2ea3431aae9b861477233e3fb01cda42/res/drawable-mdpi-v4/notify_panel_notification_icon_bg.png"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/drawable-land-hdpi_screen.png.flat",
         "source": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/src/main/res/drawable-land-hdpi/screen.png"
     },
     {
-        "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/mipmap-hdpi_icon.png.flat",
-        "source": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/src/main/res/mipmap-hdpi/icon.png"
+        "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/mipmap-xhdpi-v26_ic_launcher.xml.flat",
+        "source": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/src/main/res/mipmap-xhdpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/src/main/res/mipmap-mdpi/ic_launcher.png"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/layout_notification_template_part_time.xml.flat",
-        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/6e484b758998a9aaf961cfdfc78c764f/res/layout/notification_template_part_time.xml"
+        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/2ea3431aae9b861477233e3fb01cda42/res/layout/notification_template_part_time.xml"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_notification_bg_low_normal.9.png.flat",
-        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/6e484b758998a9aaf961cfdfc78c764f/res/drawable-hdpi-v4/notification_bg_low_normal.9.png"
+        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/2ea3431aae9b861477233e3fb01cda42/res/drawable-hdpi-v4/notification_bg_low_normal.9.png"
+    },
+    {
+        "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/mipmap-hdpi-v26_ic_launcher.xml.flat",
+        "source": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/src/main/res/mipmap-hdpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/mipmap-xxhdpi-v26_ic_launcher_foreground.png.flat",
+        "source": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/src/main/res/mipmap-xxhdpi-v26/ic_launcher_foreground.png"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/drawable-v21_notification_action_background.xml.flat",
-        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/6e484b758998a9aaf961cfdfc78c764f/res/drawable-v21/notification_action_background.xml"
+        "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/2ea3431aae9b861477233e3fb01cda42/res/drawable-v21/notification_action_background.xml"
     },
     {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/drawable-land-mdpi_screen.png.flat",
         "source": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/src/main/res/drawable-land-mdpi/screen.png"
     },
     {
+        "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/mipmap-mdpi-v26_ic_launcher.xml.flat",
+        "source": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/src/main/res/mipmap-mdpi-v26/ic_launcher.xml"
+    },
+    {
         "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/drawable-port-xxhdpi_screen.png.flat",
         "source": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/src/main/res/drawable-port-xxhdpi/screen.png"
     },
     {
-        "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi_icon.png.flat",
-        "source": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/src/main/res/mipmap-xxxhdpi/icon.png"
+        "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"
     }
 ]

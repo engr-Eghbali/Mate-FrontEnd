@@ -4,12 +4,18 @@ var countDownID;
 function beginAuth(){
 
     info=storageRetrieve("MateUserInfo");
-    if(!info)
-    return
+    if(!info){
+        document.getElementById("splashScreen").remove();
+        return
+    }
+    
 
 
-    if(info.id=="" || info.vc=="")
-    return
+    if(info.id=="" || info.vc==""){
+        document.getElementById("splashScreen").remove();
+        return        
+    }
+    
 
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
@@ -17,7 +23,8 @@ function beginAuth(){
         if(this.response==1){
         
             document.getElementById("signInPage").remove();
-            
+            setTimeout(()=>{document.getElementById("splashScreen").remove();},8000)
+
             if(!storageRetrieve("MateFriendsInfo")){
                 retrieveFriendsList();
             }
@@ -27,6 +34,8 @@ function beginAuth(){
                 processMeetings();
             }
 
+
+            updateFmarkerTable();
             return
         }
         if(this.response==0){
@@ -58,7 +67,7 @@ document.onreadystatechange = () => {
 
     if (document.readyState === 'complete') {
 
-  
+       
 
 
 
@@ -67,9 +76,17 @@ document.onreadystatechange = () => {
     
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function splashOmitter(){
+
+    var div=document.createElement("div");
+    div.innerHTML="<div id=\"splash\" class=\"spining\"></div><br><p0>Your Mate Is Near!</p0>";
+    div.id="splashScreen";
+    document.getElementsByTagName("body")[0].insertBefore(div,document.getElementsByTagName("body")[0].firstChild);
+
+}
     
-    
-    ///////close sideMenu
+///////close sideMenu
 function ToggleMenu(){
 
    
@@ -116,6 +133,8 @@ function storageRetrieve(key){
 ///click on submit phone/mail btn
 function submitPhone(){
 
+    splashOmitter();
+
     uid=document.getElementById("phoneNo").value;
     if(uid.length!=10){
         alert("correct phone your number")
@@ -139,6 +158,7 @@ function submitPhone(){
                 var tmp=JSON.stringify({id:"",vc:"",name:"",uid:uid,visibility:1,mail:"",avatar:""});
                 localStorage.setItem("MateUserInfo",tmp);
                 countDownID=setInterval(countDown,1000);
+                document.getElementById("splashScreen").remove();
 
             }
                
@@ -161,6 +181,7 @@ function submitPhone(){
 ///////////////////////////click on submit vc
 function submitVC(){
 
+    splashOmitter();
     info=JSON.parse(localStorage.getItem("MateUserInfo"));
     vc=document.getElementById("vc").value;
     if(vc.length!=6){
@@ -193,6 +214,7 @@ function submitVC(){
                         info.vc=vc;
                         info.id=responseArray[0];
                         localStorage.setItem("MateUserInfo",JSON.stringify(info));
+                        document.getElementById("splashScreen").remove();
                         return    
                     }else{
                         
@@ -203,6 +225,7 @@ function submitVC(){
                         info.name=responseArray[1];
                         info.avatar=responseArray[2];
                         localStorage.setItem("MateUserInfo",JSON.stringify(info));
+                        document.getElementById("splashScreen").remove();
                         return;
 
                     }
@@ -235,6 +258,8 @@ function countDown(){
         document.getElementById("resendVC").style.color="rgba(255, 183, 0, 1)";
         document.getElementById("resendVC").onclick=function(){
             submitPhone();
+            duration = 120000;
+            document.getElementById("resendVC").style.color="rgba(255, 183, 0, 0.5)";
         }
         return;
     }
@@ -267,6 +292,7 @@ function countDown(){
 /////////uploadAvatar
 function uploadAvatar(avatar){
 
+    splashOmitter();
     info=JSON.parse(localStorage.getItem("MateUserInfo"));
 
     var fd=new FormData();
@@ -279,15 +305,18 @@ function uploadAvatar(avatar){
     if (this.readyState == 4 && this.status == 200) {
 
          if(this.response==1){
+             document.getElementById("splashScreen").remove();
              return true;
          }
          if(this.response==0){
              setTimeout(uploadAvatar,60000,avatar);
+             document.getElementById("splashScreen").remove();
              return true;
          }
          if(this.response==-1){
              localStorage.removeItem("MateUserInfo");
              alert("bad request:7");
+             location.reload();
              return false;
          }else{
              return false;
@@ -355,6 +384,7 @@ function uploadAvatar(avatar){
 /////////submit username and navigate ro main page
     function submitInfo(){
 
+    splashOmitter();
 
     var username=document.getElementById("username").value;
     if(username.length<4){
@@ -369,6 +399,7 @@ function uploadAvatar(avatar){
 
         if(this.response=="reserved"){
             alert("username taken");
+            document.getElementById("splashScreen").remove();
             return;
         }
          if(this.response==1){
@@ -376,15 +407,18 @@ function uploadAvatar(avatar){
             info.name=username;
             localStorage.setItem("MateUserInfo",JSON.stringify(info));
             document.getElementById("signInPage").remove();
+            document.getElementById("splashScreen").remove();
 
          }
          if(this.response==0){
              alert("request failed,try again");
+             document.getElementById("splashScreen").remove();
              return;  
          }
          if(this.response==-1){
              localStorage.removeItem("MateUserInfo");
              alert("bad request:7");
+             location.reload();
              return false;
          }else{
              return false;
@@ -404,7 +438,7 @@ function uploadAvatar(avatar){
 
 //// a function for clossing menu pages
 function closeMenu(elemID){
-    document.getElementById(elemID).style.right="-100vh";
+    document.getElementById(elemID).classList.remove("openMenuPage");
     setTimeout(function(elemID){document.getElementById(elemID).style.display="none";},1000,elemID);
     
     if(elemID=="auxiliaryMap")
@@ -448,7 +482,7 @@ function openMenu(elemID){
     }
 
     document.getElementById(elemID).style.display="block";
-    setTimeout(function(elemID){document.getElementById(elemID).style.right="0vh"},10,elemID);
+    setTimeout(function(elemID){document.getElementById(elemID).classList.add("openMenuPage")},10,elemID);
         
 }
 
@@ -542,6 +576,8 @@ function visibilityToggle(){
 
 function saveProfileChanges(){
 
+
+    splashOmitter();
     username=document.getElementById("profileUsername").value;
     email   =document.getElementById("profileEmail").value;
     info=storageRetrieve("MateUserInfo");
@@ -554,6 +590,7 @@ function saveProfileChanges(){
     
             if(this.response=="reserved"){
                 alert("username taken");
+                document.getElementById("splashScreen").remove();
                 return;
             }
              if(this.response==1){
@@ -561,15 +598,18 @@ function saveProfileChanges(){
                 info.name=username;
                 localStorage.setItem("MateUserInfo",JSON.stringify(info));
                 closeMenu("profileMenu");
+                document.getElementById("splashScreen").remove();
              }
              if(this.response==0){
                  alert("request failed,try again");
+                 document.getElementById("splashScreen").remove();
                  return;  
              }
              if(this.response==-1){
                  localStorage.removeItem("MateUserInfo");
                  alert("bad request:7");
                  closeMenu("profileMenu");
+                 location.reload();
                  return false;
              }else{
                  alert("request failed,try again");
@@ -587,13 +627,50 @@ function saveProfileChanges(){
     }
 
     if(email!=info.mail){
-        info.mail=email;
-        localStorage.setItem("MateUserInfo",JSON.stringify(info));
-        closeMenu("profileMenu");
-    }
 
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
     
+            if(this.response=="reserved"){
+                alert("email address taken");
+                document.getElementById("splashScreen").remove();
+                return;
+            }
+             if(this.response==1){
+    
+                info.mail=email;
+                localStorage.setItem("MateUserInfo",JSON.stringify(info));
+                closeMenu("profileMenu");
+                document.getElementById("splashScreen").remove();
 
+            }
+             if(this.response==0){
+                 alert("request failed,try again");
+                 document.getElementById("splashScreen").remove();
+                 return;  
+             }
+             if(this.response==-1){
+                 localStorage.removeItem("MateUserInfo");
+                 alert("bad request:7");
+                 closeMenu("profileMenu");
+                 location.reload();
+                 return false;
+             }else{
+                 alert("request failed,try again");
+                 document.getElementById("splashScreen").remove();
+                 return;
+             }
+          
+            }
+               
+        };
+     
+        xhttp.open("POST", "https://guarded-castle-67026.herokuapp.com/Email?id="+info.id+"&vc="+info.vc+"&mail="+email, true);
+        //xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send();           
+
+    }
 
 }
 
@@ -771,7 +848,7 @@ function retrieveFriendsList(){
                  loadPage("friendsMenu");
                  document.getElementById("updateFriendsBTN").classList.remove("spining");
                  //////
-                 updatePinTable();
+                 updateFmarkerTable();
 
                  return;
              }
@@ -1061,7 +1138,7 @@ function loadPage(id){
                 var divisions='';
                 meetingsList.forEach(element => {
     
-                    divisions+="<div class=\"event\"><button class=\"cancelBTN\" onclick=\"makeConfirm('آیا مایل به حذف قرار هستید؟',leaveMeeting,this)\"></button><div style=\"display:none\">"+element.Geo.X+","+element.Geo.Y+"</div><div style=\"display:none\">"+element.Crowd+"</div><div style='height:-webkit-fill-available' onclick='panToMeeting(this)'><div class=\"titleEvent\">"+element.Title+"</div><div class=\"hostEvent\">  دعوت شده از طرف "+element.Host+"</div><div class=\"timeEvent\">"+element.Time.substring(12,19)+"</div><div class=\"dateEvent\">"+element.Time.substring(0,10)+"</div></div></div>";
+                    divisions+="<div class=\"event\"><button class=\"cancelBTN\" onclick=\"makeConfirm('آیا مایل به حذف قرار هستید؟',leaveMeeting,this)\"></button><div style=\"display:none\">"+element.Geo.X+","+element.Geo.Y+"</div><div style=\"display:none\">"+element.Crowd+"</div><div style='height:-webkit-fill-available' onclick='panToMeeting(this)'><div class=\"titleEvent\">"+element.Title+"</div><div class=\"hostEvent\">  دعوت شده از طرف "+element.Host+"</div><div class=\"timeEvent\">"+element.Time.substring(11,19)+"</div><div class=\"dateEvent\">"+element.Time.substring(0,10)+"</div></div></div>";
                 
                 });
     
@@ -1307,6 +1384,22 @@ function loadMeetingForm(){
     
     
     document.getElementById("meetingDate").value=today;
+
+    
+    ///////////controlling alarm icon and input
+    document.getElementById("alarmSetTime").addEventListener('click',function(e){
+
+            document.getElementById("alarmSetIcon").style.backgroundImage="url('./assets/img/bell.svg')";
+            document.getElementById("alarmSetIcon").style.zIndex="99";
+
+    });
+
+    document.getElementById("alarmSetIcon").addEventListener('click',function(){
+
+            document.getElementById("alarmSetIcon").style.backgroundImage="url('./assets/img/bell-slash.svg')";
+            document.getElementById("alarmSetIcon").style.zIndex="0";
+            document.getElementById("alarmSetTime").value="";
+    });
     
     updateTimeBoard();
     closeMenu("auxiliaryMap");
@@ -1423,6 +1516,29 @@ function setMeeting(){
             title=document.getElementById("meetingTitle").value;
             date =document.getElementById("meetingDate").value;
             time =document.getElementById("meetingTime").value;
+            alarm=document.getElementById("alarmSetTime").value;
+
+            date1=new Date();
+            date2=new Date(date+"T"+alarm+"Z");
+
+            if(alarm!=''){
+
+                diffTime=Math.abs(date2.getTime() - date1.getTime());
+                const diffMinutes = Math.ceil(diffTime / (1000 * 60));
+
+                cordova.plugins.notification.local.schedule({
+        
+                    title: title,
+                    text: time+'قرار داری یادت نره!',
+                    foreground: true,
+                    icon:'file://assets/img/meetMarker.png',
+                    //smallIcon: 'file://assets/img/meetMarker.png', ////mate icon
+                    sound:  'file://sound.mp3',
+                    actions: [{ id: 'yes', title: 'نشونم بده' }],
+                    trigger: {in:diffMinutes ,unit: 'minute'} //  { at:alarm} 
+                });
+    
+            }
             crowd=getInviteList();
             var crowdIds='';
             geo=lastChoosedPlace;
@@ -1626,7 +1742,7 @@ function updateFmarkerTable(){
                       FriendsMarkerTable.push({ID:pin.ID,Marker:new google.maps.Marker({ icon: tempIcon} )   })}
 
                 )
-                console.log(FriendsMarkerTable)
+                
             } 
             }    
         };
@@ -1640,6 +1756,8 @@ function updateFmarkerTable(){
     }else{
         //handle if not found
     }
+
+    
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1689,14 +1807,31 @@ function processMeetings(){
             }));
             ///set onclick func to marker
             google.maps.event.addListener(MeetingsMarkerList[i], 'click',function(){ panToMarker(MeetingsMarkerList[i])});
+
+            /////schedule notification for each meeting
+           
+            date=meeting.Time.split("T")[0].split("-");
+            hour=meeting.Time.split("T")[1].replace("Z","").split(":");
+            var TempDate=new Date(date[0],date[1],date[2],hour[0],hour[1],hour[2]);
+            TempDate.setMinutes(TempDate.getMinutes()-45);
+            //console.log(TempDate);
+
+            date2=new Date(meeting.Time);
+            date1=new Date();
+            diffTime=Math.abs(date2.getTime() - date1.getTime());
+            const diffMinutes = Math.ceil(diffTime / (1000 * 60));
+
+           // cordova.plugins.notification.local.clearAll(cordova.plugins.notification.local.getIds());
             cordova.plugins.notification.local.schedule({
         
-                title: 'Design team meeting',
-                text: '3:00 - 4:00 PM',
+                title: meeting.Title,
+                text: meeting.Time.split("T")[1].replace("Z","")+'قرار داری یادت نره!',
                 foreground: true,
-                icon:'./assets/img/meetMarker.png',
-                actions: [{ id: 'yes', title: 'Yes' }],
-                trigger: { in: 1, unit: 'minute' }
+                icon:'file://assets/img/meetMarker.png',
+                //smallIcon: 'file://assets/img/meetMarker.png', ////mate icon
+                sound:  'file://sound.mp3',
+                actions: [{ id: 'yes', title: 'نشونم بده' }],
+                trigger: {in:diffMinutes ,unit: 'minute'} //  { at:TempDate}
             });
     
 
@@ -1708,8 +1843,8 @@ function processMeetings(){
 
 }
 
-beginAuth();
-updateFmarkerTable();
+
+
 ////////////////////////////pinmaker client side failed due to CORS privacy violation, Do somthing about...
 //function pinMaker(id,avatar){
 //

@@ -4,7 +4,7 @@
             "outputFile": "/home/reza/Palace/Workshop/Mate/front/app/platforms/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-mk/values-mk.xml",
             "map": [
                 {
-                    "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/6e484b758998a9aaf961cfdfc78c764f/res/values-mk/values-mk.xml",
+                    "source": "/home/reza/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/2ea3431aae9b861477233e3fb01cda42/res/values-mk/values-mk.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
