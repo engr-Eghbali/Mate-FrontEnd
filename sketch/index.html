@@ -11,7 +11,7 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/solid.css" integrity="sha384-QokYePQSOwpBDuhlHOsX0ymF6R/vLk/UQVz3WHa6wygxI5oGTmDTv8wahFOSspdm" crossorigin="anonymous">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/fontawesome.css" integrity="sha384-vd1e11sR28tEK9YANUtpIOdjGW14pS87bUBuOIoBILVWLFnS+MCX9T6MMf0VdPGq" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/fontawesome.css" integrity="sha384-vd1e11sR28tEK9YANUtpIOdjGW14pS87bUBuOIoBILVWLFnS+MCX9T6MMf0VdPGq" crossorigin="anonymous">
         <link href="./css/style.css" rel="stylesheet">
         <script type="text/javascript" src="cordova.js"></script>
         <script src="./js/navigation.js"></script>
@@ -162,27 +162,48 @@
         <div class="navbar" ><div onclick="closeMenu('pendingsMenu')"><p> درخواست ها</p> <i class="fas fa-caret-left"></i></div><button id="updatePendingsBTN" class="refreshBTN" onclick="retrievePendingsList()"><i class="fas fa-undo"></i></button></div>
         <div id="Reqlist"></div>
 
-        <div id="billingPage">
+        <div id="billingPage" class="menu">
+ 
             <div id="addBillForm">
                 <input  id="addShareSum" type="number" class="formInput" required>
                 <div class="shareTitle">: مبلغ کل</div>
-                <button id="addShareHolderBTN"></button>
+                <button id="addShareHolderBTN" onclick="toggleCrowfForm()"></button>
                 <div class="shareTitle">: افراد سهیم</div>
                 <div id="shareHoldersList"></div>
 
                 <div class="saveANDdiscard" style="position: absolute;">
-                    <button id="confirmN" class="YNButton" style="border-right: 1px solid #a5a3be;border-bottom-left-radius: 4vh;" onclick="closePopup()">انصراف</button>
+                    <button id="confirmN" class="YNButton" style="border-right: 1px solid #a5a3be;border-bottom-left-radius: 4vh;" onclick="closeMenu('billingPage')">انصراف</button>
+                    <button id="confirmY" class="YNButton" style="border-bottom-right-radius: 4vh;" >ذخیره</button>
+                </div>
+            </div>
+
+
+            <div id="crowdForm">
+
+                <div id="crowdListContainer">
+                    <div class="friend">
+                        <div class="favatar" ></div>
+                        <div class="fname">name</div>    
+                    </div>
+                </div>
+
+                <div class="saveANDdiscard" style="position: absolute;">
+                    <button id="confirmN" class="YNButton" style="border-right: 1px solid #a5a3be;border-bottom-left-radius: 4vh;" onclick="toggleCrowfForm()">انصراف</button>
                     <button id="confirmY" class="YNButton" style="border-bottom-right-radius: 4vh;" >ذخیره</button>
                 </div>
 
             </div>
+
         </div>
+
+
+        <div id="meetingHistory">
         <!---->
-        <div class="event">
-            <button class="addBillBTN"></button>
+        <div class="event" >
+            <button class="addBillBTN" onclick="addBill(this)"></button>
             <button class="cancelBTN" onclick="makeConfirm('آیا مایل به حذف قرار هستید؟',leaveMeeting,this)"></button>
             <div style="display:none">32.48244522371868,51.764425000000074</div>
-            <div style="display:none">5cadc9d15058f1256c73d100,5cadc9d15058f1256c73d101</div>
+            <div style="display:none">Bob,Putin</div>
             <div style="height:-webkit-fill-available" onclick="panToMeeting(this)">
                 <div class="titleEvent">date</div>
                 <div class="hostEvent">  از طرف cheng</div>
@@ -190,7 +211,22 @@
             </div>
         </div>
         <!---->
+        <!---->
+        <div class="event" >
+                <button class="addBillBTN" onclick="addBill(this)"></button>
+                <button class="cancelBTN" onclick="makeConfirm('آیا مایل به حذف قرار هستید؟',leaveMeeting,this)"></button>
+                <div style="display:none">32.48244522371868,51.764425000000074</div>
+                <div style="display:none">Bob,Putin,cheng</div>
+                <div style="height:-webkit-fill-available" onclick="panToMeeting(this)">
+                    <div class="titleEvent">date</div>
+                    <div class="hostEvent">  از طرف cheng</div>
+                    <div class="dateEvent">2019-05-18 22:07:00</div>
+                </div>
+            </div>
+            <!---->
 
+        </div>    
+    
 </div>
 
 <!---->
@@ -213,7 +249,9 @@
        
     <div id="addMeetingForm">
 
-        <div id="contactList"></div>
+        <div id="contactList">
+
+        </div>
             
         <input id="meetingTitle" type="text" maxlength="36" class="formInput" placeholder="عنوان قرار" required>
         <div style="width:80%;height:2px;background-color:#808080;margin-top: 11vh;margin-bottom: 2vh;margin-right: 10%;"></div>

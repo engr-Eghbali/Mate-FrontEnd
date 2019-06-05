@@ -616,9 +616,9 @@ input:focus {
     border-radius: 10px;
  
     -webkit-transition-property: height; /* Safari */
-    -webkit-transition-duration: 0.2s; /* Safari */
+    -webkit-transition-duration: 0.3s; /* Safari */
     transition-property: height;
-    transition-duration: 0.2s;
+    transition-duration: 0.3s;
 
 }
 
@@ -761,11 +761,11 @@ input:focus {
     margin-left: 5%;
     margin-top: 4%;
     height: 12vh;
-
+    border-radius: 2vh;
     -webkit-transition-property: height; /* Safari */
-    -webkit-transition-duration: 0.2s; /* Safari */
+    -webkit-transition-duration: 0.3s; /* Safari */
     transition-property: height;
-    transition-duration: 0.2s;
+    transition-duration: 0.3s;
 
 }
 .favatar{
@@ -781,18 +781,19 @@ input:focus {
 
 }
 .fname{
-    position: fixed;
-    width: 40%;
-    margin-left: 30%;
-    height: 9vh;
+    width: 25vh;
+    height: 50%;
+    margin-left: 15vh;
+    padding-top: 8%;
     margin-top: 3vh;
     font-family: "medium";
     font-size: 4vh;
     color: #4d4d4d;
 }
 .friend > .cancelBTN{
-    margin-top: 8%;
+    margin-top: -10%;
     width: 5vh;
+    position: relative;
     height: 5vh;
 }
 
@@ -845,8 +846,10 @@ input:focus {
 }
 
 #Reqlist{
-    margin-top: 4vh;
-    position: fixed;
+    position: relative;
+    width: 100%;
+    margin-top: 12vh;
+    display: block;
 }
 
 .friend > .confirmBTN{
@@ -991,6 +994,7 @@ input:focus {
     height: 68vh;
     margin-left: 10%;
     padding: 0;
+    overflow-y: scroll;
     position: fixed;
     display: none;   
     z-index: 9;
@@ -1112,10 +1116,8 @@ input:focus {
 }
 
 #billingPage{
-    position: fixed;
+
     z-index: 999;
-    width: 100%;
-    height: 100%;
     background-image: url('../assets/bg2.png');
     background-position: center;
     background-repeat: no-repeat;
@@ -1131,6 +1133,29 @@ input:focus {
     position: fixed;
     border-radius: 4vh;
     margin-top: 20vh;
+}
+
+#crowdForm{
+width: 80%;
+height: 45vh;
+display: none;
+margin-left: 10%;
+margin-right: 10%;
+background-color: white;
+position: fixed;
+border-radius: 4vh;
+margin-top: 20vh;
+
+-webkit-transition-property: height; /* Safari */
+-webkit-transition-duration: 0.5s; /* Safari */
+transition-property: height;
+transition-duration: 0.5s;
+
+}
+
+
+.displayBlock{
+    display: block !important;
 }
 
 #addShareSum{
@@ -1166,6 +1191,31 @@ input:focus {
     background-position: center;
     background-repeat: no-repeat;
     background-size: 80%;
+    outline: none;
+}
+
+#shareHoldersList{
+    width: 70%;
+    height: 8vh;
+    float: right;
+    
+}
+
+#shareHoldersList :first-child{
+    margin-left: 0 !important;
+}
+
+#crowdListContainer{
+    width: 100%;
+    height: 32vh;
+    overflow-y: scroll;
+}
+
+#meetingHistory{
+    width: 100%;
+    height: 75vh;
+    margin-top: 2vh;
+    overflow-y: scroll;
 }
 /********************************************************/
 

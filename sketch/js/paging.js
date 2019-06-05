@@ -443,6 +443,8 @@ function closeMenu(elemID){
     
     if(elemID=="auxiliaryMap")
     setTimeout(function(){document.getElementById("map2").innerHTML=null},1000);
+    if(elemID=="billingPage")
+    document.getElementById("Reqlist").style.display="block";
     return;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -457,7 +459,7 @@ function openMenu(elemID){
 
         case "scheduleMenu":
         loadPage("scheduleMenu");
-        retrieveMeetingsList();
+      //  retrieveMeetingsList();
         break;
 
         case "friendsMenu":
@@ -475,6 +477,10 @@ function openMenu(elemID){
         
         case "AddMeetingMenu":
         geoCoder(lastChoosedPlace);
+        break;
+
+        case "billingPage":
+        document.getElementById("Reqlist").style.display="none";
         break;
 
         default:
@@ -834,7 +840,7 @@ function retrieveFriendsList(){
                  return
              }
              if(this.response==0){
-                 setTimeout(retrieveMeetingsList,60000);
+                 setTimeout(retrieveFriendsList,60000);
                  return;
              }
              if((this.responseText.length)<10){
@@ -1185,7 +1191,7 @@ function loadPage(id){
             });
 
             if(divisions.length>10){
-                document.getElementById("contactList").innerHTML=divisions;
+                document.getElementById("contactList").innerHTML=divisions+"<div class=\"friend\"><div class=\"favatar\"></div><div class=\"fname\"></div></div><div class=\"friend\"><div class=\"favatar\"></div><div class=\"fname\"></div></div><div class=\"friend\"><div class=\"favatar\"></div><div class=\"fname\"></div></div><div class=\"friend\"><div class=\"favatar\"></div><div class=\"fname\"></div></div>";
             }
         }
 
@@ -1211,7 +1217,8 @@ function retrievePendingsList(){
         xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
                  if(this.response==0 || this.response.length<10){
-                    document.getElementById("Reqlist").innerHTML="<div id=\"req404\">در حال حاضر درخواستی وجود ندارد.</div>";
+                    //document.getElementById("Reqlist").innerHTML="<div id=\"req404\">در حال حاضر درخواستی وجود ندارد.</div>";
+                    document.getElementById("Reqlist").innerHTML="";
                     document.getElementById("updatePendingsBTN").classList.remove("spining");
                       
                  }else{
@@ -1457,8 +1464,8 @@ function invite(el){
     if(list.length>0){
         
         [...list].forEach(f=>{
-            if(f.id==name){
-                document.getElementById(name).remove();
+            if(f.id=="meetingFlist-"+name){
+                document.getElementById("meetingFlist-"+name).remove();
                 flg=true;
                 return
             }
@@ -1469,7 +1476,7 @@ function invite(el){
         }
     }
   
-    divisions+=document.getElementById("meetingFlist").innerHTML+"<div id='"+name+"' class='stackedAvatar' style='background-image:"+avatar+"'></div>";
+    divisions+=document.getElementById("meetingFlist").innerHTML+"<div id='meetingFlist-"+name+"' class='stackedAvatar' style='background-image:"+avatar+"'></div>";
     
 
     document.getElementById("meetingFlist").innerHTML=divisions;
@@ -1489,8 +1496,9 @@ function getInviteList(){
     [...list].forEach(f=>{
 
         console.log(f.id)
-        usernameList.push(f.id);
+        usernameList.push(f.id.substring(13));
 
+        console.log(usernameList);
     });
 
     return usernameList;
@@ -1571,6 +1579,7 @@ function setMeeting(){
                 alert("تاریخ قرار را انتخاب کنید");
                 return;
             }
+            
     
             var data="id="+info.id+"&vc="+info.vc+"&title="+title+"&time="+date+"T"+time+":00Z&crowd="+crowdIds+"&geo="+geo.lat+","+geo.lng;
             var xhttp = new XMLHttpRequest();
@@ -1844,10 +1853,114 @@ function processMeetings(){
         //handle if not found
     }
 
+}//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//////////////// user request to add a bill on meeting(history)
+
+function addBill(elem){
+
+    geoDiv=elem.nextElementSibling.nextElementSibling;
+    geo=geoDiv.innerHTML;
+    crowdDiv=geoDiv.nextElementSibling;
+    crowd=crowdDiv.innerHTML.split(",");
+    title=crowdDiv.nextElementSibling.firstElementChild.innerHTML;
+    var divisions='';
+    if(Friends=storageRetrieve("MateFriendsInfo")){
+
+    crowd.forEach(person=>{
+
+        temp=" <div class=\"friend\" onclick=\"addShareHolder(this)\" > <div class=\"favatar\" ></div> <div class=\"fname\">"+person+"</div> </div>";
+        for(let f of Friends){
+            if(f.Name==person){
+                temp=" <div class=\"friend\" onclick=\"addShareHolder(this)\" > <div class=\"favatar\" style=\"background-image:url('"+f.Avatar+"')\" ></div> <div class=\"fname\">"+f.Name+"</div> </div>";
+                break;
+            }
+        }
+        divisions+=temp;
+
+    })
+
+ 
+
+        document.getElementById("crowdListContainer").innerHTML=divisions;
+        openMenu("billingPage");
+
+
+
+        
+
+    }else{
+        //handle if not found
+    }
+
+
+
+
+
 }
 
 
 
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////open/close meeting crowd select form for shareHoldersList
+
+function toggleCrowfForm(){
+  
+   document.getElementById("crowdForm").classList.toggle("displayBlock");
+    
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////add selected person to shareHoldersList
+
+function addShareHolder(el){
+
+    
+        var divisions='';
+        var flg=false;
+        el.classList.toggle("blueBackground");
+    
+        avatar=el.firstElementChild.style.backgroundImage;
+        if(avatar.length<10){
+            avatar="url('./assets/img/boy.svg')";
+        }
+        name=el.lastElementChild.innerHTML;
+        console.log(el.lastElementChild.innerHTML)
+        list=document.getElementById("shareHoldersList").children;
+    
+        
+        ///maybe its remove request(even selects)
+        if(list.length>0){
+            divisions=document.getElementById("shareHoldersList").innerHTML;
+            [...list].forEach(f=>{
+                divid="shareHoldersList-"+name;
+                if(f.id==divid){
+                    document.getElementById("shareHoldersList-"+name).remove();
+                    flg=true;
+                    return;
+                }
+        
+            });
+ 
+        }
+      if(!flg){
+        divisions+="<div id='shareHoldersList-"+name+"' class='stackedAvatar' style=background-image:"+avatar+"></div>";
+        document.getElementById("shareHoldersList").innerHTML=divisions;
+      }
+        
+        
+    
+        
+    
+}
 ////////////////////////////pinmaker client side failed due to CORS privacy violation, Do somthing about...
 //function pinMaker(id,avatar){
 //
