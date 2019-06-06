@@ -165,7 +165,7 @@
         <div id="billingPage" class="menu">
  
             <div id="addBillForm">
-                <input  id="addShareSum" type="number" class="formInput" required>
+                <input  id="addShareSum" type="number" class="formInput" placeholder="10000.0" required>
                 <div class="shareTitle">: مبلغ کل</div>
                 <button id="addShareHolderBTN" onclick="toggleCrowfForm()"></button>
                 <div class="shareTitle">: افراد سهیم</div>
@@ -189,7 +189,7 @@
 
                 <div class="saveANDdiscard" style="position: absolute;">
                     <button id="confirmN" class="YNButton" style="border-right: 1px solid #a5a3be;border-bottom-left-radius: 4vh;" onclick="toggleCrowfForm()">انصراف</button>
-                    <button id="confirmY" class="YNButton" style="border-bottom-right-radius: 4vh;" >ذخیره</button>
+                    <button id="confirmY" class="YNButton" style="border-bottom-right-radius: 4vh;" onclick="toggleCrowfForm()">ذخیره</button>
                 </div>
 
             </div>
@@ -214,15 +214,15 @@
         <!---->
         <div class="event" >
                 <button class="addBillBTN" onclick="addBill(this)"></button>
-                <button class="cancelBTN" onclick="makeConfirm('آیا مایل به حذف قرار هستید؟',leaveMeeting,this)"></button>
+                <button class="cancelBTN" onclick="makeConfirm('آیا مایل به حذف تاریخچه هستید؟',deletMeetingHistory,this)"></button>
                 <div style="display:none">32.48244522371868,51.764425000000074</div>
                 <div style="display:none">Bob,Putin,cheng</div>
-                <div style="height:-webkit-fill-available" onclick="panToMeeting(this)">
+                <div style="height:-webkit-fill-available" onclick="showInvoice(this)">
                     <div class="titleEvent">date</div>
                     <div class="hostEvent">  از طرف cheng</div>
                     <div class="dateEvent">2019-05-18 22:07:00</div>
                 </div>
-            </div>
+        </div>
             <!---->
 
         </div>    

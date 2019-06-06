@@ -1143,7 +1143,8 @@ function loadPage(id){
 
                 var divisions='';
                 meetingsList.forEach(element => {
-    
+           
+                    if(Date.now() < (new Date(element.Time)).getTime())
                     divisions+="<div class=\"event\"><button class=\"cancelBTN\" onclick=\"makeConfirm('آیا مایل به حذف قرار هستید؟',leaveMeeting,this)\"></button><div style=\"display:none\">"+element.Geo.X+","+element.Geo.Y+"</div><div style=\"display:none\">"+element.Crowd+"</div><div style='height:-webkit-fill-available' onclick='panToMeeting(this)'><div class=\"titleEvent\">"+element.Title+"</div><div class=\"hostEvent\"> از طرف: "+element.Host+"</div><div class=\"timeEvent\">"+element.Time.substring(11,19)+"</div><div class=\"dateEvent\">"+element.Time.substring(0,10)+"</div></div></div>";
                 
                 });
@@ -1176,6 +1177,7 @@ function loadPage(id){
         case "pendingsMenu":
              
             retrievePendingsList();
+            loadMeetingHistory()
 
         break;
 
@@ -1254,6 +1256,29 @@ function retrievePendingsList(){
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+///////////loading MeetingHistory and make them ready to add bill and show invoice
+function loadMeetingHistory(){
+
+    if(meetingsList=storageRetrieve("MateMeetingsInfo")){
+
+        var divisions='';
+        meetingsList.forEach(element => {
+   
+            if(Date.now() > (new Date(element.Time)).getTime())
+            divisions+="<div class=\"event\" ><button class=\"addBillBTN\" onclick=\"addBill(this)\"></button><button class=\"cancelBTN\" onclick=\"makeConfirm('آیا مایل به حذف تاریخچه هستید؟',deletMeetingHistory,this)\"></button><div style=\"display:none\">"+element.Geo.X+","+element.Geo.Y+"</div><div style=\"display:none\">"+element.Crowd+"</div><div style=\"height:-webkit-fill-available\" onclick=\"showInvoice(this)\"><div class=\"titleEvent\">"+element.Title+"</div><div class=\"hostEvent\">  از طرف "+element.Host+"</div><div class=\"dateEvent\">"+(new Date(element.Time).toLocaleString("en-US")) +"</div></div></div>";
+        
+        });
+console.log(divisions)
+        if(divisions.length>10){
+             document.getElementById("meetingHistory").innerHTML=divisions;
+        }
+    }    
+
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 /////accept recieved frequest
 function accFrequest(el){
@@ -1521,6 +1546,7 @@ function closeContactList(){
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function setMeeting(){
 
+    splashOmitter();
     if(info=storageRetrieve("MateUserInfo")){
 
         if(friends=storageRetrieve("MateFriendsInfo")){
@@ -1572,10 +1598,12 @@ function setMeeting(){
             
             
             if(title.length<3){
+                document.getElementById("splashScreen").remove();
                 alert("عنوان قرار را وارد کنید");
                 return;
             }
             if(date.length<10){
+                document.getElementById("splashScreen").remove();
                 alert("تاریخ قرار را انتخاب کنید");
                 return;
             }
@@ -1593,6 +1621,8 @@ function setMeeting(){
                     return;
                 }
                 if(this.response==0){
+
+                    document.getElementById("splashScreen").remove();
                     setTimeout(setMeeting,30000);
                     closeMenu("AddMeetingMenu");
                     return;
@@ -1600,9 +1630,11 @@ function setMeeting(){
 
                 if(JSON.parse(this.responseText)){
                     localStorage.setItem("MateMeetingsInfo",this.responseText);
+                    document.getElementById("splashScreen").remove();
                     closeMenu("AddMeetingMenu");
                     return;
                 }else{
+                    document.getElementById("splashScreen").remove();
                     alert("مجددا تلاش کنید");
                     return;
                 }
@@ -1618,6 +1650,7 @@ function setMeeting(){
 
         }else{
             alert("لیست دوستان را بروزرسانی کنید");
+            document.getElementById("splashScreen").remove();
             return;
         }
 
@@ -1866,6 +1899,12 @@ function addBill(elem){
     crowd=crowdDiv.innerHTML.split(",");
     title=crowdDiv.nextElementSibling.firstElementChild.innerHTML;
     var divisions='';
+
+    if(Info=storageRetrieve("MateUserInfo")){
+        divisions=" <div class=\"friend\" onclick=\"addShareHolder(this)\" > <div class=\"favatar\" style=background-image:url('"+Info.avatar+"')></div> <div class=\"fname\">"+Info.name+"</div> </div>";
+
+    }
+
     if(Friends=storageRetrieve("MateFriendsInfo")){
 
     crowd.forEach(person=>{
