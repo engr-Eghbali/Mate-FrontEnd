@@ -607,7 +607,7 @@ input:focus {
 }
 
 .event{
-    width: 84%;
+    width: 87%;
     height: 20vh;
     margin-left: 8%;
     margin-right: 10%;
@@ -1035,7 +1035,7 @@ input:focus {
     float: left;
     border: 1px solid #29abe2;
     margin-left: -3vh;
-    margin-top: 8%;
+    margin-top: 1vh;
 }
 
 #meetingFlist :first-child{
@@ -1083,7 +1083,7 @@ input:focus {
 #CallAppCenterBTN{
     width: 8vh;
     height: 8vh;
-    margin-top: 25%;
+    margin-top: 20%;
     float: right;
     right: 10%;
     position: fixed;
@@ -1124,27 +1124,34 @@ input:focus {
     background-size: 100% 100%;
 }
 
+#billTitle{
+    width: 50%;
+    float: right;
+    margin-top: 4vh;
+    background-color: white;
+}
+
 #addBillForm{
     width: 80%;
-    height: 45vh;
+    height: 55vh;
     margin-left: 10%;
     margin-right: 10%;
     background-color: white;
     position: fixed;
     border-radius: 4vh;
-    margin-top: 20vh;
+    margin-top: 12vh;
 }
 
 #crowdForm{
 width: 80%;
-height: 45vh;
+height: 55vh;
 display: none;
 margin-left: 10%;
 margin-right: 10%;
 background-color: white;
 position: fixed;
 border-radius: 4vh;
-margin-top: 20vh;
+margin-top: 12vh;
 
 -webkit-transition-property: height; /* Safari */
 -webkit-transition-duration: 0.5s; /* Safari */
@@ -1156,6 +1163,9 @@ transition-duration: 0.5s;
 
 .displayBlock{
     display: block !important;
+}
+.displayNone{
+    display: none !important;
 }
 
 #addShareSum{
@@ -1195,7 +1205,8 @@ transition-duration: 0.5s;
 }
 
 #shareHoldersList{
-    width: 70%;
+    width: 65%;
+    overflow-x: scroll;
     height: 8vh;
     float: right;
     
@@ -1216,6 +1227,163 @@ transition-duration: 0.5s;
     height: 75vh;
     margin-top: 2vh;
     overflow-y: scroll;
+}
+
+#TotalShareBanner{
+    position: relative;
+    width: 100%;
+    height: 30vh;
+    background-color:transparent;
+    margin-top: 10vh;
+    background-image: url('../assets/banner.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    text-align: center;
+    direction: rtl;
+
+}
+
+#TotalShareBanner > p1{
+
+    font-family: "bold";
+    font-size: 3vh;
+    color: white;
+    text-align: center;
+    direction: rtl;
+    
+
+}
+
+#TotalShareBanner > p2{
+    font-family: "bold";
+    font-size: 10vh;
+    color: white;
+    text-align: center;
+    direction: rtl;
+    text-shadow: 1vh 1vh 1.5vh black;
+    letter-spacing:4px;
+
+}
+
+#invoiceLocator{
+    text-align: left;
+    padding-left: 8%;
+    margin-top: 4vh;
+    font-family: "medium";
+    color: whitesmoke;
+}
+
+#InvoiceMenu{
+    display: block;
+    transform: translate3d(0,0,0);
+}
+
+#invoiceMenu > .navbar{
+    box-shadow: none;
+}
+
+#billListContainer{
+    width: 98%;
+    height: 60vh;
+    margin-left: 1%;
+    overflow-y: scroll;
+}
+
+.bill{
+    width: 99%;
+    height: 13vh;
+    margin-top: 1vh;
+    border-radius: 8px;
+    border: 1px solid #d1d1d1;
+}
+.bill-leftside{
+    width: 50%;
+    height: 100%;
+    float: left;
+}
+.bill-rightside{
+    width: 50%;
+    height: 100%;
+    float: right;
+}
+.billTitle{
+    width: 96%;
+    height: 46%;
+    float: left;
+    margin-top: 1vh;
+    /* background-color: white; */
+    text-align: left;
+    font-size: 3.6vh;
+    padding-left: 4%;
+    font-family: "medium";
+    overflow-x: scroll;
+    color: #4d4d4d;
+}
+.billIssuer{
+    width: 96%;
+    height: 50%;
+    float: right;
+}
+.billIssuerAvatar{
+    width: 5vh;
+    height: 5vh;
+    border-radius: 50%;
+    background-image: url('../assets/img/boy.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 1px solid #29abe2;
+    float: left;    
+}
+.billIssuerName{
+    width: 50%;
+    height: 80%;
+    padding-top: 2%;
+    text-align: left;
+    float: right;
+    color: #808080;
+    font-family: "medium";
+}
+
+.billSum{
+    width: 96%;
+    margin-top: 4%;
+    height: 46%;
+    text-align: left;
+    font-size: 4vh;
+    color: #494949;
+}
+.billShare{
+    width: 100%;
+    height: 50%;
+    overflow-x: scroll;
+}
+.userBillShare{
+    width: max-content;
+    height: 80%;
+    padding-top: 4%;
+    float: left;
+    font-family: "medium";
+    color: #29abe2;
+}
+
+.billShareList{
+    width: max-content;
+    height: 100%;
+    float: left;
+}
+
+.billShareList > .stackedAvatar{
+
+    background-image: url('../assets/img/boy.svg');
+    width: 4vh;
+    height: 4vh;
+    margin-top: 8%;
+    margin-left: -2.2vh;
+}
+.billShareList :first-child{
+    margin-left: 1vh !important;
 }
 /********************************************************/
 

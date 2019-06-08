@@ -1266,7 +1266,7 @@ function loadMeetingHistory(){
         meetingsList.forEach(element => {
    
             if(Date.now() > (new Date(element.Time)).getTime())
-            divisions+="<div class=\"event\" ><button class=\"addBillBTN\" onclick=\"addBill(this)\"></button><button class=\"cancelBTN\" onclick=\"makeConfirm('آیا مایل به حذف تاریخچه هستید؟',deletMeetingHistory,this)\"></button><div style=\"display:none\">"+element.Geo.X+","+element.Geo.Y+"</div><div style=\"display:none\">"+element.Crowd+"</div><div style=\"height:-webkit-fill-available\" onclick=\"showInvoice(this)\"><div class=\"titleEvent\">"+element.Title+"</div><div class=\"hostEvent\">  از طرف "+element.Host+"</div><div class=\"dateEvent\">"+(new Date(element.Time).toLocaleString("en-US")) +"</div></div></div>";
+            divisions+="<div class=\"event\" ><button class=\"addBillBTN\" onclick=\"addBill(this)\"></button><button class=\"cancelBTN\" onclick=\"makeConfirm('آیا مایل به حذف تاریخچه هستید؟',deletMeetingHistory,this)\"></button><div class=\"displayNone\">"+JSON.stringify(element.Invoice)+"</div><div style=\"height:-webkit-fill-available\" onclick=\"showInvoice(this)\"><div class=\"titleEvent\">"+element.Title+"</div><div class=\"hostEvent\">  از طرف "+element.Host+"</div><div class=\"dateEvent\">"+(new Date(element.Time).toLocaleString("en-US")) +"</div></div></div>";
         
         });
 console.log(divisions)
@@ -1920,10 +1920,10 @@ function addBill(elem){
 
     })
 
- 
-
-        document.getElementById("crowdListContainer").innerHTML=divisions;
-        openMenu("billingPage");
+    
+    document.getElementById("appendedBillInfo").innerHTML=title+"<>"+geo;//////append data
+    document.getElementById("crowdListContainer").innerHTML=divisions;
+    openMenu("billingPage");
 
 
 
@@ -1999,6 +1999,52 @@ function addShareHolder(el){
     
         
     
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function submitBill(){
+
+    if(info=storageRetrieve("MateUserInfo")){
+
+        shareHoldersDiv=document.getElementById("shareHoldersList").children;
+        var shareHolders=[];
+        [...shareHoldersDiv].forEach(div=>{
+            shareHolders.push(div.id.substring(17));
+        });
+        sum=document.getElementById("addShareSum").value;
+        title=document.getElementById("billTitle").value;
+        meetingTitle=document.getElementById("appendedBillInfo").innerHTML.split("&lt;&gt;")[0];
+        meetingGeo=document.getElementById("appendedBillInfo").innerHTML.split("&lt;&gt;")[1];
+        console.log(meetingGeo);
+        if(shareHoldersDiv.length<1){
+            alert("حداقل یک فرد سهیم باید اضافه شود.");
+            return;
+        }
+        if(sum<1){
+            alert("مبلغ هزینه شده را وارد کنید.");
+            return;
+        }
+
+        bill={Issuer:info.name,Title:title,Sum:sum,Share:shareHolders}
+
+        var data="id="+info.id+"&vc="+info.vc+"&title="+meetingTitle+"&geo="+meetingGeo+"&bill="+JSON.stringify(bill);
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                 console.log(this.response);
+  
+            }    
+        };
+
+        xhttp.open("POST", "https://guarded-castle-67026.herokuapp.com/Bill?"+data, true);
+        //xhttp.setRequestHeader("Content-type", "multipart/form-data");
+        xhttp.send();
+
+
+    }else{
+        ////////handle if not found
+    }
 }
 ////////////////////////////pinmaker client side failed due to CORS privacy violation, Do somthing about...
 //function pinMaker(id,avatar){

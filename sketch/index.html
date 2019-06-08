@@ -165,7 +165,10 @@
         <div id="billingPage" class="menu">
  
             <div id="addBillForm">
-                <input  id="addShareSum" type="number" class="formInput" placeholder="10000.0" required>
+                <div id="appendedBillInfo" class="displayNone"></div>
+                <input id="billTitle" type="text" class="formInput" placeholder="عنوان" required>
+                <div class="shareTitle">: هزینه</div>
+                <input  id="addShareSum" type="number" class="formInput" placeholder="10000.0"  required>
                 <div class="shareTitle">: مبلغ کل</div>
                 <button id="addShareHolderBTN" onclick="toggleCrowfForm()"></button>
                 <div class="shareTitle">: افراد سهیم</div>
@@ -173,7 +176,7 @@
 
                 <div class="saveANDdiscard" style="position: absolute;">
                     <button id="confirmN" class="YNButton" style="border-right: 1px solid #a5a3be;border-bottom-left-radius: 4vh;" onclick="closeMenu('billingPage')">انصراف</button>
-                    <button id="confirmY" class="YNButton" style="border-bottom-right-radius: 4vh;" >ذخیره</button>
+                    <button id="confirmY" class="YNButton" style="border-bottom-right-radius: 4vh;" onclick="makeConfirm('صورتحساب اضافه شود؟',submitBill,this)">ذخیره</button>
                 </div>
             </div>
 
@@ -289,7 +292,65 @@
     </div>
 
 </div>
-<canvas id="pinCan" style="display:none;" width="64" height="64"></canvas>
+
+
+<div id="InvoiceMenu" class="menu">
+        <div class="navbar" ><div onclick="closeMenu('pendingsMenu')"><p> صورتحساب</p> <i class="fas fa-caret-left"></i></div><button id="updatePendingsBTN" class="refreshBTN" onclick="updateInvoice()"><i class="fas fa-undo"></i></button></div>
+        <div id="TotalShareBanner">
+            <p1>سهم شما:</p1>
+            <br>
+            <p2>143000</p2>
+            <div id="invoiceLocator" onclick="pantTooInvoice('42.34567,32.65433')">Title  <i class="fas fa-map-marked-alt"></i></div>
+        </div>
+        <div id="billListContainer">
+
+            <div class="bill">
+                <div class="bill-leftside">
+                    <div class="billTitle">kebab+yogurt</div>
+                    <div class="billIssuer">
+                        <div class="billIssuerAvatar"></div>
+                        <div class="billIssuerName">cheng</div>
+                    </div>
+                </div>
+                <div class="bill-rightside">
+                    <div class="billSum">14300000.0</div>
+                    <div class="billShare">
+                        <div class="userBillShare">5000000.0 X</div>
+                        <div class="billShareList">
+                            <div class="stackedAvatar" style="background-image:url('./assets/img/boy.svg')"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bill">
+                    <div class="bill-leftside">
+                        <div class="billTitle">kebab+yogurt</div>
+                        <div class="billIssuer">
+                            <div class="billIssuerAvatar"></div>
+                            <div class="billIssuerName">cheng</div>
+                        </div>
+                    </div>
+                    <div class="bill-rightside">
+                        <div class="billSum">14300000.0</div>
+                        <div class="billShare">
+                            <div class="userBillShare">5000000.0 X</div>
+                            <div class="billShareList">
+                                <div class="stackedAvatar" style="background-image:url('./assets/img/boy.svg')"></div>
+                                <div class="stackedAvatar" style="background-image:url('./assets/img/boy.svg')"></div>
+                                <div class="stackedAvatar" style="background-image:url('./assets/img/boy.svg')"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+        </div>
+
+
+</div>
+
+
+
 
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-74bxG6QQ9r83svnnZumBCg4FfE78Ujc&language=fa&callback=initMap">
