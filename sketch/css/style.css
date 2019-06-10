@@ -1274,12 +1274,8 @@ transition-duration: 0.5s;
     color: whitesmoke;
 }
 
-#InvoiceMenu{
-    display: block;
-    transform: translate3d(0,0,0);
-}
 
-#invoiceMenu > .navbar{
+#InvoiceMenu > .navbar{
     box-shadow: none;
 }
 

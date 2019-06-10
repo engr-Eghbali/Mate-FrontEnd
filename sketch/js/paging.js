@@ -483,6 +483,9 @@ function openMenu(elemID){
         document.getElementById("Reqlist").style.display="none";
         break;
 
+        case "InvoiceMenu":
+        break;
+
         default:
         return
     }
@@ -752,7 +755,7 @@ function leaveMeeting(element){
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /////////request for meetings list
-function retrieveMeetingsList(){
+async function retrieveMeetingsList(){
 
     document.getElementById("updateMeetingsBTN").classList.add("spining");
 
@@ -767,16 +770,16 @@ function retrieveMeetingsList(){
                  localStorage.removeItem("MateUserInfo");
                  alert("bad request:7");
                  location.reload();
-                 return
+                 return false;
              }
              if(this.response==0){
                  setTimeout(retrieveMeetingsList,60000);
-                 return;
+                 return false;
              }
              if((this.responseText.length)<10){
-                document.getElementById("eventContainer").innerHTML="<div id='Meeting404'>لیست قرار شما خالیست :)<br><div  onclick=\"(function(){closeMenu(\'scheduleMenu\');openMenu(\'auxiliaryMap\');})();return;\"> + اضافه کنید.</div></div>";
+                 document.getElementById("eventContainer").innerHTML="<div id='Meeting404'>لیست قرار شما خالیست :)<br><div  onclick=\"(function(){closeMenu(\'scheduleMenu\');openMenu(\'auxiliaryMap\');})();return;\"> + اضافه کنید.</div></div>";
                  document.getElementById("updateMeetingsBTN").classList.remove("spining");
-                 return;
+                 return false;
 
              }else{
                  
@@ -784,7 +787,7 @@ function retrieveMeetingsList(){
                  loadPage("scheduleMenu");
                  document.getElementById("updateMeetingsBTN").classList.remove("spining");
                  setTimeout(processMeetings,200);
-                 return;
+                 return true;
              }
             
           
@@ -1177,7 +1180,7 @@ function loadPage(id){
         case "pendingsMenu":
              
             retrievePendingsList();
-            loadMeetingHistory()
+            loadMeetingHistory();
 
         break;
 
@@ -1266,10 +1269,10 @@ function loadMeetingHistory(){
         meetingsList.forEach(element => {
    
             if(Date.now() > (new Date(element.Time)).getTime())
-            divisions+="<div class=\"event\" ><button class=\"addBillBTN\" onclick=\"addBill(this)\"></button><button class=\"cancelBTN\" onclick=\"makeConfirm('آیا مایل به حذف تاریخچه هستید؟',deletMeetingHistory,this)\"></button><div class=\"displayNone\">"+JSON.stringify(element.Invoice)+"</div><div style=\"height:-webkit-fill-available\" onclick=\"showInvoice(this)\"><div class=\"titleEvent\">"+element.Title+"</div><div class=\"hostEvent\">  از طرف "+element.Host+"</div><div class=\"dateEvent\">"+(new Date(element.Time).toLocaleString("en-US")) +"</div></div></div>";
+            divisions+="<div class=\"event\" ><button class=\"addBillBTN\" onclick=\"addBill(this)\"></button><button class=\"cancelBTN\" onclick=\"makeConfirm('آیا مایل به حذف تاریخچه هستید؟',deletMeetingHistory,this)\"></button><div style=\"display:none\">"+element.Geo.X+","+element.Geo.Y+"</div><div style=\"display:none\">"+element.Crowd+"</div><div class=\"displayNone\">"+JSON.stringify(element.Invoice)+"</div><div style=\"height:-webkit-fill-available\" onclick=\"showInvoice(this)\"><div class=\"titleEvent\">"+element.Title+"</div><div class=\"hostEvent\">  از طرف "+element.Host+"</div><div class=\"dateEvent\">"+(new Date(element.Time).toLocaleString("en-US")) +"</div></div></div>";
         
         });
-console.log(divisions)
+
         if(divisions.length>10){
              document.getElementById("meetingHistory").innerHTML=divisions;
         }
@@ -1893,11 +1896,12 @@ function processMeetings(){
 
 function addBill(elem){
 
+    document.getElementById("shareHoldersList").innerHTML="";
     geoDiv=elem.nextElementSibling.nextElementSibling;
     geo=geoDiv.innerHTML;
     crowdDiv=geoDiv.nextElementSibling;
     crowd=crowdDiv.innerHTML.split(",");
-    title=crowdDiv.nextElementSibling.firstElementChild.innerHTML;
+    title=crowdDiv.nextElementSibling.nextElementSibling.firstElementChild.innerHTML;
     var divisions='';
 
     if(Info=storageRetrieve("MateUserInfo")){
@@ -2032,19 +2036,125 @@ function submitBill(){
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                 console.log(this.response);
+                 document.getElementById("splashScreen").remove();
+
+                 if(this.response==-1){
+                     localStorage.removeItem("MateUserInfo");
+                     alert("bad request:7");
+                     location.reload();
+                     return;
+                 }
+                 if(this.response==1){
+                     closeMenu("billingPage");
+                     return;
+                 }
+                 if(this.response==0){
+                     alert("خطا...مجددا تلاش کنید");
+                     return
+                 }else{
+                    setTimeout(submitBill,60000);
+                    return;
+                 }
   
             }    
         };
 
         xhttp.open("POST", "https://guarded-castle-67026.herokuapp.com/Bill?"+data, true);
         //xhttp.setRequestHeader("Content-type", "multipart/form-data");
+        splashOmitter();
         xhttp.send();
 
 
     }else{
         ////////handle if not found
     }
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////process bills and show invoice of a history meeting
+
+function showInvoice(elem){
+ 
+    flg=true;
+    friendsInfo=storageRetrieve("MateFriendsInfo");
+    userInfo   =storageRetrieve("MateUserInfo")
+    meetingTitle=elem.firstElementChild.innerHTML;
+    meetingGeo=elem.previousElementSibling.previousElementSibling.previousElementSibling.innerHTML;
+    issuerAvatar="./assets/img/boy.svg";
+    shareListAvatar=[];
+    userBillShare=0;
+    userTotalShare=0;
+    var shareListAvatarDivs='';
+    var divisions='';
+ 
+    billList=JSON.parse(elem.previousElementSibling.innerHTML)
+
+    
+    if(billList.length>0){
+
+        billList.forEach(bill=>{
+
+            ///making and init avatar(s)
+            userShareOnBill=0;
+            shareListAvatarDivs='';
+            shareListAvatar=[];
+            if(bill.Issuer==userInfo.name){
+                issuerAvatar=userInfo.avatar;
+            }
+            for(let shareHolder of bill.Share ){
+       
+                if(shareHolder==userInfo.name){
+                    shareListAvatar.push(userInfo.avatar);
+                    userShareOnBill=parseInt(bill.Sum)/bill.Share.length;
+                    userTotalShare+=userShareOnBill;
+                    flg=false;
+                    continue;
+                }
+  
+                ///searching avatars
+                for(let f of friendsInfo){
+
+                    if(f.Name==bill.Issuer){
+                        issuerAvatar=f.Avatar;
+                    }
+                    if (f.Name==shareHolder){
+                        shareListAvatar.push(f.Avatar);
+                        flg=false;
+                        break;
+                    }
+                
+                }
+
+                if(flg){
+                    shareListAvatar.push("./assets/img/boy.svg");
+                }
+                
+////////////////////////////            
+            }
+            ///making bill el(s)
+            shareListAvatar.forEach(avatar=>{
+                shareListAvatarDivs+="<div class=\"stackedAvatar\" style=\"background-image:url('"+avatar+"')\"></div>";
+                });
+            divisions+="<div class=\"bill\"> <div class=\"bill-leftside\"> <div class=\"billTitle\">"+bill.Title+"</div> <div class=\"billIssuer\"><div class=\"billIssuerAvatar\" style=\"background-image=url('"+issuerAvatar+"')\"></div> <div class=\"billIssuerName\">"+bill.Issuer+"</div> </div> </div> <div class=\"bill-rightside\"> <div class=\"billSum\">"+bill.Sum+"</div><div class=\"billShare\"> <div class=\"userBillShare\">"+userShareOnBill+" X</div> <div class=\"billShareList\"> "+shareListAvatarDivs+"</div></div></div></div>";
+            
+        });
+
+        document.getElementById("billListContainer").innerHTML=divisions;
+        document.getElementById("TotalShareBanner").innerHTML="<p1>سهم شما:</p1><br><p2>"+userTotalShare+"</p2>"+"<div id=\"invoiceLocator\" onclick=\"pantTooInvoice('"+meetingGeo+"')\">Title  <i class=\"fas fa-map-marked-alt\"></i></div>";
+        openMenu("InvoiceMenu");
+
+
+    }
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//////////////////////////// update invoices(retrieve meetingsList+load history meets)
+async function updateInvoice(){
+
+   let a= await retrieveMeetingsList();
+    loadMeetingHistory();
 }
 ////////////////////////////pinmaker client side failed due to CORS privacy violation, Do somthing about...
 //function pinMaker(id,avatar){

@@ -159,7 +159,7 @@
 <!---->
 
 <div id="pendingsMenu" class="menu">
-        <div class="navbar" ><div onclick="closeMenu('pendingsMenu')"><p> درخواست ها</p> <i class="fas fa-caret-left"></i></div><button id="updatePendingsBTN" class="refreshBTN" onclick="retrievePendingsList()"><i class="fas fa-undo"></i></button></div>
+        <div class="navbar" ><div onclick="closeMenu('pendingsMenu')"><p> درخواست ها</p> <i class="fas fa-caret-left"></i></div><button id="updatePendingsBTN" class="refreshBTN" onclick="retrieveMeetingsList();loadPage('pendingsMenu')"><i class="fas fa-undo"></i></button></div>
         <div id="Reqlist"></div>
 
         <div id="billingPage" class="menu">
@@ -295,7 +295,7 @@
 
 
 <div id="InvoiceMenu" class="menu">
-        <div class="navbar" ><div onclick="closeMenu('pendingsMenu')"><p> صورتحساب</p> <i class="fas fa-caret-left"></i></div><button id="updatePendingsBTN" class="refreshBTN" onclick="updateInvoice()"><i class="fas fa-undo"></i></button></div>
+        <div class="navbar" ><div onclick="closeMenu('InvoiceMenu')"><p> صورتحساب</p> <i class="fas fa-caret-left"></i></div><button id="updatePendingsBTN" class="refreshBTN" onclick="updateInvoice()"><i class="fas fa-undo"></i></button></div>
         <div id="TotalShareBanner">
             <p1>سهم شما:</p1>
             <br>
