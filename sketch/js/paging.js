@@ -61,6 +61,12 @@ function beginAuth(){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+/////////////logging out
+
+function logOut(){
+    localStorage.removeItem("MateUserInfo");
+    location.reload();
+}
 
 ///document ready events
 document.onreadystatechange = () => {
@@ -755,7 +761,7 @@ function leaveMeeting(element){
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /////////request for meetings list
-async function retrieveMeetingsList(){
+ function retrieveMeetingsList(){
 
     document.getElementById("updateMeetingsBTN").classList.add("spining");
 
@@ -2141,7 +2147,7 @@ function showInvoice(elem){
         });
 
         document.getElementById("billListContainer").innerHTML=divisions;
-        document.getElementById("TotalShareBanner").innerHTML="<p1>سهم شما:</p1><br><p2>"+userTotalShare+"</p2>"+"<div id=\"invoiceLocator\" onclick=\"pantTooInvoice('"+meetingGeo+"')\">Title  <i class=\"fas fa-map-marked-alt\"></i></div>";
+        document.getElementById("TotalShareBanner").innerHTML="<p1>سهم شما:</p1><br><p2>"+userTotalShare+"</p2>"+"<div id=\"invoiceLocator\" onclick=\"panToInvoice('"+meetingGeo+"')\">Title  <i class=\"fas fa-map-marked-alt\"></i></div>";
         openMenu("InvoiceMenu");
 
 
@@ -2150,12 +2156,19 @@ function showInvoice(elem){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//////////////////////////// update invoices(retrieve meetingsList+load history meets)
-async function updateInvoice(){
 
-   let a= await retrieveMeetingsList();
-    loadMeetingHistory();
+function panToInvoice(geoStr){
+    pathFinder(currentGeo,geoStr,map);
+    closeMenu("InvoiceMenu");
+    closeMenu("pendingsMenu");
+    ToggleMenu();
 }
+//////////////////////////// update invoices(retrieve meetingsList+load history meets)
+//async function updateInvoice(){
+//
+//    retrieveMeetingsList();
+//    loadMeetingHistory();
+//}
 ////////////////////////////pinmaker client side failed due to CORS privacy violation, Do somthing about...
 //function pinMaker(id,avatar){
 //

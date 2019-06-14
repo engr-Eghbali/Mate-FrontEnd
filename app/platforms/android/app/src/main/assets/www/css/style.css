@@ -592,6 +592,7 @@ input:focus {
     padding-left: 8%;
     padding-top: 1vh;
     color: #4d4d4d;
+    position: fixed;
 }
 
 .navbar i{
@@ -606,7 +607,7 @@ input:focus {
 }
 
 .event{
-    width: 84%;
+    width: 87%;
     height: 20vh;
     margin-left: 8%;
     margin-right: 10%;
@@ -615,9 +616,9 @@ input:focus {
     border-radius: 10px;
  
     -webkit-transition-property: height; /* Safari */
-    -webkit-transition-duration: 0.2s; /* Safari */
+    -webkit-transition-duration: 0.3s; /* Safari */
     transition-property: height;
-    transition-duration: 0.2s;
+    transition-duration: 0.3s;
 
 }
 
@@ -634,7 +635,7 @@ input:focus {
 }
 
 .hostEvent{
-    width: 85%;
+    width: 50%;
     height: 25%;
     direction: rtl;
     margin-right: 15%;
@@ -642,11 +643,12 @@ input:focus {
     font-size: 2.5vh;
     color: #999999;
     font-weight: 600;
+    float: right;
 
 }
 
 .timeEvent{
-    width: 45%;
+    width: 30%;
     height: 25%;
     margin-top: 4%;
     font-family: "medium";
@@ -658,7 +660,7 @@ input:focus {
 }
 
 .dateEvent{
-    width: 45%;
+    width: 60%;
     height: 25%;
     margin-top: 4%;
     font-family: "medium";
@@ -759,11 +761,11 @@ input:focus {
     margin-left: 5%;
     margin-top: 4%;
     height: 12vh;
-
+    border-radius: 2vh;
     -webkit-transition-property: height; /* Safari */
-    -webkit-transition-duration: 0.2s; /* Safari */
+    -webkit-transition-duration: 0.3s; /* Safari */
     transition-property: height;
-    transition-duration: 0.2s;
+    transition-duration: 0.3s;
 
 }
 .favatar{
@@ -779,18 +781,19 @@ input:focus {
 
 }
 .fname{
-    position: fixed;
-    width: 40%;
-    margin-left: 30%;
-    height: 9vh;
+    width: 25vh;
+    height: 50%;
+    margin-left: 15vh;
+    padding-top: 8%;
     margin-top: 3vh;
     font-family: "medium";
     font-size: 4vh;
     color: #4d4d4d;
 }
 .friend > .cancelBTN{
-    margin-top: 8%;
+    margin-top: -10%;
     width: 5vh;
+    position: relative;
     height: 5vh;
 }
 
@@ -843,7 +846,10 @@ input:focus {
 }
 
 #Reqlist{
-    margin-top: 4vh;
+    position: relative;
+    width: 100%;
+    margin-top: 12vh;
+    display: block;
 }
 
 .friend > .confirmBTN{
@@ -988,6 +994,7 @@ input:focus {
     height: 68vh;
     margin-left: 10%;
     padding: 0;
+    overflow-y: scroll;
     position: fixed;
     display: none;   
     z-index: 9;
@@ -1028,7 +1035,7 @@ input:focus {
     float: left;
     border: 1px solid #29abe2;
     margin-left: -3vh;
-    margin-top: 8%;
+    margin-top: 1vh;
 }
 
 #meetingFlist :first-child{
@@ -1071,6 +1078,308 @@ input:focus {
     border: 0;
     height: 100%;
     opacity: 0;
+}
+
+#CallAppCenterBTN{
+    width: 8vh;
+    height: 8vh;
+    margin-top: 20%;
+    float: right;
+    right: 10%;
+    position: fixed;
+    border: 1px solid #666;
+    border-radius: 50%;
+    outline: none;
+    background-image: url('../assets/img/question-mark.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 60%;
+    background-color: transparent;
+}
+
+.addBillBTN{
+    float: left;
+    width: 12vh;
+    height: 12vh;
+    margin-left: 5%;
+    border: none;
+    outline: none;
+    margin-top: 10%;
+    border-radius: 50%;
+    background-color: transparent;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url('../assets/img/addBill.svg');
+    background-size: 85%;
+    padding: 0;
+
+}
+
+#billingPage{
+
+    z-index: 999;
+    background-image: url('../assets/bg2.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+#billTitle{
+    width: 50%;
+    float: right;
+    margin-top: 4vh;
+    background-color: white;
+}
+
+#addBillForm{
+    width: 80%;
+    height: 55vh;
+    margin-left: 10%;
+    margin-right: 10%;
+    background-color: white;
+    position: fixed;
+    border-radius: 4vh;
+    margin-top: 12vh;
+}
+
+#crowdForm{
+width: 80%;
+height: 55vh;
+display: none;
+margin-left: 10%;
+margin-right: 10%;
+background-color: white;
+position: fixed;
+border-radius: 4vh;
+margin-top: 12vh;
+
+-webkit-transition-property: height; /* Safari */
+-webkit-transition-duration: 0.5s; /* Safari */
+transition-property: height;
+transition-duration: 0.5s;
+
+}
+
+
+.displayBlock{
+    display: block !important;
+}
+.displayNone{
+    display: none !important;
+}
+
+#addShareSum{
+    width: 50%;
+    float: right;
+    margin-top: 4vh;
+    background-color: white;
+}
+
+.shareTitle{
+    width: 30%;
+    height: 6vh;
+    margin-top: 4vh;
+    margin-left: 4%;
+    text-align: center;
+    direction: rtl;
+    color: #666;
+    font-family: "bold";
+    padding-top: 2vh;
+}
+
+#addShareHolderBTN{
+    float: right;
+    width: 8vh;
+    height: 8vh;
+    margin-top: 4vh;
+    margin-right: 30%;
+    border: 1px solid #4d4d4d;
+    padding: 0;
+    border-radius: 50%;
+    background-color: transparent;
+    background-image: url(../assets/img/addUser.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 80%;
+    outline: none;
+}
+
+#shareHoldersList{
+    width: 65%;
+    overflow-x: scroll;
+    height: 8vh;
+    float: right;
+    
+}
+
+#shareHoldersList :first-child{
+    margin-left: 0 !important;
+}
+
+#crowdListContainer{
+    width: 100%;
+    height: 32vh;
+    overflow-y: scroll;
+}
+
+#meetingHistory{
+    width: 100%;
+    height: 75vh;
+    margin-top: 2vh;
+    overflow-y: scroll;
+}
+
+#TotalShareBanner{
+    position: relative;
+    width: 100%;
+    height: 30vh;
+    background-color:transparent;
+    margin-top: 10vh;
+    background-image: url('../assets/banner.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    text-align: center;
+    direction: rtl;
+
+}
+
+#TotalShareBanner > p1{
+
+    font-family: "bold";
+    font-size: 3vh;
+    color: white;
+    text-align: center;
+    direction: rtl;
+    
+
+}
+
+#TotalShareBanner > p2{
+    font-family: "bold";
+    font-size: 10vh;
+    color: white;
+    text-align: center;
+    direction: rtl;
+    text-shadow: 1vh 1vh 1.5vh black;
+    letter-spacing:4px;
+
+}
+
+#invoiceLocator{
+    text-align: left;
+    padding-left: 8%;
+    margin-top: 4vh;
+    font-family: "medium";
+    color: whitesmoke;
+}
+
+
+#InvoiceMenu > .navbar{
+    box-shadow: none;
+}
+
+#billListContainer{
+    width: 98%;
+    height: 60vh;
+    margin-left: 1%;
+    overflow-y: scroll;
+}
+
+.bill{
+    width: 99%;
+    height: 13vh;
+    margin-top: 1vh;
+    border-radius: 8px;
+    border: 1px solid #d1d1d1;
+}
+.bill-leftside{
+    width: 50%;
+    height: 100%;
+    float: left;
+}
+.bill-rightside{
+    width: 50%;
+    height: 100%;
+    float: right;
+}
+.billTitle{
+    width: 96%;
+    height: 46%;
+    float: left;
+    margin-top: 1vh;
+    /* background-color: white; */
+    text-align: left;
+    font-size: 3.6vh;
+    padding-left: 4%;
+    font-family: "medium";
+    overflow-x: scroll;
+    color: #4d4d4d;
+}
+.billIssuer{
+    width: 96%;
+    height: 50%;
+    float: right;
+}
+.billIssuerAvatar{
+    width: 5vh;
+    height: 5vh;
+    border-radius: 50%;
+    background-image: url('../assets/img/boy.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 1px solid #29abe2;
+    float: left;    
+}
+.billIssuerName{
+    width: 50%;
+    height: 80%;
+    padding-top: 2%;
+    text-align: left;
+    float: right;
+    color: #808080;
+    font-family: "medium";
+}
+
+.billSum{
+    width: 96%;
+    margin-top: 4%;
+    height: 46%;
+    text-align: left;
+    font-size: 4vh;
+    color: #494949;
+}
+.billShare{
+    width: 100%;
+    height: 50%;
+    overflow-x: scroll;
+}
+.userBillShare{
+    width: max-content;
+    height: 80%;
+    padding-top: 4%;
+    float: left;
+    font-family: "medium";
+    color: #29abe2;
+}
+
+.billShareList{
+    width: max-content;
+    height: 100%;
+    float: left;
+}
+
+.billShareList > .stackedAvatar{
+
+    background-image: url('../assets/img/boy.svg');
+    width: 4vh;
+    height: 4vh;
+    margin-top: 8%;
+    margin-left: -2.2vh;
+}
+.billShareList :first-child{
+    margin-left: 1vh !important;
 }
 /********************************************************/
 

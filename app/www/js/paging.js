@@ -61,6 +61,12 @@ function beginAuth(){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+/////////////logging out
+
+function logOut(){
+    localStorage.removeItem("MateUserInfo");
+    location.reload();
+}
 
 ///document ready events
 document.onreadystatechange = () => {
@@ -443,6 +449,8 @@ function closeMenu(elemID){
     
     if(elemID=="auxiliaryMap")
     setTimeout(function(){document.getElementById("map2").innerHTML=null},1000);
+    if(elemID=="billingPage")
+    document.getElementById("Reqlist").style.display="block";
     return;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -457,7 +465,7 @@ function openMenu(elemID){
 
         case "scheduleMenu":
         loadPage("scheduleMenu");
-        retrieveMeetingsList();
+      //  retrieveMeetingsList();
         break;
 
         case "friendsMenu":
@@ -475,6 +483,13 @@ function openMenu(elemID){
         
         case "AddMeetingMenu":
         geoCoder(lastChoosedPlace);
+        break;
+
+        case "billingPage":
+        document.getElementById("Reqlist").style.display="none";
+        break;
+
+        case "InvoiceMenu":
         break;
 
         default:
@@ -746,7 +761,7 @@ function leaveMeeting(element){
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /////////request for meetings list
-function retrieveMeetingsList(){
+async function retrieveMeetingsList(){
 
     document.getElementById("updateMeetingsBTN").classList.add("spining");
 
@@ -761,16 +776,16 @@ function retrieveMeetingsList(){
                  localStorage.removeItem("MateUserInfo");
                  alert("bad request:7");
                  location.reload();
-                 return
+                 return false;
              }
              if(this.response==0){
                  setTimeout(retrieveMeetingsList,60000);
-                 return;
+                 return false;
              }
              if((this.responseText.length)<10){
-                document.getElementById("eventContainer").innerHTML="<div id='Meeting404'>لیست قرار شما خالیست :)<br><div  onclick=\"(function(){closeMenu(\'scheduleMenu\');openMenu(\'auxiliaryMap\');})();return;\"> + اضافه کنید.</div></div>";
+                 document.getElementById("eventContainer").innerHTML="<div id='Meeting404'>لیست قرار شما خالیست :)<br><div  onclick=\"(function(){closeMenu(\'scheduleMenu\');openMenu(\'auxiliaryMap\');})();return;\"> + اضافه کنید.</div></div>";
                  document.getElementById("updateMeetingsBTN").classList.remove("spining");
-                 return;
+                 return false;
 
              }else{
                  
@@ -778,7 +793,7 @@ function retrieveMeetingsList(){
                  loadPage("scheduleMenu");
                  document.getElementById("updateMeetingsBTN").classList.remove("spining");
                  setTimeout(processMeetings,200);
-                 return;
+                 return true;
              }
             
           
@@ -834,7 +849,7 @@ function retrieveFriendsList(){
                  return
              }
              if(this.response==0){
-                 setTimeout(retrieveMeetingsList,60000);
+                 setTimeout(retrieveFriendsList,60000);
                  return;
              }
              if((this.responseText.length)<10){
@@ -1137,8 +1152,9 @@ function loadPage(id){
 
                 var divisions='';
                 meetingsList.forEach(element => {
-    
-                    divisions+="<div class=\"event\"><button class=\"cancelBTN\" onclick=\"makeConfirm('آیا مایل به حذف قرار هستید؟',leaveMeeting,this)\"></button><div style=\"display:none\">"+element.Geo.X+","+element.Geo.Y+"</div><div style=\"display:none\">"+element.Crowd+"</div><div style='height:-webkit-fill-available' onclick='panToMeeting(this)'><div class=\"titleEvent\">"+element.Title+"</div><div class=\"hostEvent\">  دعوت شده از طرف "+element.Host+"</div><div class=\"timeEvent\">"+element.Time.substring(11,19)+"</div><div class=\"dateEvent\">"+element.Time.substring(0,10)+"</div></div></div>";
+           
+                    if(Date.now() < (new Date(element.Time)).getTime())
+                    divisions+="<div class=\"event\"><button class=\"cancelBTN\" onclick=\"makeConfirm('آیا مایل به حذف قرار هستید؟',leaveMeeting,this)\"></button><div style=\"display:none\">"+element.Geo.X+","+element.Geo.Y+"</div><div style=\"display:none\">"+element.Crowd+"</div><div style='height:-webkit-fill-available' onclick='panToMeeting(this)'><div class=\"titleEvent\">"+element.Title+"</div><div class=\"hostEvent\"> از طرف: "+element.Host+"</div><div class=\"timeEvent\">"+element.Time.substring(11,19)+"</div><div class=\"dateEvent\">"+element.Time.substring(0,10)+"</div></div></div>";
                 
                 });
     
@@ -1170,6 +1186,7 @@ function loadPage(id){
         case "pendingsMenu":
              
             retrievePendingsList();
+            loadMeetingHistory();
 
         break;
 
@@ -1185,7 +1202,7 @@ function loadPage(id){
             });
 
             if(divisions.length>10){
-                document.getElementById("contactList").innerHTML=divisions;
+                document.getElementById("contactList").innerHTML=divisions+"<div class=\"friend\"><div class=\"favatar\"></div><div class=\"fname\"></div></div><div class=\"friend\"><div class=\"favatar\"></div><div class=\"fname\"></div></div><div class=\"friend\"><div class=\"favatar\"></div><div class=\"fname\"></div></div><div class=\"friend\"><div class=\"favatar\"></div><div class=\"fname\"></div></div>";
             }
         }
 
@@ -1211,7 +1228,8 @@ function retrievePendingsList(){
         xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
                  if(this.response==0 || this.response.length<10){
-                    document.getElementById("Reqlist").innerHTML="<div id=\"req404\">در حال حاضر درخواستی وجود ندارد.</div>";
+                    //document.getElementById("Reqlist").innerHTML="<div id=\"req404\">در حال حاضر درخواستی وجود ندارد.</div>";
+                    document.getElementById("Reqlist").innerHTML="";
                     document.getElementById("updatePendingsBTN").classList.remove("spining");
                       
                  }else{
@@ -1247,6 +1265,29 @@ function retrievePendingsList(){
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+///////////loading MeetingHistory and make them ready to add bill and show invoice
+function loadMeetingHistory(){
+
+    if(meetingsList=storageRetrieve("MateMeetingsInfo")){
+
+        var divisions='';
+        meetingsList.forEach(element => {
+   
+            if(Date.now() > (new Date(element.Time)).getTime())
+            divisions+="<div class=\"event\" ><button class=\"addBillBTN\" onclick=\"addBill(this)\"></button><button class=\"cancelBTN\" onclick=\"makeConfirm('آیا مایل به حذف تاریخچه هستید؟',deletMeetingHistory,this)\"></button><div style=\"display:none\">"+element.Geo.X+","+element.Geo.Y+"</div><div style=\"display:none\">"+element.Crowd+"</div><div class=\"displayNone\">"+JSON.stringify(element.Invoice)+"</div><div style=\"height:-webkit-fill-available\" onclick=\"showInvoice(this)\"><div class=\"titleEvent\">"+element.Title+"</div><div class=\"hostEvent\">  از طرف "+element.Host+"</div><div class=\"dateEvent\">"+(new Date(element.Time).toLocaleString("en-US")) +"</div></div></div>";
+        
+        });
+
+        if(divisions.length>10){
+             document.getElementById("meetingHistory").innerHTML=divisions;
+        }
+    }    
+
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 /////accept recieved frequest
 function accFrequest(el){
@@ -1401,6 +1442,9 @@ function loadMeetingForm(){
             document.getElementById("alarmSetTime").value="";
     });
     
+    /////////////////delete previous invited friend
+    document.getElementById("meetingFlist").innerHTML="";
+    
     updateTimeBoard();
     closeMenu("auxiliaryMap");
     openMenu("AddMeetingMenu");
@@ -1454,8 +1498,8 @@ function invite(el){
     if(list.length>0){
         
         [...list].forEach(f=>{
-            if(f.id==name){
-                document.getElementById(name).remove();
+            if(f.id=="meetingFlist-"+name){
+                document.getElementById("meetingFlist-"+name).remove();
                 flg=true;
                 return
             }
@@ -1466,7 +1510,7 @@ function invite(el){
         }
     }
   
-    divisions+=document.getElementById("meetingFlist").innerHTML+"<div id='"+name+"' class='stackedAvatar' style='background-image:"+avatar+"'></div>";
+    divisions+=document.getElementById("meetingFlist").innerHTML+"<div id='meetingFlist-"+name+"' class='stackedAvatar' style='background-image:"+avatar+"'></div>";
     
 
     document.getElementById("meetingFlist").innerHTML=divisions;
@@ -1486,8 +1530,9 @@ function getInviteList(){
     [...list].forEach(f=>{
 
         console.log(f.id)
-        usernameList.push(f.id);
+        usernameList.push(f.id.substring(13));
 
+        console.log(usernameList);
     });
 
     return usernameList;
@@ -1510,6 +1555,7 @@ function closeContactList(){
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function setMeeting(){
 
+    splashOmitter();
     if(info=storageRetrieve("MateUserInfo")){
 
         if(friends=storageRetrieve("MateFriendsInfo")){
@@ -1561,13 +1607,16 @@ function setMeeting(){
             
             
             if(title.length<3){
+                document.getElementById("splashScreen").remove();
                 alert("عنوان قرار را وارد کنید");
                 return;
             }
             if(date.length<10){
+                document.getElementById("splashScreen").remove();
                 alert("تاریخ قرار را انتخاب کنید");
                 return;
             }
+            
     
             var data="id="+info.id+"&vc="+info.vc+"&title="+title+"&time="+date+"T"+time+":00Z&crowd="+crowdIds+"&geo="+geo.lat+","+geo.lng;
             var xhttp = new XMLHttpRequest();
@@ -1581,6 +1630,8 @@ function setMeeting(){
                     return;
                 }
                 if(this.response==0){
+
+                    document.getElementById("splashScreen").remove();
                     setTimeout(setMeeting,30000);
                     closeMenu("AddMeetingMenu");
                     return;
@@ -1588,9 +1639,11 @@ function setMeeting(){
 
                 if(JSON.parse(this.responseText)){
                     localStorage.setItem("MateMeetingsInfo",this.responseText);
+                    document.getElementById("splashScreen").remove();
                     closeMenu("AddMeetingMenu");
                     return;
                 }else{
+                    document.getElementById("splashScreen").remove();
                     alert("مجددا تلاش کنید");
                     return;
                 }
@@ -1606,6 +1659,7 @@ function setMeeting(){
 
         }else{
             alert("لیست دوستان را بروزرسانی کنید");
+            document.getElementById("splashScreen").remove();
             return;
         }
 
@@ -1841,10 +1895,273 @@ function processMeetings(){
         //handle if not found
     }
 
+}//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//////////////// user request to add a bill on meeting(history)
+
+function addBill(elem){
+
+    document.getElementById("shareHoldersList").innerHTML="";
+    geoDiv=elem.nextElementSibling.nextElementSibling;
+    geo=geoDiv.innerHTML;
+    crowdDiv=geoDiv.nextElementSibling;
+    crowd=crowdDiv.innerHTML.split(",");
+    title=crowdDiv.nextElementSibling.nextElementSibling.firstElementChild.innerHTML;
+    var divisions='';
+
+    if(Info=storageRetrieve("MateUserInfo")){
+        divisions=" <div class=\"friend\" onclick=\"addShareHolder(this)\" > <div class=\"favatar\" style=background-image:url('"+Info.avatar+"')></div> <div class=\"fname\">"+Info.name+"</div> </div>";
+
+    }
+
+    if(Friends=storageRetrieve("MateFriendsInfo")){
+
+    crowd.forEach(person=>{
+
+        temp=" <div class=\"friend\" onclick=\"addShareHolder(this)\" > <div class=\"favatar\" ></div> <div class=\"fname\">"+person+"</div> </div>";
+        for(let f of Friends){
+            if(f.Name==person){
+                temp=" <div class=\"friend\" onclick=\"addShareHolder(this)\" > <div class=\"favatar\" style=\"background-image:url('"+f.Avatar+"')\" ></div> <div class=\"fname\">"+f.Name+"</div> </div>";
+                break;
+            }
+        }
+        divisions+=temp;
+
+    })
+
+    
+    document.getElementById("appendedBillInfo").innerHTML=title+"<>"+geo;//////append data
+    document.getElementById("crowdListContainer").innerHTML=divisions;
+    openMenu("billingPage");
+
+
+
+        
+
+    }else{
+        //handle if not found
+    }
+
+
+
+
+
 }
 
 
 
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////open/close meeting crowd select form for shareHoldersList
+
+function toggleCrowfForm(){
+  
+   document.getElementById("crowdForm").classList.toggle("displayBlock");
+    
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////add selected person to shareHoldersList
+
+function addShareHolder(el){
+
+    
+        var divisions='';
+        var flg=false;
+        el.classList.toggle("blueBackground");
+    
+        avatar=el.firstElementChild.style.backgroundImage;
+        if(avatar.length<10){
+            avatar="url('./assets/img/boy.svg')";
+        }
+        name=el.lastElementChild.innerHTML;
+        console.log(el.lastElementChild.innerHTML)
+        list=document.getElementById("shareHoldersList").children;
+    
+        
+        ///maybe its remove request(even selects)
+        if(list.length>0){
+            divisions=document.getElementById("shareHoldersList").innerHTML;
+            [...list].forEach(f=>{
+                divid="shareHoldersList-"+name;
+                if(f.id==divid){
+                    document.getElementById("shareHoldersList-"+name).remove();
+                    flg=true;
+                    return;
+                }
+        
+            });
+ 
+        }
+      if(!flg){
+        divisions+="<div id='shareHoldersList-"+name+"' class='stackedAvatar' style=background-image:"+avatar+"></div>";
+        document.getElementById("shareHoldersList").innerHTML=divisions;
+      }
+        
+        
+    
+        
+    
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function submitBill(){
+
+    if(info=storageRetrieve("MateUserInfo")){
+
+        shareHoldersDiv=document.getElementById("shareHoldersList").children;
+        var shareHolders=[];
+        [...shareHoldersDiv].forEach(div=>{
+            shareHolders.push(div.id.substring(17));
+        });
+        sum=document.getElementById("addShareSum").value;
+        title=document.getElementById("billTitle").value;
+        meetingTitle=document.getElementById("appendedBillInfo").innerHTML.split("&lt;&gt;")[0];
+        meetingGeo=document.getElementById("appendedBillInfo").innerHTML.split("&lt;&gt;")[1];
+        console.log(meetingGeo);
+        if(shareHoldersDiv.length<1){
+            alert("حداقل یک فرد سهیم باید اضافه شود.");
+            return;
+        }
+        if(sum<1){
+            alert("مبلغ هزینه شده را وارد کنید.");
+            return;
+        }
+
+        bill={Issuer:info.name,Title:title,Sum:sum,Share:shareHolders}
+
+        var data="id="+info.id+"&vc="+info.vc+"&title="+meetingTitle+"&geo="+meetingGeo+"&bill="+JSON.stringify(bill);
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                 document.getElementById("splashScreen").remove();
+
+                 if(this.response==-1){
+                     localStorage.removeItem("MateUserInfo");
+                     alert("bad request:7");
+                     location.reload();
+                     return;
+                 }
+                 if(this.response==1){
+                     closeMenu("billingPage");
+                     return;
+                 }
+                 if(this.response==0){
+                     alert("خطا...مجددا تلاش کنید");
+                     return
+                 }else{
+                    setTimeout(submitBill,60000);
+                    return;
+                 }
+  
+            }    
+        };
+
+        xhttp.open("POST", "https://guarded-castle-67026.herokuapp.com/Bill?"+data, true);
+        //xhttp.setRequestHeader("Content-type", "multipart/form-data");
+        splashOmitter();
+        xhttp.send();
+
+
+    }else{
+        ////////handle if not found
+    }
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////process bills and show invoice of a history meeting
+
+function showInvoice(elem){
+ 
+    flg=true;
+    friendsInfo=storageRetrieve("MateFriendsInfo");
+    userInfo   =storageRetrieve("MateUserInfo")
+    meetingTitle=elem.firstElementChild.innerHTML;
+    meetingGeo=elem.previousElementSibling.previousElementSibling.previousElementSibling.innerHTML;
+    issuerAvatar="./assets/img/boy.svg";
+    shareListAvatar=[];
+    userBillShare=0;
+    userTotalShare=0;
+    var shareListAvatarDivs='';
+    var divisions='';
+ 
+    billList=JSON.parse(elem.previousElementSibling.innerHTML)
+
+    
+    if(billList.length>0){
+
+        billList.forEach(bill=>{
+
+            ///making and init avatar(s)
+            userShareOnBill=0;
+            shareListAvatarDivs='';
+            shareListAvatar=[];
+            if(bill.Issuer==userInfo.name){
+                issuerAvatar=userInfo.avatar;
+            }
+            for(let shareHolder of bill.Share ){
+       
+                if(shareHolder==userInfo.name){
+                    shareListAvatar.push(userInfo.avatar);
+                    userShareOnBill=parseInt(bill.Sum)/bill.Share.length;
+                    userTotalShare+=userShareOnBill;
+                    flg=false;
+                    continue;
+                }
+  
+                ///searching avatars
+                for(let f of friendsInfo){
+
+                    if(f.Name==bill.Issuer){
+                        issuerAvatar=f.Avatar;
+                    }
+                    if (f.Name==shareHolder){
+                        shareListAvatar.push(f.Avatar);
+                        flg=false;
+                        break;
+                    }
+                
+                }
+
+                if(flg){
+                    shareListAvatar.push("./assets/img/boy.svg");
+                }
+                
+////////////////////////////            
+            }
+            ///making bill el(s)
+            shareListAvatar.forEach(avatar=>{
+                shareListAvatarDivs+="<div class=\"stackedAvatar\" style=\"background-image:url('"+avatar+"')\"></div>";
+                });
+            divisions+="<div class=\"bill\"> <div class=\"bill-leftside\"> <div class=\"billTitle\">"+bill.Title+"</div> <div class=\"billIssuer\"><div class=\"billIssuerAvatar\" style=\"background-image=url('"+issuerAvatar+"')\"></div> <div class=\"billIssuerName\">"+bill.Issuer+"</div> </div> </div> <div class=\"bill-rightside\"> <div class=\"billSum\">"+bill.Sum+"</div><div class=\"billShare\"> <div class=\"userBillShare\">"+userShareOnBill+" X</div> <div class=\"billShareList\"> "+shareListAvatarDivs+"</div></div></div></div>";
+            
+        });
+
+        document.getElementById("billListContainer").innerHTML=divisions;
+        document.getElementById("TotalShareBanner").innerHTML="<p1>سهم شما:</p1><br><p2>"+userTotalShare+"</p2>"+"<div id=\"invoiceLocator\" onclick=\"pantTooInvoice('"+meetingGeo+"')\">Title  <i class=\"fas fa-map-marked-alt\"></i></div>";
+        openMenu("InvoiceMenu");
+
+
+    }
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//////////////////////////// update invoices(retrieve meetingsList+load history meets)
+async function updateInvoice(){
+
+   let a= await retrieveMeetingsList();
+    loadMeetingHistory();
+}
 ////////////////////////////pinmaker client side failed due to CORS privacy violation, Do somthing about...
 //function pinMaker(id,avatar){
 //

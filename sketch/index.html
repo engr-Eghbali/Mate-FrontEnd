@@ -117,7 +117,7 @@
         <span class="slider round"></span>
     </label>
 
-    <button id="CallAppCenterBTN"></button>
+    <button id="CallAppCenterBTN" onclick="logOut()"></button>
     <div class="saveANDdiscard">
         <button class="YNButton" style="border-right: 1px solid #a5a3be;" onclick="closeMenu('profileMenu')">انصراف</button>
         <button class="YNButton" onclick="saveProfileChanges()" >ذخیره</button>
@@ -295,7 +295,7 @@
 
 
 <div id="InvoiceMenu" class="menu">
-        <div class="navbar" ><div onclick="closeMenu('InvoiceMenu')"><p> صورتحساب</p> <i class="fas fa-caret-left"></i></div><button id="updatePendingsBTN" class="refreshBTN" onclick="updateInvoice()"><i class="fas fa-undo"></i></button></div>
+        <div class="navbar" ><div onclick="closeMenu('InvoiceMenu')"><p> صورتحساب</p> <i class="fas fa-caret-left"></i></div></div>
         <div id="TotalShareBanner">
             <p1>سهم شما:</p1>
             <br>

@@ -451,7 +451,7 @@ function pathFinder(origin,destination,Gmap){
 //    }
     
     if(!Gmap){
-        setTimeout(pathFinder(),2000,origin,destination);
+        setTimeout(pathFinder,5000,origin,destination,Gmap);
         return
     }
 
